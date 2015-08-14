@@ -1,0 +1,51 @@
+<div class="page-header">
+    <div class="container-fluid">
+        <h1><% message %></h1>
+        <ul class="breadcrumb">
+            <?php foreach ($breadcrumbs as $breadcrumb) { ?>
+            <li><a href="<?php echo $breadcrumb['href']; ?>"><?php echo $breadcrumb['text']; ?></a></li>
+            <?php } ?>
+        </ul>
+    </div>
+</div>
+<div class="container-fluid">
+    <div class="input-control text full-size" data-role="input">
+        <input type="text" style="padding-right: 58px;" ng-model="search.$">
+        <button class="button"><span class="mif-search"></span></button>
+    </div>
+    <a href="admin/clients/322">sadasd</a>
+    <table class="table striped hovered hovered border">
+        <thead>
+            <tr>
+                <td>ID</td>
+                <td>Имена</td>
+                <td>E-mail</td>
+                <td>Рожденна дата</td>
+                <td>Телефон</td>
+                <td>Адрес</td>
+                <td></td>
+                <td></td>
+            </tr>
+        </thead>
+        <tr ng-repeat="client in clients| filter:search:strict" ng-animate="{enter: 'animate-enter', leave: 'animate-leave'}">
+            <td><% client.id %></td>
+            <td><% client.names %></td>
+            <td><% client.email %></td>
+            <td><% client.dob | date:'dd/MMMM/yyyy' %></td>
+            <td><% client.phone %></td>
+            <td><% client.address %></td>
+            <td width="30px">
+                <button class="image-button bg-green fg-white bg-active-lightGreen small-button">
+                    Share this
+                    <span class="icon mif-share bg-darkGreen"></span>
+                </button>
+            </td>
+            <td width="30px">
+                <button class="image-button bg-red  bg-active-lightRed fg-white small-button">
+                    Share this
+                    <span class="icon mif-share bg-darkRed"></span>
+                </button>
+            </td>
+        </tr>
+    </table>
+</div>
