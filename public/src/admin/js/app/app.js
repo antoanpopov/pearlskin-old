@@ -15,5 +15,6 @@ angular.module('app', [
     'ui.jq',
     'oc.lazyLoad',
     'pascalprecht.translate',
-    'clientService'
+    'clientService',
+    'procedureService'
 ]);

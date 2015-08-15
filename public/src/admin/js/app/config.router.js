@@ -42,7 +42,7 @@ angular.module('app')
                 })
                 .state('admin.clients', {
                     url: '/clients',
-                    templateUrl: '/src/admin/tpl/admin.clients.list.html',
+                    templateUrl: '/src/admin/tpl/clients.list.html',
                     title: "Clients",
                     resolve: {
                         deps: ['$ocLazyLoad',
@@ -56,7 +56,7 @@ angular.module('app')
                     template: '<div ui-view class="fade-in-up"></div>',
                     title: "Clients - Create",
                     views: {
-                        "@admin": {templateUrl: '/src/admin/tpl/admin.clients.create.html'}
+                        "@admin": {templateUrl: '/src/admin/tpl/clients.create.html'}
                     },
                     resolve: {
                         deps: ['$ocLazyLoad',
@@ -72,8 +72,9 @@ angular.module('app')
                 .state('admin.clients.update', {
                     url: '/{id}',
                     template: '<div ui-view class="fade-in-up"></div>',
+                    title: "Clients - Create",
                     views: {
-                        "@admin": {templateUrl: '/src/admin/tpl/admin.clients.update.html'}
+                        "@admin": {templateUrl: '/src/admin/tpl/clients.update.html'}
                     },
                     resolve: {
                         deps: ['$ocLazyLoad',
@@ -84,8 +85,8 @@ angular.module('app')
                 })
                 .state('admin.procedures', {
                     url: '/procedures',
-                    templateUrl: '/src/admin/tpl/admin.procedures.list.html',
-                    title: "Clients",
+                    templateUrl: '/src/admin/tpl/procedures.list.html',
+                    title: "Procedures",
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
@@ -96,9 +97,9 @@ angular.module('app')
                 .state('admin.procedures.create', {
                     url: '/create',
                     template: '<div ui-view class="fade-in-up"></div>',
-                    title: "Clients - Create",
+                    title: "Procedures - Create",
                     views: {
-                        "@admin": {templateUrl: '/src/admin/tpl/admin.procedures.create.html'}
+                        "@admin": {templateUrl: '/src/admin/tpl/procedures.create.html'}
                     },
                     resolve: {
                         deps: ['$ocLazyLoad',
@@ -114,8 +115,9 @@ angular.module('app')
                 .state('admin.procedures.update', {
                     url: '/{id}',
                     template: '<div ui-view class="fade-in-up"></div>',
+                    title: "Procedures - Update",
                     views: {
-                        "@admin": {templateUrl: '/src/admin/tpl/admin.procedures.update.html'}
+                        "@admin": {templateUrl: '/src/admin/tpl/procedures.update.html'}
                     },
                     resolve: {
                         deps: ['$ocLazyLoad',

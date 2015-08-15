@@ -57,7 +57,7 @@ Route::controllers([
 	'auth' => 'Auth\AuthController',
 	'password' => 'Auth\PasswordController',
 ]);
-Route::any('{path?}', function()
+Route::any('admin/{path?}', function()
 {
     return response()->view('admin\content');
 })->where("path", ".+");

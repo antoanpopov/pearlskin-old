@@ -51,6 +51,7 @@
 <script src="{{ asset('src/admin/js/app/main.js') }}"></script>
 <script src="{{ asset('src/admin/js/services/ui-load.js') }}"></script>
 <script src="{{ asset('src/admin/js/services/clientService.js') }}"></script>
+<script src="{{ asset('src/admin/js/services/procedureService.js') }}"></script>
 <script src="{{ asset('src/admin/js/filters/fromNow.js') }}"></script>
 <script src="{{ asset('src/admin/js/directives/setnganimate.js') }}"></script>
 <script src="{{ asset('src/admin/js/directives/ui-butterbar.js') }}"></script>

@@ -13,18 +13,25 @@
     "NOTIFICATIONS" : "Notifications"
   }
 },
-"client" : {
+"data" : {
     "property" : {
-      "id" : "ID",
-      "names" : "Name and surname",
-      "manipulation" : "Manipulation",
-      "price" : "Price",
+      "address" : "Address",
+      "created_at" : "Created at",
+      "created_by" : "Created by",
       "doctor" : "Doctor",
       "date" : "Date",
       "dob" : "Birthdate",
-      "address" : "Address",
+      "description" : "Description",
+      "email" : "Email",
+      "id" : "ID",
+      "manipulation" : "Manipulation",
+      "name" : "Name",
+      "names" : "Name and surname",
+      "price" : "Price",
       "phone" : "Phone number",
-      "email" : "Email"
+      "updated_at" : "Updated at",
+      "updated_by" : "Updated by"
+
     }
 },
 "aside" : {

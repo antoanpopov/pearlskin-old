@@ -16,7 +16,7 @@
       <!-- stats -->
       <form role="form" ng-submit="postRequest()" class="form-validation">
         <div class="form-group">
-          <label translate="client.property.names"></label> <em class="text-muted">('a-zA-Z0-9', 4-128 size)</em>
+          <label translate="data.property.names"></label> <em class="text-muted">('a-zA-Z0-9', 4-128 size)</em>
           <input type="text"
                  class="form-control"
                  placeholder="names"
@@ -25,7 +25,7 @@
                  required>
         </div>
         <div class="form-group">
-          <label translate="client.property.phone"></label>
+          <label translate="data.property.phone"></label>
           <input type="text"
                  class="form-control"
                  placeholder="phone"
@@ -33,14 +33,14 @@
                  ng-pattern="/([0-9]){4,10}$/">
         </div>
         <div class="form-group">
-          <label translate="client.property.email"></label>
+          <label translate="data.property.email"></label>
           <input type="email"
                  class="form-control"
                  placeholder="email"
                  ng-model="client.email">
         </div>
         <div class="form-group">
-          <label translate="client.property.dob"></label>
+          <label translate="data.property.dob"></label>
             <div class="input-group w-md">
               <input type="text" class="form-control" datepicker-popup="<% format %>"ng-model="client.dob" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
               <span class="input-group-btn">
@@ -49,7 +49,7 @@
           </div>
         </div>
         <div class="form-group">
-          <label translate="client.property.address"></label>
+          <label translate="data.property.address"></label>
           <input type="text"
                  class="form-control"
                  placeholder="address"
