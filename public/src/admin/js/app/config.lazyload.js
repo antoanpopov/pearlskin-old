@@ -59,6 +59,36 @@ angular.module('app')
           events: true,
           modules: [
               {
+                  name: 'clientService',
+                  files: [
+                      '/src/admin/js/services/clientService.js'
+                  ]
+              },
+              {
+                  name: 'procedureService',
+                  files: [
+                      '/src/admin/js/services/procedureService.js'
+                  ]
+              },
+              {
+                  name: 'doctorService',
+                  files: [
+                      '/src/admin/js/services/doctorService.js'
+                  ]
+              },
+              {
+                  name: 'manipulationService',
+                  files: [
+                      '/src/admin/js/services/manipulationService.js'
+                  ]
+              },
+              {
+                  name: 'referenceService',
+                  files: [
+                      '/src/admin/js/services/referenceService.js'
+                  ]
+              },
+              {
                   name: 'ngGrid',
                   files: [
                       '../bower_components/ng-grid/build/ng-grid.min.js',
@@ -84,7 +114,7 @@ angular.module('app')
               {
                   name:'angularFileUpload',
                   files: [
-                    '../bower_components/angular-file-upload/angular-file-upload.min.js'
+                    'src/admin/js/angular/angular-file-upload.min.js'
                   ]
               },
               {

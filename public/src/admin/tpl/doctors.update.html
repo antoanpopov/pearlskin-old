@@ -7,44 +7,61 @@
                     toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
-                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.PROCEDURES"></h1>
+                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.DOCTORS"></h1>
                 </div>
             </div>
         </div>
         <!-- / main header -->
-        <div class="wrapper-md" ng-controller="ProceduresUpdateCtrl">
+        <div class="wrapper-md" ng-controller="DoctorsUpdateCtrl">
             <!-- stats -->
-            <form role="form" ng-submit="postRequest()" class="form-validation">
+            <pre><% doctor %></pre>
+            <form role="form" ng-submit="postRequest()" class="form-validation" uploader="uploader">
                 <div class="panel panel-default">
                     <div class="panel-heading">
-                        <span class="h4">Update procedure - <% procedure.name %></span>
+                        <span class="h4">Update doctor - <% doctor.names %></span>
                     </div>
                     <div class="panel-body">
                         <div class="form-group">
-                            <label translate="data.property.name"></label>
+                            <label translate="data.property.names"></label>
                             <input type="text"
                                    class="form-control"
                                    placeholder="names"
-                                   ng-model="procedure.name"
+                                   ng-model="doctor.names"
                                    ng-pattern="/^[a-zA-Z0-9\s]{4,128}$/"
                                    required>
                         </div>
                         <div class="form-group">
-                            <label translate="data.property.price"></label>
-                            <input type="text"
-                                   step="any"
-                                   class="form-control"
-                                   placeholder="price"
-                                   ng-model="procedure.price"
-                                   ng-pattern="/^(\d+\.?\d{0,2}|\.\d{1,2})$/">
+                            <label translate="data.property.image"></label>
+                            <input type="file"
+                                   accept="image/*"
+                                   nv-file-select=""
+                                   uploader="uploader">
                         </div>
                         <div class="form-group">
-                            <label translate="data.property.description"></label>
-                            <textarea class="form-control" rows="6" ng-model="procedure.description"></textarea>
+                            <label translate="data.property.has_percent"></label>
+                            <div>
+                                <label class="i-switch m-t-xs m-r">
+                                    <input type="checkbox"
+                                           ng-model="doctor.has_percent"
+                                           ng-checked="doctor.has_percent">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="data.property.is_visible"></label>
+                            <div>
+                                <label class="i-switch m-t-xs m-r">
+                                    <input type="checkbox"
+                                           ng-model="doctor.is_visible"
+                                           ng-checked="doctor.is_visible">
+                                    <i></i>
+                                </label>
+                            </div>
                         </div>
                     </div>
                     <footer class="panel-footer text-right bg-light lter">
-                        <button type="submit" class="btn btn-success">Submit</button>
+                        <button class="btn btn-success" ng-submit="postRequest()">Submit</button>
                     </footer>
                 </div>
             </form>
