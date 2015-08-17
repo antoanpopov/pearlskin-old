@@ -40,6 +40,11 @@ angular.module('app')
                             }]
                     }
                 })
+            /******************************************************************************************************
+             *
+             *                          CLIENTS ROUTES
+             *
+             ******************************************************************************************************/
                 .state('admin.clients', {
                     url: '/clients',
                     templateUrl: '/src/admin/tpl/clients.list.html',
@@ -83,6 +88,11 @@ angular.module('app')
                             }]
                     }
                 })
+            /******************************************************************************************************
+             *
+             *                          PROCEDURES ROUTES
+             *
+             ******************************************************************************************************/
                 .state('admin.procedures', {
                     url: '/procedures',
                     templateUrl: '/src/admin/tpl/procedures.list.html',
@@ -123,6 +133,58 @@ angular.module('app')
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
                                 return $ocLazyLoad.load(['/src/admin/js/controllers/ProceduresUpdateCtrl.js']);
+                            }]
+                    }
+                })
+            /******************************************************************************************************
+             *
+             *                          DOCTORS ROUTES
+             *
+             ******************************************************************************************************/
+                .state('admin.doctors', {
+                    url: '/doctors',
+                    templateUrl: '/src/admin/tpl/doctors.list.html',
+                    title: "Doctors",
+                    resolve: {
+                        deps: ['$ocLazyLoad',
+                            function ($ocLazyLoad) {
+                                return $ocLazyLoad.load('doctorService').then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsListCtrl.js']);
+                                    }
+                                );
+                            }]
+                    }
+                })
+                .state('admin.doctors.create', {
+                    url: '/create',
+                    template: '<div ui-view class="fade-in-up"></div>',
+                    title: "Doctors - Create",
+                    views: {
+                        "@admin": {templateUrl: '/src/admin/tpl/doctors.create.html'}
+                    },
+                    resolve: {
+                        deps: ['$ocLazyLoad',
+                            function ($ocLazyLoad) {
+                                return $ocLazyLoad.load('angularFileUpload').then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsCreateCtrl.js']);
+                                    }
+                                );
+                            }]
+                    }
+                })
+                .state('admin.doctors.update', {
+                    url: '/{id}',
+                    template: '<div ui-view class="fade-in-up"></div>',
+                    title: "Doctors - Update",
+                    views: {
+                        "@admin": {templateUrl: '/src/admin/tpl/doctors.update.html'}
+                    },
+                    resolve: {
+                        deps: ['$ocLazyLoad',
+                            function ($ocLazyLoad) {
+                                return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsUpdateCtrl.js']);
                             }]
                     }
                 })

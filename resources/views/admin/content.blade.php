@@ -14,7 +14,6 @@
     <base href="/" />
 </head>
 <body ng-controller="AppCtrl">
-
 <div class="app"
      id="app"
      ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}"

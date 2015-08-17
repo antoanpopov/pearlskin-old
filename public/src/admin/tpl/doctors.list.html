@@ -5,13 +5,13 @@
         <div class="bg-light lter b-b wrapper-md">
             <div class="row">
                 <div class="col-sm-6 col-xs-12">
-                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.PROCEDURES"></h1>
+                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.DOCTORS"></h1>
                     <small class="text-muted">Welcome to angulr application</small>
                 </div>
             </div>
         </div>
         <!-- / main header -->
-        <div class="wrapper-md" ng-controller="ProceduresListCtrl">
+        <div class="wrapper-md" ng-controller="DoctorsListCtrl">
             <!-- stats -->
             <div class="panel panel-default">
                 <div class="panel-heading">
@@ -26,11 +26,11 @@
                                     style="display: inline-block; width: auto; vertical-align: middle">
                             </select>
                         </label>
-                        <button type="button" ui-sref="admin.procedures.create"
+                        <button type="button" ui-sref="admin.doctors.create"
                                 class="btn btn-sm btn-addon btn-success"
                                 style="float: right;">
                             <i class="glyphicon glyphicon-plus">
-                            </i> add new procedure
+                            </i> add new doctor
                         </button>
                         <label style="text-align: right; white-space: nowrap;">Search:
                             <input class="form-control input-sm" type="text" ng-model="search.$" placeholder="Search"
@@ -41,35 +41,40 @@
                         <table class="table table-striped b-t b-b">
                             <thead>
                             <tr>
-                                <th style="max-width:50px;" translate="data.property.id"></th>
-                                <th style="max-width:300px;" translate="data.property.name"></th>
-                                <th style="max-width:100px;%" translate="data.property.price"></th>
-                                <th style="max-width:200px;" translate="data.property.description"></th>
-                                <th style="max-width:100px;" translate="data.property.created_by"></th>
+                                <th style="max-width:50px; width:50px;" translate="data.property.id"></th>
+                                <th style="max-width:50px; width:50px;;" translate="data.property.image"></th>
+                                <th style="max-width:100px;%" translate="data.property.names"></th>
+                                <th style="max-width:20px;" translate="data.property.has_percent"></th>
+                                <th style="max-width:20px;" translate="data.property.is_visible"></th>
                                 <th style="max-width:100px;"></th>
                             </tr>
                             </thead>
                             <tbody>
-                            <tr ng-repeat="procedure in filtered = procedures | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-                                <td><% procedure.id %></td>
-                                <td><% procedure.name %></td>
-                                <td><% procedure.price %></td>
-                                <td><% procedure.description %></td>
-                                <td><% procedure.created_by_user_name %></td>
-                                <td>
+                            <tr ng-repeat="doctor in filtered = doctors | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+                                <td><% doctor.id %></td>
+                                <td><img ng-src="src/admin/img/doctors/<% doctor.image %>" alt="<% doctor.image %>" style="width: 30px; height: 30px;"/></td>
+                                <td><% doctor.names %></td>
+                                <td><div ng-class="doctor.has_percent == 1? 'text-success' : 'text-danger'" class="m-t-sm">
+                                    <i class="fa fa-circle"></i>
+                                </div>
+                                </td>
+                                <td><div ng-class="doctor.is_visible == 1? 'text-success' : 'text-danger'" class="m-t-sm">
+                                    <i class="fa fa-circle"></i>
+                                </div>
+                                </td>
+                                <td class="pull-right">
                                     <button class="btn btn-sm btn-icon btn-warning"
-                                            ui-sref="admin.procedures.update({ id: <% procedure.id %>})">
+                                            ui-sref="admin.doctors.update({ id: <% doctor.id %>})">
                                         <i class="fa fa-pencil"></i>
                                     </button>
                                     <button class="btn btn-sm btn-icon btn-danger"
-                                            ng-click="delete(procedure)">
+                                            ng-click="delete(doctor)">
                                         <i class="fa fa-trash-o"></i>
                                     </button>
                                 </td>
                             </tr>
                             </tbody>
                         </table>
-                        <pre><% procedures %></pre>
                     </div>
                     <div class="row" style="margin: 0">
                         <div class="col-sm-6">
@@ -82,3 +87,6 @@
                 <!-- / main -->
 
             </div>
+        </div>
+    </div>
+</div>
