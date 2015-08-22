@@ -52,7 +52,11 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load(['/src/admin/js/controllers/ClientsListCtrl.js']);
+                                return $ocLazyLoad.load('/src/admin/js/angular/angular-translate.js').then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/ClientsListCtrl.js']);
+                                    }
+                                );
                             }]
                     }
                 })
@@ -114,7 +118,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('toaster').then(
+                                return $ocLazyLoad.load(['procedureService','languageService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/ProceduresCreateCtrl.js']);
                                     }
@@ -132,7 +136,11 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load(['/src/admin/js/controllers/ProceduresUpdateCtrl.js']);
+                                return $ocLazyLoad.load(['procedureService','languageService']).then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/ProceduresUpdateCtrl.js']);
+                                    }
+                                );
                             }]
                     }
                 })

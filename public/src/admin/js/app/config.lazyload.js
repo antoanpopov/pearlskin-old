@@ -59,6 +59,12 @@ angular.module('app')
           events: true,
           modules: [
               {
+                  name: 'languageService',
+                  files: [
+                      '/src/admin/js/services/languageService.js'
+                  ]
+              },
+              {
                   name: 'clientService',
                   files: [
                       '/src/admin/js/services/clientService.js'
