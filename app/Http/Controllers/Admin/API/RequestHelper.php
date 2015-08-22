@@ -49,7 +49,7 @@ class RequestHelper extends Controller {
                 $record->updated_by_user_id = Auth::user()->id;
 
 				if($record->save()){
-					return array('status' => "OK", 'code' => 200);
+					return array('status' => "OK", 'code' => 200,'id' => $record->id);
 				}
 
 			}catch(\Illuminate\Database\QueryException $e){

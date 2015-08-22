@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers\Admin\API;
       use App\Http\Controllers\Controller;
       use App\Models\Doctor;
+      use App\Models\DoctorText;
+      use App\Models\Language;
       use Illuminate\Support\Facades\Request;
       use Illuminate\Http\Response;
       use Auth;
@@ -52,19 +54,35 @@ class DoctorsController extends Controller {
 	{
 
         try{
+            $languagesList = Language::select('id','name','image','code')->get();
+
             if($id != null){
         		 $doctor = Doctor::where('doctors.id',$id)
         		 ->join('users as creator','creator.id','=','doctors.created_by_user_id')
                  ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                 ->select('doctors.id','doctors.names','image','has_percent','sort_order','is_visible','creator.name as created_by_user_name','updater.name as updated_by_user_name')
+                 ->select('doctors.id','image','has_percent','sort_order','is_visible','creator.name as created_by_user_name','updater.name as updated_by_user_name')
         		 ->first();
+
+                foreach($languagesList as $language){
+                    $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$doctor->id)->where('language_id','=',$language->id)->select('names','description')->first();
+                }
+                $doctor->texts = $textsLanguages;
         		 return response()->json($doctor);
             } else {
 
-        		 $doctorsList = Doctor::join('users as creator','creator.id','=','doctors.created_by_user_id')
+          //      $doctorsList = DoctorText::all();
+        		 $doctorsList = Doctor::
+                   join('users as creator','creator.id','=','doctors.created_by_user_id')
         		 ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                 ->select('doctors.id','doctors.names','image','has_percent','sort_order','is_visible' ,'creator.name as created_by_user_name','updater.name as updated_by_user_name')
+                 ->select('doctors.id','image','has_percent','sort_order','is_visible' ,'creator.name as created_by_user_name','updater.name as updated_by_user_name')
                  ->get();
+
+                foreach($doctorsList as $doctor){
+                    foreach($languagesList as $language){
+                        $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$doctor->id)->where('language_id','=',$language->id)->select('names','description')->first();
+                    }
+                    $doctor->texts = $textsLanguages;
+                }
                  return response()->json($doctorsList);
             }
         }catch(\Illuminate\Database\QueryException $e){

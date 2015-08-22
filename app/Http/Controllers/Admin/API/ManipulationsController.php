@@ -1,6 +1,8 @@
 <?php namespace App\Http\Controllers\Admin\API;
       use App\Http\Controllers\Controller;
       use App\Models\Manipulation;
+      use App\Models\DoctorText;
+      use App\Models\Language;
       use Illuminate\Http\Response;
       use Auth;
 
@@ -50,6 +52,9 @@ class ManipulationsController extends Controller {
 	{
 
         try{
+
+            $languagesList = Language::select('id','name','image','code')->get();
+
             if($id != null){
         		 $doctor = Doctor::where('doctors.id',$id)
         		 ->join('users as creator','creator.id','=','doctors.created_by_user_id')
@@ -61,19 +66,28 @@ class ManipulationsController extends Controller {
 
         		 $manipulationsList = Manipulation::join('users as creator','creator.id','=','manipulations.created_by_user_id')
         		 ->join('users as updater','updater.id','=','manipulations.updated_by_user_id')
-                 ->join('clients','clients.id', '=', 'manipulations.client_id')
-                 ->join('doctors','doctors.id', '=', 'manipulations.doctor_id')
+                 ->leftJoin('clients','clients.id', '=', 'manipulations.client_id')
                  ->select(
                      'manipulations.id',
+                     'manipulations.doctor_id',
                      'manipulations.title',
                      'manipulations.description',
-                     'manipulations.has_discount',
                      'manipulations.date_of_manipulation' ,
                      'clients.names as client_names',
-                     'doctors.names as doctor_names',
+                     'clients.id as client_id',
+                     'clients.phone as client_phone',
                      'creator.name as created_by_user_name',
                      'updater.name as updated_by_user_name')
                  ->get();
+
+
+                foreach($manipulationsList as $manipulation){
+                    foreach($languagesList as $language){
+                        $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$manipulation->doctor_id)->where('language_id','=',$language->id)->select('names')->first();
+                    }
+                    $manipulation->texts = $textsLanguages;
+                }
+
                  return response()->json($manipulationsList);
             }
         }catch(\Illuminate\Database\QueryException $e){
