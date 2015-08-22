@@ -1,5 +1,5 @@
 {
-
+"client_name": "asdsad",
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
