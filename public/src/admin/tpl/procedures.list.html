@@ -52,7 +52,7 @@
                             <tbody>
                             <tr ng-repeat="procedure in filtered = procedures | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
                                 <td><% procedure.id %></td>
-                                <td><% procedure.name %></td>
+                                <td><% procedure.title %></td>
                                 <td><% procedure.price %></td>
                                 <td><% procedure.description %></td>
                                 <td><% procedure.created_by_user_name %></td>

@@ -58,8 +58,17 @@
                                 <td><% manipulation.id %></td>
                                 <td><% manipulation.title %></td>
                                 <td>
-                                    <% manipulation.client_names %>
-                                    <% manipulation.doctor_names %>
+                                    <strong ng-if="manipulation.client_id"
+                                            ui-sref="admin.clients.update({ id: <% manipulation.client_id %> })"
+                                            style="cursor: pointer; display:block;">
+                                        <% manipulation.client_names %>
+                                    </strong>
+                                    <span ng-if="manipulation.client_phone" style="display:block;">
+                                        <% manipulation.client_phone %>
+                                    </span>
+                                    <span ng-if="manipulation.doctor_names" style="display:block;">
+                                        <% 'data.property.treating' | translate %>: <% manipulation.doctor_names %>
+                                    </span>
                                 </td>
                                 <td><% manipulation.heard_from %></td>
                                 <td><% manipulation.amount %></td>
