@@ -28,6 +28,11 @@ Route::get('admin/references', 'Admin\DashboardController@index');
 | and give it the controller to call when that URI is requested.
 |
  */
+Route::post('api/languages/create', 'Admin\API\LanguagesController@create');
+Route::get('api/languages/{id?}', 'Admin\API\LanguagesController@read');
+Route::put('api/languages/{id}', 'Admin\API\LanguagesController@update');
+Route::delete('api/languages/{id}', 'Admin\API\LanguagesController@delete');
+
 Route::post('api/clients/create', 'Admin\API\ClientsController@create');
 Route::get('api/clients/{id?}', 'Admin\API\ClientsController@read');
 Route::put('api/clients/{id}', 'Admin\API\ClientsController@update');
