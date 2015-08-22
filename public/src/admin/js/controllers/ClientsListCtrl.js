@@ -16,6 +16,7 @@ app
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
         };
+        $scope.locale = 'en';
 
         $scope.clients = [];
         $scope.entryOptions = [{
@@ -46,7 +47,6 @@ app
         Client.get()
             .success(function(data) {
                 $scope.clients = data;
-
                 // pagination controls
                 $scope.currentPage = 1;
                 $scope.totalItems = $scope.clients.length;
@@ -60,6 +60,7 @@ app
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
                     $scope.currentPage = 1;
                 }, true);
+
 
             });
 

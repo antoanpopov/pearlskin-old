@@ -2,8 +2,24 @@
 
 app
   //Clients List Controller
-  .controller('ProceduresUpdateCtrl', ['$rootScope','$scope','$http', 'Procedure', '$state', function($rootScope, $scope, $http, Procedure, $state) {
-        $scope.procedure = {};
+  .controller('ProceduresUpdateCtrl', ['$rootScope','$scope','$http', 'Procedure', 'Language', '$state', function($rootScope, $scope, $http, Procedure, Language, $state) {
+
+        $scope.procedure = {
+            price: ""
+        };
+
+        Language.get()
+            .success(function(data) {
+                $scope.languages = data;
+                Procedure.get($rootScope.$stateParams.id)
+                    .success(function(data) {
+                        $scope.procedure = data;
+
+                    });
+            })
+            .error(function(data){
+            });
+
         $scope.postRequest = function(){
             Procedure.update($rootScope.$stateParams.id,$scope.procedure)
                 .success(function(data, status) {
@@ -15,11 +31,7 @@ app
         };
 
         // get all the comments first and bind it to the $scope.comments object
-        Procedure.get($rootScope.$stateParams.id)
-            .success(function(data) {
-                $scope.procedure = data;
 
-            });
 
 
 

@@ -11,11 +11,18 @@ app.filter('startFrom', function () {
 });
 app
   //Clients List Controller
-  .controller('DoctorsListCtrl', ['$rootScope','$scope','$http', 'Doctor', 'filterFilter', function($rootScope, $scope, $http, Doctor, filterFilter) {
+  .controller('DoctorsListCtrl', ['$translate', '$rootScope','$scope','$http', 'Doctor', 'filterFilter', function($translate, $rootScope, $scope, $http, Doctor, filterFilter) {
         // loading variable to show the spinning loading icon
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
         };
+
+        $rootScope.$on('$translateChangeSuccess', function () {
+            for (var i = 0; i< $scope.doctors.length;i++){
+                $scope.doctors[i].names = $scope.doctors[i].texts[$translate.use()].names;
+                //  console.log();
+            }
+        });
 
         $scope.doctors = [];
         $scope.entryOptions = [{
@@ -59,6 +66,11 @@ app
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
                     $scope.currentPage = 1;
                 }, true);
+
+                for (var i = 0; i< $scope.doctors.length;i++){
+                    $scope.doctors[i].names = $scope.doctors[i].texts[$translate.use()].names;
+                    //  console.log();
+                }
 
             })
             .error(function(data){

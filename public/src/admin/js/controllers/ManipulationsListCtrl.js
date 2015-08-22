@@ -11,8 +11,14 @@ app.filter('startFrom', function () {
 });
 app
   //Clients List Controller
-  .controller('ManipulationsListCtrl', ['$rootScope','$scope','$http', 'Manipulation', 'filterFilter', function($rootScope, $scope, $http, Manipulation, filterFilter) {
+  .controller('ManipulationsListCtrl', ['$translate', '$rootScope','$scope','$http', 'Manipulation', 'filterFilter', function($translate, $rootScope, $scope, $http, Manipulation, filterFilter) {
         // loading variable to show the spinning loading icon
+        $rootScope.$on('$translateChangeSuccess', function () {
+            for (var i = 0; i< $scope.manipulations.length;i++){
+                $scope.manipulations[i].doctor_names = $scope.manipulations[i].texts[$translate.use()].names;
+            }
+        });
+
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
         };
@@ -59,6 +65,10 @@ app
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
                     $scope.currentPage = 1;
                 }, true);
+
+                for (var i = 0; i< $scope.manipulations.length;i++){
+                    $scope.manipulations[i].doctor_names = $scope.manipulations[i].texts[$translate.use()].names;
+                }
 
             })
             .error(function(data){
