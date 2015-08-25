@@ -1,0 +1,82 @@
+<div class="hbox hbox-auto-xs hbox-auto-sm">
+    <!-- main -->
+    <div class="col">
+        <!-- main header -->
+        <div class="bg-light lter b-b wrapper-md">
+            <toaster-container
+                    toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+            <div class="row">
+                <div class="col-sm-6 col-xs-12">
+                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.MANIPULATIONS"></h1>
+                </div>
+            </div>
+        </div>
+        <!-- / main header -->
+        <div class="wrapper-md" ng-controller="ManipulationsUpdateCtrl">
+            <form role="form" ng-submit="postRequest()" class="form-validation">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group">
+                            <label translate="data.property.title"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="title"
+                                   ng-model="manipulation.title"
+                                   ng-pattern="/[\wа-яА-Я]{4,128}$/">
+                        </div>
+                        <div class="form-group">
+                            <label translate="data.property.description"></label>
+                            <textarea ng-model="manipulation.description"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label translate="data.property.learnt_from"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="learnt from"
+                                   ng-model="manipulation.learnt_from"
+                                   ng-pattern="/[\wа-яА-Я]{4,128}$/">
+                        </div>
+                        <div class="form-group">
+                            <label translate="data.property.clients"></label>
+                            <select
+                                    ng-options="obj.names for obj in clients track by obj.id"
+                                    ng-model="selectedClient">
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label translate="data.property.doctors"></label>
+                            <select
+                                    ng-options="obj.texts[$root.langCode].names for obj in doctors track by obj.id"
+                                    ng-model="selectedDoctor">
+
+                            </select>
+                        </div>
+                        <div class="form-group">
+
+                            <label translate="data.property.procedures"></label>
+                            <select
+                                    ng-model="selectedProcedure"
+                                    ng-options="obj.texts[$root.langCode].title for obj in procedures track by obj.id">
+                            </select>
+                            <a href="#" ng-click="addProcedure()" class="btn btn-success">
+                                add Procedure
+                            </a>
+                        </div>
+                    </div>
+                    <table>
+                        <tr ng-repeat="procedure in selectedProcedures">
+                            <td><% procedure.id %></td>
+                            <td><% procedure.texts[$root.langCode].title %></td>
+                            <td><% procedure.price %></td>
+                        </tr>
+                    </table>
+                    <footer class="panel-footer text-right bg-light lter">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </footer>
+                </div>
+            </form>
+        </div>
+        <!-- / main -->
+    </div>
+</div>

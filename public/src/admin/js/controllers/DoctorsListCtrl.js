@@ -17,12 +17,7 @@ app
             $scope.entryLimit = value;
         };
 
-        $rootScope.$on('$translateChangeSuccess', function () {
-            for (var i = 0; i< $scope.doctors.length;i++){
-                $scope.doctors[i].names = $scope.doctors[i].texts[$translate.use()].names;
-                //  console.log();
-            }
-        });
+        $rootScope.langCode = $translate.use();
 
         $scope.doctors = [];
         $scope.entryOptions = [{
@@ -53,7 +48,7 @@ app
         Doctor.get()
             .success(function(data) {
                 $scope.doctors = data;
-                // pagination controls
+                console.log(data);
                 $scope.currentPage = 1;
                 $scope.totalItems = $scope.doctors.length;
                 $scope.entryLimit = $scope.entryOptions[0].value; // items per page
@@ -66,11 +61,6 @@ app
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
                     $scope.currentPage = 1;
                 }, true);
-
-                for (var i = 0; i< $scope.doctors.length;i++){
-                    $scope.doctors[i].names = $scope.doctors[i].texts[$translate.use()].names;
-                    //  console.log();
-                }
 
             })
             .error(function(data){

@@ -2,21 +2,26 @@
 
 app
   //Clients List Controller
-  .controller('DoctorsCreateCtrl', ['$rootScope','$scope', '$state', 'FileUploader', 'Doctor', function($rootScope, $scope, $state, FileUploader, Doctor) {
+  .controller('DoctorsCreateCtrl', ['$rootScope','$scope', '$state', 'FileUploader', 'Doctor', 'Language', function($rootScope, $scope, $state, FileUploader, Doctor, Language) {
 
         $scope.doctor = {
-            names: "",
             has_percent: false,
-            is_visible: true,
-            sort_order : 3
+            is_visible: true
         };
+
+        Language.get()
+            .success(function(data) {
+                $scope.languages = data;
+            })
+            .error(function(data){
+            });
 
         $scope.postRequest = function(event){
             if($scope.uploader.queue.length === 0){
                 Doctor.post($scope.doctor)
                     .success(function(data) {
-                        $state.go('admin.doctors');
-
+                   //     $state.go('admin.doctors');
+                        console.log(data);
                     })
                     .error(function(data){
                         //  console.log(data);
@@ -44,7 +49,7 @@ app
         };
 
         uploader.onCompleteAll = function() {
-            $state.go('admin.doctors');
+       //     $state.go('admin.doctors');
         };
 
 

@@ -30,7 +30,7 @@
                                 class="btn btn-sm btn-addon btn-success"
                                 style="float: right;">
                             <i class="glyphicon glyphicon-plus">
-                            </i> add new doctor
+                            </i>add new doctor
                         </button>
                         <label style="text-align: right; white-space: nowrap;">Search:
                             <input class="form-control input-sm" type="text" ng-model="search.$" placeholder="Search"
@@ -53,7 +53,9 @@
                             <tr ng-repeat="doctor in filtered = doctors | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
                                 <td><% doctor.id %></td>
                                 <td><img ng-src="src/admin/img/doctors/<% doctor.image %>" alt="<% doctor.image %>" style="width: 30px; height: 30px;"/></td>
-                                <td><% doctor.names %></td>
+                                <td>
+                                    <span ng-if="doctor.texts[$root.langCode].names"><% doctor.texts[$root.langCode].names %></span>
+                                </td>
                                 <td><div ng-class="doctor.has_percent == 1? 'text-success' : 'text-danger'" class="m-t-sm">
                                     <i class="fa fa-circle"></i>
                                 </div>

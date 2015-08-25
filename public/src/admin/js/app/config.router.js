@@ -5,7 +5,7 @@
  */
 angular.module('app')
     .run(
-    ['$rootScope', '$state', '$stateParams',
+    ['$rootScope', '$state', '$stateParams', '$translate',
         function ($rootScope, $state, $stateParams) {
             $rootScope.$state = $state;
             $rootScope.$stateParams = $stateParams;
@@ -174,7 +174,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('angularFileUpload').then(
+                                return $ocLazyLoad.load(['angularFileUpload', 'procedureService','languageService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsCreateCtrl.js']);
                                     }
@@ -230,9 +230,11 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return function () {
-                                    return $ocLazyLoad.load(['/src/admin/js/controllers/ManipulationsCreateCtrl.js']);
-                                }
+                                return $ocLazyLoad.load(['manipulationService','clientService','doctorService','procedureService']).then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/ManipulationsCreateCtrl.js']);
+                                    }
+                                );
                             }]
                     }
                 })
@@ -246,9 +248,11 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return function () {
-                                    return $ocLazyLoad.load(['/src/admin/js/controllers/ManipulationsUpdateCtrl.js']);
-                                }
+                                return $ocLazyLoad.load(['manipulationService','clientService','doctorService','procedureService']).then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/ManipulationsUpdateCtrl.js']);
+                                    }
+                                );
                             }]
                     }
                 })

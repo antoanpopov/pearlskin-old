@@ -17,12 +17,11 @@ app
         $scope.postRequest = function(){
             Procedure.post($scope.procedure)
                 .success(function(data) {
-                    console.log(data);
-                 //  $state.go('admin.procedures');
+                   $state.go('admin.procedures');
 
                 })
                 .error(function(data){
-                  //  console.log(data);
+                    console.log(data);
                 });
         }
 

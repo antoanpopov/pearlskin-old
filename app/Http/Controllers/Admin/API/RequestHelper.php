@@ -34,7 +34,11 @@ class RequestHelper extends Controller {
     	{
 
 			try{
+                $fillableFileds = $modelObject->getFillable();
 			    $record = (isset($postData['id']))? $modelObject::firstOrNew(['id' => $postData['id']]) : $modelObject;
+                if(!isset($record->id)){$postData['created_by_user_id'] = Auth::user()->id;};
+                $postData['updated_by_user_id'] = Auth::user()->id;
+                $postData['updated_at'] = date("Y-m-d H:i:s");
 
 				foreach($excludedFields as $excludedField){
 					unset($postData[$excludedField]);
@@ -42,11 +46,10 @@ class RequestHelper extends Controller {
 				$postKeys = array_keys($postData);
 
 				foreach($postKeys as $key){
-					$record->{$key} = $postData[$key];
+                        $record->{$key} = $postData[$key];
 				}
-				if(!isset($record->id)){$record->created_by_user_id = Auth::user()->id;};
-				$record->updated_at = date("Y-m-d H:i:s");
-                $record->updated_by_user_id = Auth::user()->id;
+
+
 
 				if($record->save()){
 					return array('status' => "OK", 'code' => 200,'id' => $record->id);

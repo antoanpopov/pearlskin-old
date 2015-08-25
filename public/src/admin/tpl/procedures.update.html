@@ -14,10 +14,6 @@
         <!-- / main header -->
         <div class="wrapper-md" ng-controller="ProceduresUpdateCtrl">
             <form role="form" ng-submit="postRequest()" class="form-validation">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <span class="h4">Update procedure</span>
-                    </div>
                 <tabset class="tab-container">
                     <tab ng-repeat="language in languages" ng-if="language.is_visible === 1">
                         <tab-heading>
@@ -45,7 +41,7 @@
                         </div>
                     </tab>
                 </tabset>
-
+                <div class="panel panel-default">
                     <div class="panel-body">
                         <div class="form-group">
                             <label translate="data.property.price"></label>

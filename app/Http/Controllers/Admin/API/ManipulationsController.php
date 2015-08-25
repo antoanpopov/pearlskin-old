@@ -1,6 +1,7 @@
 <?php namespace App\Http\Controllers\Admin\API;
       use App\Http\Controllers\Controller;
       use App\Models\Manipulation;
+      use App\Models\ManipulationProcedure;
       use App\Models\DoctorText;
       use App\Models\Language;
       use Illuminate\Http\Response;
@@ -37,15 +38,21 @@ class ManipulationsController extends Controller {
 
 	public function create()
     	{
-    	$postData = \Input::all();
-    	if(\Input::hasFile('file')){
-    	    $fileExtension = \Input::file('file')->getClientOriginalExtension();
-    	    $postData['image'] = $postData['names'] . "." . $fileExtension;
-            \Input::file('file')->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
-    	}
+    	$postDataManipulation = \Input::except('procedures');
+        $postDataManipulationProcedures = \Input::only('procedures');
+        $createRecord = RequestHelper::writeAllExcept(new Manipulation(),$postDataManipulation,[]);
+            if(!empty($postDataManipulationProcedures['procedures']) && $createRecord['id']){
 
-         $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,['file']);
-		//	return response()->json(['status' => $createRecord['status']],$createRecord['code']);
+                foreach($postDataManipulationProcedures['procedures'] as $manipulationProcedure){
+
+                    $postData = [];
+                    $postData['procedure_id'] = $manipulationProcedure;
+                    $postData['manipulation_id'] = $createRecord['id'];
+
+                    $createManipulationProcedures = RequestHelper::writeAllExcept(new ManipulationProcedure(),$postData,['created_by_user_id','updated_by_user_id']);
+                }
+            }
+		return response()->json(['status' => $createRecord['status']],$createRecord['code']);
     	}
 
 	public function read($id = null)
@@ -56,12 +63,31 @@ class ManipulationsController extends Controller {
             $languagesList = Language::select('id','name','image','code')->get();
 
             if($id != null){
-        		 $doctor = Doctor::where('doctors.id',$id)
-        		 ->join('users as creator','creator.id','=','doctors.created_by_user_id')
-                 ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                 ->select('doctors.id','doctors.names','image','has_percent','sort_order','is_visible','creator.name as created_by_user_name','updater.name as updated_by_user_name')
+                $manipulation = Manipulation::where('manipulations.id',$id)
+        		 ->join('users as creator','creator.id','=','manipulations.created_by_user_id')
+                 ->join('users as updater','updater.id','=','manipulations.updated_by_user_id')
+                 ->select(
+                     'manipulations.id',
+                     'manipulations.title',
+                     'manipulations.client_id',
+                     'manipulations.description',
+                     'manipulations.doctor_id',
+                     'manipulations.learnt_from',
+                     'creator.name as created_by_user_name',
+                     'updater.name as updated_by_user_name')
         		 ->first();
-        		 return response()->json($doctor);
+                $proceduresArray = [];
+                $manipulationProcedures = ManipulationProcedure::where('manipulation_id',$manipulation->id)->get();
+                foreach($manipulationProcedures as $procedure){
+                    array_push($proceduresArray, $procedure->procedure_id);
+                }
+                $manipulation->procedures = $proceduresArray;
+//                  $manipulation->procedures = ManipulationProcedure::where('manipulation_id',$manipulation->id)
+//                      ->join('procedures','procedures.id','=','manipulations_procedures.procedure_id')
+//                      ->select('procedures.id')
+//                      ->get();
+
+        		 return response()->json($manipulation);
             } else {
 
         		 $manipulationsList = Manipulation::join('users as creator','creator.id','=','manipulations.created_by_user_id')
@@ -102,13 +128,20 @@ class ManipulationsController extends Controller {
 	public function update($id = null)
 	{
 	    if($id != null){
-	        $postData = \Input::all();
-	        if(\Input::hasFile('file')){
-                	    $fileExtension = \Input::file('file')->getClientOriginalExtension();
-                	    $postData['image'] = $postData['names'] . "." . $fileExtension;
-                        \Input::file('file')->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
-                	}
-            $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,['created_by_user_name','updated_by_user_name']);
+            $postDataManipulation = \Input::except('procedures');
+            $postDataManipulationProcedures = \Input::only('procedures');
+            $createRecord = RequestHelper::writeAllExcept(new Manipulation(),$postDataManipulation,['created_by_user_name','updated_by_user_name']);
+//            if(!empty($postDataManipulationProcedures['procedures']) && $createRecord['id']){
+//
+//                foreach($postDataManipulationProcedures['procedures'] as $manipulationProcedure){
+//
+//                    $postData = [];
+//                    $postData['procedure_id'] = $manipulationProcedure;
+//                    $postData['manipulation_id'] = $createRecord['id'];
+//
+//                    $createManipulationProcedures = RequestHelper::writeAllExcept(new ManipulationProcedure(),$postData,['created_by_user_id','updated_by_user_id']);
+//                }
+//            }
             return response()->json(['status' => $createRecord['status']],$createRecord['code']);
         }
 
@@ -117,7 +150,7 @@ class ManipulationsController extends Controller {
 	public function delete($id = null)
     {
     	if($id != null){
-    		Doctor::where('id','=',$id)->delete();
+    		Manipulation::where('id','=',$id)->delete();
     	}
     }
 

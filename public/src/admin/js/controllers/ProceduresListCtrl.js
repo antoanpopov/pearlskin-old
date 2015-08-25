@@ -13,18 +13,11 @@ app
   //Clients List Controller
   .controller('ProceduresListCtrl', ['$translate', '$rootScope','$scope','$http', 'Procedure', 'filterFilter', function($translate, $rootScope, $scope, $http, Procedure, filterFilter) {
         // loading variable to show the spinning loading icon
-        $rootScope.$on('$translateChangeSuccess', function () {
-            for (var i = 0; i< $scope.procedures.length;i++){
-                if($scope.procedures[i].texts[$translate.use()] !== null){
-                    $scope.procedures[i].title = $scope.procedures[i].texts[$translate.use()].title;
-                    $scope.procedures[i].description = $scope.procedures[i].texts[$translate.use()].description;
-                }
-            }
-        });
+
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
         };
-
+        $rootScope.langCode = $translate.use();
         $scope.procedures = [];
         $scope.entryOptions = [{
             name: 2,
@@ -36,6 +29,7 @@ app
             name: 50,
             value: 50
         }];
+
         $scope.delete = function(clientObj) {
 
             Procedure.delete(clientObj.id)
@@ -68,14 +62,6 @@ app
                     $scope.currentPage = 1;
                 }, true);
 
-                for (var i = 0; i< $scope.procedures.length;i++){
-                    if($scope.procedures[i].texts[$translate.use()] !== null){
-                        $scope.procedures[i].title = $scope.procedures[i].texts[$translate.use()].title;
-                        $scope.procedures[i].description = $scope.procedures[i].texts[$translate.use()].description;
-                    }
-                }
-
-                console.log($scope.procedures);
 
             })
             .error(function(data){

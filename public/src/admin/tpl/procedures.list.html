@@ -52,11 +52,15 @@
                             <tbody>
                             <tr ng-repeat="procedure in filtered = procedures | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
                                 <td><% procedure.id %></td>
-                                <td><% procedure.title %></td>
-                                <td><% procedure.price %></td>
-                                <td><% procedure.description %></td>
-                                <td><% procedure.created_by_user_name %></td>
                                 <td>
+                                    <span ng-if="procedure.texts[$root.langCode].title"><% procedure.texts[$root.langCode].title %></span>
+                                </td>
+                                <td><% procedure.price %></td>
+                                <td>
+                                    <span ng-if="procedure.texts[$root.langCode].description"><% procedure.texts[$root.langCode].description %></span>
+                                </td>
+                                <td><% procedure.created_by_user_name %></td>
+                                <td class="pull-right">
                                     <button class="btn btn-sm btn-icon btn-warning"
                                             ui-sref="admin.procedures.update({ id: <% procedure.id %>})">
                                         <i class="fa fa-pencil"></i>
@@ -69,7 +73,6 @@
                             </tr>
                             </tbody>
                         </table>
-                        <pre><% procedures %></pre>
                     </div>
                     <div class="row" style="margin: 0">
                         <div class="col-sm-6">
