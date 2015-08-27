@@ -10,14 +10,12 @@ app.filter('startFrom', function () {
     };
 });
 app
-  //Clients List Controller
   .controller('DoctorsListCtrl', ['$translate', '$rootScope','$scope','$http', 'Doctor', 'filterFilter', function($translate, $rootScope, $scope, $http, Doctor, filterFilter) {
         // loading variable to show the spinning loading icon
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
         };
 
-        $rootScope.langCode = $translate.use();
 
         $scope.doctors = [];
         $scope.entryOptions = [{
@@ -48,7 +46,6 @@ app
         Doctor.get()
             .success(function(data) {
                 $scope.doctors = data;
-                console.log(data);
                 $scope.currentPage = 1;
                 $scope.totalItems = $scope.doctors.length;
                 $scope.entryLimit = $scope.entryOptions[0].value; // items per page

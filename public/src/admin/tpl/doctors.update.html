@@ -1,71 +1,87 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-    <!-- main -->
-    <div class="col">
-        <!-- main header -->
-        <div class="bg-light lter b-b wrapper-md">
-            <toaster-container
-                    toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.DOCTORS"></h1>
-                </div>
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3"><% $root.title %></h1>
+</div>
+<div class="wrapper-md">
+    <div  ng-controller="DoctorsUpdateCtrl" uploader="uploader">
+        <div class="row">
+            <div class="col-sm-6">
+                <form role="form" ng-submit="postRequest()" class="form-validation">
+                    <tabset class="tab-container">
+                        <tab ng-repeat="language in languages" ng-if="language.is_visible === 1">
+                            <tab-heading>
+                                <img ng-src="src/admin/img/flags/<% language.image %>" alt="<% language.name %>"> <% language.name %>
+                            </tab-heading>
+                            <div class="form-group">
+                                <label translate="data.property.names"></label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="names"
+                                       ng-init="doctor.texts[language.code].names = ''"
+                                       ng-model="doctor.texts[language.code].names"
+                                       ng-pattern="/[\wа-я]{4,128}$/">
+                                <input type="hidden"
+                                       ng-init="doctor.texts[language.code].language_id = language.id"
+                                       ng-model="doctor.texts[language.code].language_id"/>
+                            </div>
+                            <div class="form-group">
+                                <label translate="data.property.description"></label>
+                            <textarea class="form-control"
+                                      rows="6"
+                                      ng-init="doctor.texts[language.code].description = ''"
+                                      ng-model="doctor.texts[language.code].description"></textarea>
+                            </div>
+                        </tab>
+                    </tabset>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label translate="data.property.phone"></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="phone"
+                                           ng-model="doctor.phone"
+                                           ng-pattern="/([0-9]){4,10}$/">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label translate="data.property.image"></label>
+                                    <input type="file"
+                                           accept="image/*"
+                                           nv-file-select=""
+                                           uploader="uploader">
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label translate="data.property.has_percent"></label>
+                                    <div>
+                                        <label class="i-switch m-t-xs m-r">
+                                            <input type="checkbox"
+                                                   ng-model="doctor.has_percent"
+                                                   ng-checked="doctor.has_percent">
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label translate="data.property.is_visible"></label>
+                                    <div>
+                                        <label class="i-switch m-t-xs m-r">
+                                            <input type="checkbox"
+                                                   ng-model="doctor.is_visible"
+                                                   ng-checked="doctor.is_visible">
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                            <button type="submit" class="btn btn-success" ng-submit="postRequest()">Submit</button>
+                        </footer>
+                    </div>
+                </form>
             </div>
         </div>
-        <!-- / main header -->
-        <div class="wrapper-md" ng-controller="DoctorsUpdateCtrl">
-            <!-- stats -->
-            <pre><% doctor %></pre>
-            <form role="form" ng-submit="postRequest()" class="form-validation" uploader="uploader">
-                <div class="panel panel-default">
-                    <div class="panel-heading">
-                        <span class="h4">Update doctor - <% doctor.names %></span>
-                    </div>
-                    <div class="panel-body">
-                        <div class="form-group">
-                            <label translate="data.property.names"></label>
-                            <input type="text"
-                                   class="form-control"
-                                   placeholder="names"
-                                   ng-model="doctor.names"
-                                   ng-pattern="/^[a-zA-Z0-9\s]{4,128}$/"
-                                   required>
-                        </div>
-                        <div class="form-group">
-                            <label translate="data.property.image"></label>
-                            <input type="file"
-                                   accept="image/*"
-                                   nv-file-select=""
-                                   uploader="uploader">
-                        </div>
-                        <div class="form-group">
-                            <label translate="data.property.has_percent"></label>
-                            <div>
-                                <label class="i-switch m-t-xs m-r">
-                                    <input type="checkbox"
-                                           ng-model="doctor.has_percent"
-                                           ng-checked="doctor.has_percent">
-                                    <i></i>
-                                </label>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label translate="data.property.is_visible"></label>
-                            <div>
-                                <label class="i-switch m-t-xs m-r">
-                                    <input type="checkbox"
-                                           ng-model="doctor.is_visible"
-                                           ng-checked="doctor.is_visible">
-                                    <i></i>
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                    <footer class="panel-footer text-right bg-light lter">
-                        <button class="btn btn-success" ng-submit="postRequest()">Submit</button>
-                    </footer>
-                </div>
-            </form>
-        </div>
-        <!-- / main -->
     </div>
 </div>

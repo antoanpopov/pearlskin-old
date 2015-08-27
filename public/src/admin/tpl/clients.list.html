@@ -1,86 +1,79 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-    <!-- main -->
-    <div class="col">
-        <!-- main header -->
-        <div class="bg-light lter b-b wrapper-md">
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.CLIENTS"></h1>
-                    <small class="text-muted">Welcome to angulr application</small>
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3"><% $root.title %></h1>
+</div>
+<div class="wrapper-md">
+    <!-- / main header -->
+    <div ng-controller="ClientsListCtrl">
+        <!-- stats -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row" style="margin: 0">
+                    <label style="text-align: left; white-space: nowrap;">Show:
+                        <select
+                                ng-init="somethingHere = entryOptions[0]"
+                                ng-model="somethingHere"
+                                ng-change="updateValue(somethingHere.value)"
+                                ng-options="option.name for option in entryOptions"
+                                class="form-control input-sm"
+                                style="display: inline-block; width: auto; vertical-align: middle">
+                        </select>
+                    </label>
+                    <button type="button" ui-sref="admin.clients.create"
+                            class="btn btn-sm btn-addon btn-success"
+                            style="float: right;">
+                        <i class="glyphicon glyphicon-plus">
+                        </i> add new client
+                    </button>
+                    <label style="text-align: right; white-space: nowrap;">Search:
+                        <input class="form-control input-sm" type="text" ng-model="search.$" placeholder="Search"
+                               style="display: inline-block; width: auto;"/>
+                    </label>
+                </div>
+                <div>
+                    <table class="table table-striped b-t b-b">
+                        <thead>
+                        <tr>
+                            <th style="max-width:50px;" translate="data.property.id"></th>
+                            <th style="max-width:300px;" translate="data.property.names"></th>
+                            <th style="max-width:100px;" translate="data.property.phone"></th>
+                            <th style="max-width:200px;" translate="data.property.email"></th>
+                            <th style="max-width:100px;" translate="data.property.dob"></th>
+                            <th style="width: auto;" translate="data.property.address"></th>
+                            <th style="max-width:100px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="client in filtered = clients | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+                            <td><% client.id %></td>
+                            <td><% client.names %></td>
+                            <td><% client.phone %></td>
+                            <td><% client.email %></td>
+                            <td><% client.dob %></td>
+                            <td><% client.address %></td>
+                            <td class="pull-right">
+                                <button class="btn btn-sm btn-icon btn-warning"
+                                        ui-sref="admin.clients.update({ id: <% client.id %>})">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-icon btn-danger"
+                                        ng-click="delete(client)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row" style="margin: 0">
+                    <div class="col-sm-6">
+                        <pagination ng-model="currentPage" page="currentPage" max-size="noOfPages"
+                                    total-items="totalItems" items-per-page="entryLimit"></pagination>
+                    </div>
+
                 </div>
             </div>
+            <!-- / main -->
+
         </div>
-        <!-- / main header -->
-        <div class="wrapper-md" ng-controller="ClientsListCtrl">
-            <!-- stats -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row" style="margin: 0">
-                        <label style="text-align: left; white-space: nowrap;">Show:
-                            <select
-                                    ng-init="somethingHere = entryOptions[0]"
-                                    ng-model="somethingHere"
-                                    ng-change="updateValue(somethingHere.value)"
-                                    ng-options="option.name for option in entryOptions"
-                                    class="form-control input-sm"
-                                    style="display: inline-block; width: auto; vertical-align: middle">
-                            </select>
-                        </label>
-                        <button type="button" ui-sref="admin.clients.create"
-                                class="btn btn-sm btn-addon btn-success"
-                                style="float: right;">
-                            <i class="glyphicon glyphicon-plus">
-                            </i> add new client
-                        </button>
-                        <label style="text-align: right; white-space: nowrap;">Search:
-                            <input class="form-control input-sm" type="text" ng-model="search.$" placeholder="Search"
-                                   style="display: inline-block; width: auto;"/>
-                        </label>
-                    </div>
-                    <div>
-                        <table class="table table-striped b-t b-b">
-                            <thead>
-                            <tr>
-                                <th style="max-width:50px;" translate="data.property.id"></th>
-                                <th style="max-width:300px;" translate="data.property.names"></th>
-                                <th style="max-width:100px;%" translate="data.property.phone"></th>
-                                <th style="max-width:200px;" translate="data.property.email"></th>
-                                <th style="max-width:100px;" translate="data.property.dob"></th>
-                                <th style="width: auto;" translate="data.property.address"></th>
-                                <th style="max-width:100px;"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="client in filtered = clients | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-                                <td><% client.id %></td>
-                                <td><% client.names %></td>
-                                <td><% client.phone %></td>
-                                <td><% client.email %></td>
-                                <td><% client.dob %></td>
-                                <td><% client.address %></td>
-                                <td class="pull-right">
-                                    <button class="btn btn-sm btn-icon btn-warning"
-                                            ui-sref="admin.clients.update({ id: <% client.id %>})">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-icon btn-danger"
-                                            ng-click="delete(client)">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row" style="margin: 0">
-                        <div class="col-sm-6">
-                            <pagination ng-model="currentPage" page="currentPage" max-size="noOfPages"
-                                        total-items="totalItems" items-per-page="entryLimit"></pagination>
-                        </div>
-
-                    </div>
-                </div>
-                <!-- / main -->
-
-            </div>
+    </div>
 </div>

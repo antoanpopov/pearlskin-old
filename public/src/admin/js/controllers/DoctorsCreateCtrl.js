@@ -20,8 +20,8 @@ app
             if($scope.uploader.queue.length === 0){
                 Doctor.post($scope.doctor)
                     .success(function(data) {
-                   //     $state.go('admin.doctors');
-                        console.log(data);
+                        $state.go('admin.doctors');
+                        //console.log(data);
                     })
                     .error(function(data){
                         //  console.log(data);

@@ -67,6 +67,10 @@ class ManipulationsController extends Controller {
         		 ->join('users as creator','creator.id','=','manipulations.created_by_user_id')
                  ->join('users as updater','updater.id','=','manipulations.updated_by_user_id')
                  ->select(
+                     'manipulations.amount_total',
+                     'manipulations.amount_discount',
+                     'manipulations.amount_paid',
+                     'manipulations.amount_dept',
                      'manipulations.id',
                      'manipulations.title',
                      'manipulations.client_id',
@@ -94,9 +98,14 @@ class ManipulationsController extends Controller {
         		 ->join('users as updater','updater.id','=','manipulations.updated_by_user_id')
                  ->leftJoin('clients','clients.id', '=', 'manipulations.client_id')
                  ->select(
+                     'manipulations.amount_total',
+                     'manipulations.amount_discount',
+                     'manipulations.amount_paid',
+                     'manipulations.amount_dept',
                      'manipulations.id',
                      'manipulations.doctor_id',
                      'manipulations.title',
+                     'manipulations.learnt_from',
                      'manipulations.description',
                      'manipulations.date_of_manipulation' ,
                      'clients.names as client_names',

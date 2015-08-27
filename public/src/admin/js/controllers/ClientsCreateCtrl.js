@@ -2,7 +2,7 @@
 
 app
   //Clients List Controller
-  .controller('ClientsCreateCtrl', ['$rootScope','$scope','$http', 'Client', '$state', 'toaster', function($rootScope, $scope, $http, Client, $state, toaster) {
+  .controller('ClientsCreateCtrl', ['$rootScope','$scope','$http', 'Client', '$state', function($rootScope, $scope, $http, Client, $state) {
 
         $scope.client = {
             names: "",
@@ -36,7 +36,7 @@ app
         $scope.postRequest = function(){
             Client.post($scope.client)
                 .success(function(data) {
-                    toaster.pop("success", "Success", $scope.client.names + " successfully added!");
+                  
                    $state.go('admin.clients');
 
                 })

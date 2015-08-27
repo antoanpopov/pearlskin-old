@@ -16,7 +16,7 @@ class CreateDoctorsTable extends Migration {
 		{
             $table->increments('id');
             $table->string('phone',64);
-            $table->string('image',128);
+            $table->string('image',128)->default('no_image.jpg');
             $table->boolean('has_percent')->default(0);
             $table->boolean('is_visible')->default(1);
             $table->integer('sort_order');

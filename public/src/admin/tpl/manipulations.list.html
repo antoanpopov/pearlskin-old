@@ -1,106 +1,94 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-    <!-- main -->
-    <div class="col">
-        <!-- main header -->
-        <div class="bg-light lter b-b wrapper-md">
-            <div class="row">
-                <div class="col-sm-6 col-xs-12">
-                    <h1 class="m-n font-thin h3 text-black" translate="aside.nav.DOCTORS"></h1>
-                    <small class="text-muted">Welcome to angulr application</small>
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3"><% $root.title %></h1>
+</div>
+<div class="wrapper-md">
+    <div ng-controller="ManipulationsListCtrl">
+        <!-- stats -->
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <div class="row" style="margin: 0">
+                    <label style="text-align: left; white-space: nowrap;">Show:
+                        <select
+                                ng-init="somethingHere = entryOptions[0]"
+                                ng-model="somethingHere"
+                                ng-change="updateValue(somethingHere.value)"
+                                ng-options="option.name for option in entryOptions"
+                                class="form-control input-sm"
+                                style="display: inline-block; width: auto; vertical-align: middle">
+                        </select>
+                    </label>
+                    <button type="button" ui-sref="admin.manipulations.create"
+                            class="btn btn-sm btn-addon btn-success"
+                            style="float: right;">
+                        <i class="glyphicon glyphicon-plus">
+                        </i> add new manipulation
+                    </button>
+                    <label style="text-align: right; white-space: nowrap;">Search:
+                        <input class="form-control input-sm" type="text" ng-model="search.$" placeholder="Search"
+                               style="display: inline-block; width: auto;"/>
+                    </label>
                 </div>
-            </div>
-        </div>
-        <!-- / main header -->
-        <div class="wrapper-md" ng-controller="ManipulationsListCtrl">
-            <!-- stats -->
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="row" style="margin: 0">
-                        <label style="text-align: left; white-space: nowrap;">Show:
-                            <select
-                                    ng-init="somethingHere = entryOptions[0]"
-                                    ng-model="somethingHere"
-                                    ng-change="updateValue(somethingHere.value)"
-                                    ng-options="option.name for option in entryOptions"
-                                    class="form-control input-sm"
-                                    style="display: inline-block; width: auto; vertical-align: middle">
-                            </select>
-                        </label>
-                        <button type="button" ui-sref="admin.manipulations.create"
-                                class="btn btn-sm btn-addon btn-success"
-                                style="float: right;">
-                            <i class="glyphicon glyphicon-plus">
-                            </i> add new manipulation
-                        </button>
-                        <label style="text-align: right; white-space: nowrap;">Search:
-                            <input class="form-control input-sm" type="text" ng-model="search.$" placeholder="Search"
-                                   style="display: inline-block; width: auto;"/>
-                        </label>
-                    </div>
-                    <div>
-                        <table class="table table-striped b-t b-b">
-                            <thead>
-                            <tr>
-                                <th style="max-width:50px; width:50px;" translate="data.property.id"></th>
-                                <th style="max-width:50px; width:50px;;" translate="data.property.title"></th>
-                                <th style="max-width:110px;" translate="data.property.name_of_client"></th>
-                                <th style="max-width:20px;" translate="data.property.heard_from"></th>
-                                <th style="max-width:20px;" translate="data.property.amount"></th>
-                                <th style="max-width:20px;" translate="data.property.discount"></th>
-                                <th style="max-width:20px;" translate="data.property.profit"></th>
-                                <th style="max-width:20px;" translate="data.property.amount_paid"></th>
-                                <th style="max-width:20px;" translate="data.property.amount_dept"></th>
-                                <th style="max-width:100px;"></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr ng-repeat="manipulation in filtered = manipulations | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
-                                <td><% manipulation.id %></td>
-                                <td><% manipulation.title %></td>
-                                <td>
-                                    <strong ng-if="manipulation.client_id"
-                                            ui-sref="admin.clients.update({ id: <% manipulation.client_id %> })"
-                                            style="cursor: pointer; display:block;">
-                                        <% manipulation.client_names %>
-                                    </strong>
+                <div>
+                    <table class="table table-striped b-t b-b">
+                        <thead>
+                        <tr>
+                            <th style="max-width:50px; width:50px;" translate="data.property.id"></th>
+                            <th style="max-width:50px; width:50px;;" translate="data.property.title"></th>
+                            <th style="max-width:110px;" translate="data.property.name_of_client"></th>
+                            <th style="max-width:20px;" translate="data.property.heard_from"></th>
+                            <th style="max-width:20px;" translate="data.property.amount"></th>
+                            <th style="max-width:20px;" translate="data.property.discount"></th>
+                            <th style="max-width:20px;" translate="data.property.amount_paid"></th>
+                            <th style="max-width:20px;" translate="data.property.amount_dept"></th>
+                            <th style="max-width:100px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="manipulation in filtered = manipulations | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
+                            <td><% manipulation.id %></td>
+                            <td><% manipulation.title %></td>
+                            <td>
+                                <strong ng-if="manipulation.client_id"
+                                        ui-sref="admin.clients.update({ id: <% manipulation.client_id %> })"
+                                        style="cursor: pointer; display:block;">
+                                    <% manipulation.client_names %>
+                                </strong>
                                     <span ng-if="manipulation.client_phone" style="display:block;">
                                         <% manipulation.client_phone %>
                                     </span>
-                                    <span ng-if="manipulation.doctor_names" style="display:block;">
-                                        <% 'data.property.treating' | translate %>: <% manipulation.doctor_names %>
+                                    <span ng-if="manipulation.texts[$root.langCode].names" style="display:block;">
+                                        <% 'data.property.treating' | translate %>: <% manipulation.texts[$root.langCode].names %>
                                     </span>
-                                </td>
-                                <td><% manipulation.heard_from %></td>
-                                <td><% manipulation.amount %></td>
-                                <td><% manipulation.discount %></td>
-                                <td><% manipulation.profit %></td>
-                                <td><% manipulation.amount_paid %></td>
-                                <td><% manipulation.amount_dept %></td>
-                                <td class="pull-right">
-                                    <button class="btn btn-sm btn-icon btn-warning"
-                                            ui-sref="admin.manipulations.update({ id: <% manipulation.id %>})">
-                                        <i class="fa fa-pencil"></i>
-                                    </button>
-                                    <button class="btn btn-sm btn-icon btn-danger"
-                                            ng-click="delete(manipulation)">
-                                        <i class="fa fa-trash-o"></i>
-                                    </button>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                    <div class="row" style="margin: 0">
-                        <div class="col-sm-6">
-                            <pagination ng-model="currentPage" page="currentPage" max-size="noOfPages"
-                                        total-items="totalItems" items-per-page="entryLimit"></pagination>
-                        </div>
-
-                    </div>
+                            </td>
+                            <td><% manipulation.learnt_from %></td>
+                            <td><% manipulation.amount_total %></td>
+                            <td><% manipulation.amount_discount %></td>
+                            <td><% manipulation.amount_paid %></td>
+                            <td><% manipulation.amount_dept %></td>
+                            <td class="pull-right">
+                                <button class="btn btn-sm btn-icon btn-warning"
+                                        ui-sref="admin.manipulations.update({ id: <% manipulation.id %>})">
+                                    <i class="fa fa-pencil"></i>
+                                </button>
+                                <button class="btn btn-sm btn-icon btn-danger"
+                                        ng-click="delete(manipulation)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
                 </div>
-                <!-- / main -->
+                <div class="row" style="margin: 0">
+                    <div class="col-sm-6">
+                        <pagination ng-model="currentPage" page="currentPage" max-size="noOfPages"
+                                    total-items="totalItems" items-per-page="entryLimit"></pagination>
+                    </div>
 
+                </div>
             </div>
+            <!-- / main -->
+
         </div>
     </div>
 </div>

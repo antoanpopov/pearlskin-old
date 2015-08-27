@@ -1,62 +1,74 @@
-<div class="hbox hbox-auto-xs hbox-auto-sm">
-  <!-- main -->
-  <div class="col">
-    <!-- main header -->
-    <div class="bg-light lter b-b wrapper-md">
-      <div class="row">
-        <div class="col-sm-6 col-xs-12">
-          <h1 class="m-n font-thin h3 text-black" translate="aside.nav.CLIENTS"></h1>
-          <small class="text-muted">Create new client</small>
+<div class="bg-light lter b-b wrapper-md">
+    <h1 class="m-n font-thin h3"><% $root.title %></h1>
+</div>
+<div class="wrapper-md">
+    <div  ng-controller="ClientsUpdateCtrl">
+        <div class="row">
+            <div class="col-sm-6">
+                <form role="form" ng-submit="postRequest()" class="form-validation">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label translate="data.property.names"></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="names"
+                                           ng-model="client.names"
+                                           ng-pattern="/[\wа-яА-Я]{4,128}$/"
+                                           required>
+                                </div>
+                                <div class="col-sm-6">
+                                    <label translate="data.property.phone"></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="phone"
+                                           ng-model="client.phone"
+                                           ng-pattern="/([0-9]){4,10}$/">
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label translate="data.property.email"></label>
+                                    <input type="email"
+                                           class="form-control"
+                                           placeholder="email"
+                                           ng-model="client.email">
+                                </div>
+                                <div class="col-sm-6">
+                                    <label translate="data.property.dob"></label>
+                                    <div class="input-group">
+                                        <input type="text"
+                                               class="form-control"
+                                               datepicker-popup="<% format %>"
+                                               ng-model="client.dob"
+                                               is-open="opened"
+                                               datepicker-options="dateOptions"
+                                               close-text="Close" />
+                          <span class="input-group-btn">
+                            <button type="button" class="btn btn-default" ng-click="open($event)">
+                                <i class="glyphicon glyphicon-calendar"></i>
+                            </button>
+                          </span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label translate="data.property.address"></label>
+                                    <textarea type="text"
+                                              class="form-control"
+                                              placeholder="address"
+                                              ng-model="client.address"></textarea>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                            <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        </footer>
+                    </div>
+                </form>
+            </div>
         </div>
-      </div>
-    </div>
-    <!-- / main header -->
-    <div class="wrapper-md" ng-controller="ClientsUpdateCtrl">
-      <!-- stats -->
-      <form role="form" ng-submit="postRequest()" class="form-validation">
-        <div class="form-group">
-          <label translate="data.property.names"></label> <em class="text-muted">('a-zA-Z0-9', 4-128 size)</em>
-          <input type="text"
-                 class="form-control"
-                 placeholder="names"
-                 ng-model="client.names"
-                 ng-pattern="/[\wа-я]{4,128}$/"
-                 required>
-        </div>
-        <div class="form-group">
-          <label translate="data.property.phone"></label>
-          <input type="text"
-                 class="form-control"
-                 placeholder="phone"
-                 ng-model="client.phone"
-                 ng-pattern="/([0-9]){4,10}$/">
-        </div>
-        <div class="form-group">
-          <label translate="data.property.email"></label>
-          <input type="email"
-                 class="form-control"
-                 placeholder="email"
-                 ng-model="client.email">
-        </div>
-        <div class="form-group">
-          <label translate="data.property.dob"></label>
-          <div class="input-group w-md">
-            <input type="text" class="form-control" datepicker-popup="<% format %>"ng-model="client.dob" is-open="opened" datepicker-options="dateOptions" close-text="Close" />
-              <span class="input-group-btn">
-                <button type="button" class="btn btn-default" ng-click="open($event)"><i class="glyphicon glyphicon-calendar"></i></button>
-              </span>
-          </div>
-        </div>
-        <div class="form-group">
-          <label translate="data.property.address"></label>
-          <input type="text"
-                 class="form-control"
-                 placeholder="address"
-                 ng-model="client.address">
-        </div>
-        <button type="submit" class="btn btn-sm btn-primary">Submit</button>
-      </form>
     </div>
     <!-- / main -->
-  </div>
+</div>
 </div>

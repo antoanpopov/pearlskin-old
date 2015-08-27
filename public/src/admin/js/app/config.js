@@ -26,6 +26,7 @@ angular.module('app')
     });
     // Tell the module what language to use by default
     $translateProvider.preferredLanguage('en');
+    $translateProvider.useSanitizeValueStrategy('sanitize');
     // Tell the module to store the language in the local storage
     $translateProvider.useLocalStorage();
   }])

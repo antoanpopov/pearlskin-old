@@ -18,6 +18,11 @@ class CreateManipulationsTable extends Migration {
             $table->string('title',255);
             $table->text('description');
             $table->string('learnt_from',255);
+            $table->boolean('client_has_discount')->default(0);
+            $table->decimal('amount_total',10,2);
+            $table->decimal('amount_discount',10,2);
+            $table->decimal('amount_paid',10,2);
+            $table->decimal('amount_dept',10,2);
             $table->integer('client_id')->unsigned()->nullable();
             $table->foreign('client_id')
                 ->references('id')

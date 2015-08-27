@@ -2,9 +2,16 @@
 
 app
   //Clients List Controller
-  .controller('DoctorsUpdateCtrl', ['$rootScope','$scope','$http', 'FileUploader', 'Doctor', '$state', function($rootScope, $scope, $http, FileUploader, Doctor, $state) {
+  .controller('DoctorsUpdateCtrl', ['$rootScope','$scope','$http', 'FileUploader', 'Doctor', '$state','Language', function($rootScope, $scope, $http, FileUploader, Doctor, $state, Language) {
 
         $scope.doctor = {};
+
+        Language.get()
+            .success(function(data) {
+                $scope.languages = data;
+            })
+            .error(function(data){
+            });
 
         $scope.postRequest = function(event){
             if($scope.uploader.queue.length === 0){
@@ -46,6 +53,7 @@ app
                 $scope.doctor = data;
                 $scope.doctor.has_percent = $scope.doctor.has_percent === 1 ? true : false;
                 $scope.doctor.is_visible = $scope.doctor.is_visible === 1 ? true : false;
+                $rootScope.title += $scope.doctor.texts[$rootScope.langCode].names;
 
             });
 

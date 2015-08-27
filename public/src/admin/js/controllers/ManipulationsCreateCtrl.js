@@ -6,7 +6,7 @@ app
         '$translate',
         '$rootScope',
         '$scope',
-        '$http',
+        '$state',
         'Manipulation',
         'Client',
         'Doctor',
@@ -15,7 +15,7 @@ app
             $translate,
             $rootScope,
             $scope,
-            $http,
+            $state,
             Manipulation,
             Client,
             Doctor,
@@ -24,8 +24,37 @@ app
             $rootScope.langCode = $translate.use();
             $scope.selectedProcedures = [];
             $scope.manipulation = {
-                procedures : []
+                procedures : [],
+                amount_discount : 0,
+                amount_dept : 0,
+                amount_total : 0,
+                amount_paid : 0,
+                client_has_discount : false
             };
+
+            $scope.removeProcedure = function(clientObj) {
+
+                        var index = $scope.selectedProcedures.indexOf(clientObj);
+                        if (index != -1) {
+                            $scope.selectedProcedures.splice(index, 1);
+                        }
+
+            };
+            $scope.getAmountTotal = function() {
+                var total = 0;
+                for(var i = 0; i < $scope.selectedProcedures.length; i++){
+                    var product = $scope.selectedProcedures[i];
+                    total += parseFloat(product.price);
+                }
+                $scope.manipulation.amount_total = total.toFixed(2);
+                return total.toFixed(2);
+            };
+            $scope.getAmountDept = function() {
+                var amount_dept = 0;
+                amount_dept = $scope.manipulation.amount_total - $scope.manipulation.amount_discount - $scope.manipulation.amount_paid;
+                return amount_dept.toFixed(2);
+            };
+
             Client.get()
                 .success(function(data){
                     $scope.clients = data;
@@ -66,8 +95,7 @@ app
                 }
                 Manipulation.post($scope.manipulation)
                     .success(function(data) {
-                        console.log(data);
-                        //  $state.go('admin.procedures');
+                        $state.go('admin.manipulations');
 
                     })
                     .error(function(data){

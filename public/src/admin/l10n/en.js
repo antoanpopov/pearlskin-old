@@ -17,7 +17,7 @@
     "property" : {
       "address" : "Address",
       "amount" : "Amount",
-      "amount_dept" : "Client owes",
+      "amount_due" : "Client owes",
       "amount_paid" : "Client paid",
       "created_at" : "Created at",
       "created_by" : "Created by",

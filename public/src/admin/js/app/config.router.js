@@ -6,13 +6,15 @@
 angular.module('app')
     .run(
     ['$rootScope', '$state', '$stateParams', '$translate',
-        function ($rootScope, $state, $stateParams) {
+        function ($rootScope, $state, $stateParams, $translate) {
             $rootScope.$state = $state;
+
             $rootScope.$stateParams = $stateParams;
             $rootScope.$on('$stateChangeSuccess',
                 function (event, toState, toParams, fromState, fromParams) {
                     $rootScope.baseTitle = "Pearlskin";
                     $rootScope.title = toState.title;
+                    $rootScope.langCode = $translate.use();
                 })
         }
     ]
@@ -52,7 +54,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('/src/admin/js/angular/angular-translate.js').then(
+                                return $ocLazyLoad.load(['clientService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/ClientsListCtrl.js']);
                                     }
@@ -70,7 +72,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('toaster').then(
+                                return $ocLazyLoad.load([]).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/ClientsCreateCtrl.js']);
                                     }
@@ -81,7 +83,7 @@ angular.module('app')
                 .state('admin.clients.update', {
                     url: '/{id}',
                     template: '<div ui-view class="fade-in-up"></div>',
-                    title: "Clients - Create",
+                    title: "Clients - ",
                     views: {
                         "@admin": {templateUrl: '/src/admin/tpl/clients.update.html'}
                     },
@@ -104,7 +106,11 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load(['/src/admin/js/controllers/ProceduresListCtrl.js']);
+                                return $ocLazyLoad.load(['procedureService']).then(
+                                    function () {
+                                        return $ocLazyLoad.load(['/src/admin/js/controllers/ProceduresListCtrl.js']);
+                                    }
+                                );
                             }]
                     }
                 })
@@ -129,7 +135,7 @@ angular.module('app')
                 .state('admin.procedures.update', {
                     url: '/{id}',
                     template: '<div ui-view class="fade-in-up"></div>',
-                    title: "Procedures - Update",
+                    title: "Procedures - ",
                     views: {
                         "@admin": {templateUrl: '/src/admin/tpl/procedures.update.html'}
                     },
@@ -174,7 +180,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load(['angularFileUpload', 'procedureService','languageService']).then(
+                                return $ocLazyLoad.load(['angularFileUpload', 'doctorService','languageService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsCreateCtrl.js']);
                                     }
@@ -185,14 +191,14 @@ angular.module('app')
                 .state('admin.doctors.update', {
                     url: '/{id}',
                     template: '<div ui-view class="fade-in-up"></div>',
-                    title: "Doctors - Update",
+                    title: "Doctors - ",
                     views: {
                         "@admin": {templateUrl: '/src/admin/tpl/doctors.update.html'}
                     },
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('angularFileUpload').then(
+                                return $ocLazyLoad.load(['angularFileUpload', 'doctorService','languageService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsUpdateCtrl.js']);
                                     }
@@ -212,7 +218,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('manipulationService').then(
+                                return $ocLazyLoad.load(['manipulationService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/ManipulationsListCtrl.js']);
                                     }
@@ -241,7 +247,7 @@ angular.module('app')
                 .state('admin.manipulations.update', {
                     url: '/{id}',
                     template: '<div ui-view class="fade-in-up"></div>',
-                    title: "Manipulations - Update",
+                    title: "Manipulations - ",
                     views: {
                         "@admin": {templateUrl: '/src/admin/tpl/manipulations.update.html'}
                     },

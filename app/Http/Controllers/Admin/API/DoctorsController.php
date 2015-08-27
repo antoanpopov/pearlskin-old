@@ -39,15 +39,15 @@ class DoctorsController extends Controller {
 
     public function create()
     {
-        var_dump(\Input::all());
-        $postData = \Input::all();
+      //  var_dump(\Input::all());
+        $postData = \Input::except('file', 'texts');
         if(\Input::hasFile('file')){
             $fileExtension = \Input::file('file')->getClientOriginalExtension();
             $postData['image'] = \Hash::make(date('Y-m-d H:i:s')) . "." . $fileExtension;
             \Input::file('file')->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
         }
 
-        $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,['file', 'texts']);
+        $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,[]);
         $texts = \Input::only('texts');
 
         foreach($texts as $text){
@@ -115,13 +115,26 @@ class DoctorsController extends Controller {
     public function update($id = null)
     {
         if($id != null){
-            $postData = \Input::all();
-            if(\Input::hasFile('file')){
-                $fileExtension = \Input::file('file')->getClientOriginalExtension();
-                $postData['image'] = $postData['names'] . "." . $fileExtension;
-                \Input::file('file')->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
-            }
+
+            $postData = \Input::except('file', 'texts');
             $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,['created_by_user_name','updated_by_user_name']);
+            $texts = \Input::only('texts');
+
+            foreach($texts['texts'] as $key => $lang){
+                if($lang !== null){
+                    $doctorText = DoctorText::firstOrNew([
+                        'doctor_id' => $createRecord['id'],
+                        'language_id' => Language::where('code','=',$key)->first()->id
+                    ]);
+                    $doctorText->names = $lang['names'];
+                    $doctorText->description = $lang['description'];
+                    $doctorText->language_id = Language::where('code','=',$key)->first()->id;
+                    $doctorText->doctor_id = $createRecord['id'];
+                    $doctorText->save();
+                }
+
+            }
+
             return response()->json(['status' => $createRecord['status']],$createRecord['code']);
         }
 

@@ -2,7 +2,7 @@
 
 app
   //Clients List Controller
-  .controller('ProceduresCreateCtrl', ['$translate', '$rootScope','$scope','$http', 'Procedure','Language', function($translate, $rootScope, $scope, $http, Procedure, Language) {
+  .controller('ProceduresCreateCtrl', ['$translate', '$rootScope','$scope', '$state', 'Procedure','Language', function($translate, $rootScope, $scope, $state, Procedure, Language) {
 
 
         $scope.procedure = {
