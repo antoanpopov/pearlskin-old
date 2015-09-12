@@ -6,7 +6,7 @@ app
         '$translate',
         '$rootScope',
         '$scope',
-        '$http',
+        '$state',
         'Manipulation',
         'Client',
         'Doctor',
@@ -15,7 +15,7 @@ app
             $translate,
             $rootScope,
             $scope,
-            $http,
+            $state,
             Manipulation,
             Client,
             Doctor,
@@ -131,12 +131,12 @@ app
                 $scope.manipulation.procedures = [];
 
                 for(var i = 0; i< $scope.selectedProcedures.length; i++){
-                    $scope.manipulation.procedures.push($scope.selectedProcedures[0].id);
+                    $scope.manipulation.procedures.push($scope.selectedProcedures[i].id);
                 }
                 Manipulation.update($rootScope.$stateParams.id,$scope.manipulation)
                     .success(function(data) {
-                        console.log(data);
-                        //  $state.go('admin.procedures');
+                        //console.log(data);
+                        $state.go('admin.manipulations');
 
                     })
                     .error(function(data){

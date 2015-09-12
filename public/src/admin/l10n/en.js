@@ -13,6 +13,16 @@
     "NOTIFICATIONS" : "Notifications"
   }
 },
+"navigation" : {
+    "administration" : "Administration",
+    "dashboard" : "Dashboard",
+    "doctors" : "Doctors",
+    "clients" : "Clients",
+    "clients_side" : "Clients Side",
+    "manipulations" : "Manipulations",
+    "procedures" : "Procedures",
+    "references" : "References"
+},
 "data" : {
     "property" : {
       "address" : "Address",

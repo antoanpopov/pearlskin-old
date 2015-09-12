@@ -15,7 +15,6 @@ angular.module('app')
                 // for chart colors
                 color: {
                     primary: '#7266ba',
-                    info:    '#23b7e5',
                     success: '#27c24c',
                     warning: '#fad733',
                     danger:  '#f05050',
@@ -26,6 +25,7 @@ angular.module('app')
                 settings: {
                     themeID: 1,
                     navbarHeaderColor: 'bg-black',
+                    iconsColor: 'text-success',
                     navbarCollapseColor: 'bg-white-only',
                     asideColor: 'bg-black',
                     headerFixed: true,

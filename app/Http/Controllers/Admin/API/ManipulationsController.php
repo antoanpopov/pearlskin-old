@@ -140,17 +140,36 @@ class ManipulationsController extends Controller {
             $postDataManipulation = \Input::except('procedures');
             $postDataManipulationProcedures = \Input::only('procedures');
             $createRecord = RequestHelper::writeAllExcept(new Manipulation(),$postDataManipulation,['created_by_user_name','updated_by_user_name']);
-//            if(!empty($postDataManipulationProcedures['procedures']) && $createRecord['id']){
-//
-//                foreach($postDataManipulationProcedures['procedures'] as $manipulationProcedure){
-//
-//                    $postData = [];
-//                    $postData['procedure_id'] = $manipulationProcedure;
-//                    $postData['manipulation_id'] = $createRecord['id'];
-//
-//                    $createManipulationProcedures = RequestHelper::writeAllExcept(new ManipulationProcedure(),$postData,['created_by_user_id','updated_by_user_id']);
-//                }
-//            }
+            if($createRecord['id']){
+
+                $manipulationCurrentProcedures = ManipulationProcedure::where('manipulation_id','=', $id)
+                    ->select('id','procedure_id')
+                    ->get();
+
+                foreach($manipulationCurrentProcedures as $manipulationCurrentProcedure){
+
+                    $checkIfExists = array_search($manipulationCurrentProcedure->procedure_id, $postDataManipulationProcedures['procedures']);
+                    if($checkIfExists === false){
+                        $manipulationCurrentProcedure->delete();
+                    }
+
+                }
+                foreach($postDataManipulationProcedures['procedures'] as $manipulationNewProcedure){
+
+                    $checkIfExists = ManipulationProcedure::where('manipulation_id', '=', $id)
+                        ->where('procedure_id','=',$manipulationNewProcedure)->first();
+                    if($checkIfExists === NULL){
+                        $postData = [
+                            'procedure_id' => $manipulationNewProcedure,
+                            'manipulation_id' => $createRecord['id']
+                        ];
+
+                        $createManipulationProcedures = RequestHelper::writeAllExcept(new ManipulationProcedure(),$postData,['created_by_user_id','updated_by_user_id']);
+                    }
+                }
+
+
+            }
             return response()->json(['status' => $createRecord['status']],$createRecord['code']);
         }
 
