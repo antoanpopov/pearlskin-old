@@ -17,6 +17,11 @@ app
             });
 
         $scope.postRequest = function(event){
+
+            transformTextToArray($scope.doctor.texts);
+            delete $scope.doctor.texts;
+
+
             if($scope.uploader.queue.length === 0){
                 Doctor.post($scope.doctor)
                     .success(function(data) {
@@ -43,15 +48,21 @@ app
         // CALLBACKS
 
         uploader.onBeforeUploadItem = function(item) {
-            console.info('onBeforeUploadItem', item);
+            item.formData.length = 0;
             item.formData.push($scope.doctor);
-
         };
 
         uploader.onCompleteAll = function() {
-       //     $state.go('admin.doctors');
+            $state.go('admin.doctors');
         };
 
+        function transformTextToArray(_Object){
+            for(var lang in _Object){
+                for(var propertyName in _Object[lang]){
+                    $scope.doctor[lang+"_"+propertyName] = _Object[lang][propertyName];
 
+                }
+            }
+        }
 
   }]);

@@ -56,8 +56,10 @@
                                     <span ng-if="manipulation.client_phone" style="display:block;">
                                         <% manipulation.client_phone %>
                                     </span>
-                                    <span ng-if="manipulation.texts[$root.langCode].names" style="display:block;">
-                                        <% 'data.property.treating' | translate %>: <% manipulation.texts[$root.langCode].names %>
+                                    <span ng-if="manipulation.texts[$root.langCode].names"
+                                          translate="data.property.treating"></span>
+                                    <span ng-if="manipulation.texts[$root.langCode].names">
+                                        : <% manipulation.texts[$root.langCode].names %>
                                     </span>
                             </td>
                             <td><% manipulation.learnt_from %></td>

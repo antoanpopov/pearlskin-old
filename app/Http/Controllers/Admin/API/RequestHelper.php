@@ -36,6 +36,7 @@ class RequestHelper extends Controller {
 			try{
                 $fillableFileds = $modelObject->getFillable();
 			    $record = (isset($postData['id']))? $modelObject::firstOrNew(['id' => $postData['id']]) : $modelObject;
+
                 if(!isset($record->id)){$postData['created_by_user_id'] = Auth::user()->id;};
                 $postData['updated_by_user_id'] = Auth::user()->id;
                 $postData['updated_at'] = date("Y-m-d H:i:s");

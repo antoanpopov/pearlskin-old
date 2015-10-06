@@ -45,7 +45,7 @@ Route::delete('api/procedures/{id}', 'Admin\API\ProceduresController@delete');
 
 Route::post('api/doctors/', 'Admin\API\DoctorsController@create');
 Route::get('api/doctors/{id?}', 'Admin\API\DoctorsController@read');
-Route::put('api/doctors/{id}', 'Admin\API\DoctorsController@update');
+Route::post('api/doctors/{id}', 'Admin\API\DoctorsController@update');
 Route::delete('api/doctors/{id}', 'Admin\API\DoctorsController@delete');
 
 Route::post('api/manipulations/', 'Admin\API\ManipulationsController@create');

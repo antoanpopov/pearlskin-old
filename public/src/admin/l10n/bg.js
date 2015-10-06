@@ -1,5 +1,5 @@
 {
-
+"client_name": "asdsad",
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",
@@ -13,18 +13,65 @@
     "NOTIFICATIONS" : "Notifications"
   }
 },
+"navigation" : {
+    "administration" : "Администрация",
+    "dashboard" : "Начало",
+    "doctors" : "Доктори",
+    "clients" : "Клиенти",
+    "clients_side" : "Клиентска част",
+    "manipulations" : "Манипулации",
+    "procedures" : "Процедури",
+    "references" : "Справки"
+},
+"data" : {
+    "property" : {
+      "address" : "Адрес",
+      "amount" : "Сума",
+      "amount_dept" : "Дължима сума",
+      "amount_paid" : "Платена сума",
+      "created_at" : "Създадено на",
+      "created_by" : "Създадено от",
+      "clients" : "Клиенти",
+      "doctor" : "Доктор",
+      "doctors" : "Доктори",
+      "date" : "Дата",
+      "description" : "Описание",
+      "discount" : "Отстъпка",
+      "dob" : "Рожденна дата",
+      "email" : "Е-поща",
+      "has_percent" : "Има процент",
+      "heard_from" : "Научил за нас от",
+      "image" : "Изображение",
+      "id" : "ID",
+      "is_visible" : "Видимо",
+      "manipulation" : "Манипулация",
+      "name" : "Име",
+      "name_of_client" : "Имена на клиент",
+      "names" : "Име и фамилия",
+      "phone" : "Телефонен номер",
+      "price" : "Цена",
+      "profit" : "Печалба",
+      "procedures" : "Процедури",
+      "sort_order" : "Ред",
+      "title" : "Име",
+      "treating" : "Лекуващ",
+      "updated_at" : "Обновено на",
+      "updated_by" : "Обновено от"
+
+    }
+},
 "aside" : {
   "nav" : {
-    "HEADER" : "Меню",
-    "DASHBOARD" : "Начало",
+    "HEADER" : "Navigation",
+    "DASHBOARD" : "Dashboard",
     "CALENDAR" : "Calendar",
     "EMAIL" : "Email",
     "WIDGETS" : "Widgets",
-    "CLIENTS":"Клиенти",
-    "PROCEDURES":"Процедури",
-        "DOCTORS":"Лекари",
-        "MANIPULATIONS":"Манипулации",
-        "REFERENCES":"Справки",
+    "CLIENTS":"Clients",
+    "PROCEDURES":"Procedures",
+        "DOCTORS":"Doctors",
+        "MANIPULATIONS":"Manipulations",
+        "REFERENCES":"References",
     "components" : {
       "COMPONENTS" : "Components",
       "ui_kits" : {

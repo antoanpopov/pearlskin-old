@@ -1,5 +1,5 @@
 /**
- * Created by Antoan on 11.8.2015 ã..
+ * Created by Antoan on 11.8.2015 ï¿½..
  */
 angular.module('doctorService', [])
 
@@ -12,7 +12,7 @@ angular.module('doctorService', [])
                 return $http.post('api/doctors/',postData);
             },
             update : function(id,postData) {
-                return $http.put('api/doctors/'+id,postData);
+                return $http.post('api/doctors/'+id,postData);
             },
             delete : function(id) {
                 return $http.delete('api/doctors/'+id);

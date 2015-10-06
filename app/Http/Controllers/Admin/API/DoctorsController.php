@@ -39,104 +39,58 @@ class DoctorsController extends Controller {
 
     public function create()
     {
-      //  var_dump(\Input::all());
-        $postData = \Input::except('file', 'texts');
-        if(\Input::hasFile('file')){
-            $fileExtension = \Input::file('file')->getClientOriginalExtension();
-            $postData['image'] = \Hash::make(date('Y-m-d H:i:s')) . "." . $fileExtension;
-            \Input::file('file')->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
-        }
+        $postData = \Input::only(
+            'has_percent',
+            'is_visible',
+            'phone'
+        );
 
-        $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,[]);
-        $texts = \Input::only('texts');
+        $texts = \Input::except(
+            'has_percent',
+            'is_visible',
+            'phone',
+            'file'
+        );
 
-        foreach($texts as $text){
+        $file = \Input::file('file');
 
-            foreach($text as $key => $lang){
+        $modelInstance = new Doctor();
+        $modelInstance->createNewRecord($postData,$texts, $file);
 
-                $procedureText = new DoctorText();
-                $procedureText->names = $lang['names'];
-                $procedureText->description = $lang['description'];
-                $procedureText->language_id = $lang['language_id'];
-                $procedureText->doctor_id = $createRecord['id'];
-                $procedureText->save();
-
-            }
-
-        }
-        //	return response()->json(['status' => $createRecord['status']],$createRecord['code']);
     }
 
     public function read($id = null)
     {
+        $doctorsQuery = Doctor::getOneOrAll($id);
 
-        try{
-            $languagesList = Language::select('id','name','image','code')->get();
-
-            if($id != null){
-                $doctor = Doctor::where('doctors.id',$id)
-                    ->join('users as creator','creator.id','=','doctors.created_by_user_id')
-                    ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                    ->select('doctors.id','image','has_percent','sort_order','is_visible','creator.name as created_by_user_name','updater.name as updated_by_user_name')
-                    ->first();
-
-                foreach($languagesList as $language){
-                    $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$doctor->id)->where('language_id','=',$language->id)->select('names','description')->first();
-                }
-                $doctor->texts = $textsLanguages;
-                return response()->json($doctor);
-            } else {
-
-                $doctorsList = Doctor::
-                join('users as creator','creator.id','=','doctors.created_by_user_id')
-                    ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                    ->select('doctors.id','image','has_percent','sort_order','is_visible' ,'creator.name as created_by_user_name','updater.name as updated_by_user_name')
-                    ->get();
-
-                foreach($doctorsList as $doctor){
-                    foreach($languagesList as $language){
-                        $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$doctor->id)->where('language_id','=',$language->id)->select('names','description')->first();
-                    }
-                    $doctor->texts = $textsLanguages;
-
-                }
-
-                return response()->json($doctorsList);
-            }
-        }catch(\Illuminate\Database\QueryException $e){
-            return response()->json(array('status' => $e->getMessage()
-            ), 500);
-
-        }
-
+        return response()->json($doctorsQuery);
 
     }
 
     public function update($id = null)
     {
-        if($id != null){
 
-            $postData = \Input::except('file', 'texts');
-            $createRecord = RequestHelper::writeAllExcept(new Doctor(),$postData,['created_by_user_name','updated_by_user_name']);
-            $texts = \Input::only('texts');
+        $postData = \Input::only(
+            'has_percent',
+            'is_visible',
+            'phone',
+            'image',
+            'id'
+        );
 
-            foreach($texts['texts'] as $key => $lang){
-                if($lang !== null){
-                    $doctorText = DoctorText::firstOrNew([
-                        'doctor_id' => $createRecord['id'],
-                        'language_id' => Language::where('code','=',$key)->first()->id
-                    ]);
-                    $doctorText->names = $lang['names'];
-                    $doctorText->description = $lang['description'];
-                    $doctorText->language_id = Language::where('code','=',$key)->first()->id;
-                    $doctorText->doctor_id = $createRecord['id'];
-                    $doctorText->save();
-                }
+        $texts = \Input::except(
+            'id',
+            'sort_order',
+            'has_percent',
+            'is_visible',
+            'phone',
+            'file',
+            'image'
+        );
+        $file = \Input::file('file');
 
-            }
-
-            return response()->json(['status' => $createRecord['status']],$createRecord['code']);
-        }
+        $modelInstance = Doctor::find($id);
+        $modelInstance->updateRecord($postData,$texts, $file);
 
     }
 
