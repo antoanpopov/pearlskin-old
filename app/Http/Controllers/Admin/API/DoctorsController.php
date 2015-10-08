@@ -91,6 +91,11 @@ class DoctorsController extends Controller {
 
         $modelInstance = Doctor::find($id);
         $modelInstance->updateRecord($postData,$texts, $file);
+        $status = $modelInstance->getResult();
+        $status->code;
+        $status->message;
+        return response()->json($status->message,$status->code);
+       // return response()->json($modelInstance->updateRecord($postData,$texts, $file),app('Illuminate\Http\Response')->status());
 
     }
 

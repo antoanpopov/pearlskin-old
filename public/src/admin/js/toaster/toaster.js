@@ -18,7 +18,7 @@ angular.module('toaster', ['ngAnimate'])
 .service('toaster', ['$rootScope', function ($rootScope) {
     this.pop = function (type, title, body, timeout, bodyOutputType, clickHandler) {
         if (angular.isObject(type)) {
-            var params = type; // NOTE: anable parameters as pop argument
+            var params = type; // NOTE: enable parameters as pop argument
             this.toast = {
                 type: params.type,
                 title: params.title,
@@ -31,8 +31,8 @@ angular.module('toaster', ['ngAnimate'])
         else {
             this.toast = {
                 type: type,
-                title: title,
-                body: body,
+                title: $('<span />').html(title).text(),
+                body: $('<span />').html(body).text(),
                 timeout: timeout,
                 bodyOutputType: bodyOutputType,
                 clickHandler: clickHandler

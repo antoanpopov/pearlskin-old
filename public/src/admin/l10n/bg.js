@@ -1,4 +1,28 @@
-{
+﻿{
+"TOAST_NOTIFICATION" : {
+    "STATUS" : {
+        "SUCCESS" : "успешно",
+        "ERROR" : "проблем"
+    },
+    "MESSAGE" : {
+        "CREATE" : {
+            "SUCCESS" : "<% name %> беше успешно създаден!",
+            "ERROR" : "<% name %> не беше създаден!"
+        },
+        "READ" : {
+                    "SUCCESS" : "<% name %> беше успешно зареден!",
+                    "ERROR" : "грешка при зареждането на заявката!"
+                },
+        "UPDATE" : {
+            "SUCCESS" : "<% name %> беше успешно обновен!",
+            "ERROR" : "<% name %> не беше обновен!"
+        },
+        "DELETE" : {
+            "SUCCESS" : "<% name %> беше успешно изтрит!",
+            "ERROR" : "<% name %> не беше изтрит!"
+        }
+    }
+},
 "client_name": "asdsad",
 "header" : {
   "navbar" : {

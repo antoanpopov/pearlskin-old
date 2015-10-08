@@ -16,7 +16,22 @@ angular.module('languageService', [])
             },
             delete : function(id) {
                 return $http.delete('api/languages/'+id);
+            },
+            transformTextsToArray : function(_ObjectToUpdate, _PropertiesToAdd, _PropertiesToRemove){
+
+                for(var lang in _PropertiesToAdd){
+                    for(var propertyName in _PropertiesToAdd[lang]){
+                        _ObjectToUpdate[lang+"_"+propertyName] = _PropertiesToAdd[lang][propertyName];
+                    }
+                }
+
+                for(var prop in _PropertiesToRemove){
+                    delete _ObjectToUpdate[_PropertiesToRemove[prop]];
+                }
+
+                return _ObjectToUpdate;
             }
+
         }
 
     });

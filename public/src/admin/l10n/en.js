@@ -1,5 +1,8 @@
 {
-"client_name": "asdsad",
+"TOAST_NOTIFICATION" : {
+    "success" : "<% name %> was successfully updated!",
+    "error" : "<% name %> was not updated!"
+},
 "header" : {
   "navbar" : {
     "UPLOAD" : "Upload",

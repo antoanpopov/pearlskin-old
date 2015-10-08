@@ -2,32 +2,37 @@
 
 app
   //Clients List Controller
-  .controller('DoctorsUpdateCtrl', ['$rootScope','$scope','$http', 'FileUploader', 'Doctor', '$state','Language', function($rootScope, $scope, $http, FileUploader, Doctor, $state, Language) {
+  .controller('DoctorsUpdateCtrl', ['$rootScope','$scope','$http', 'FileUploader', 'Doctor', '$state','Language','toaster' ,'$translate', function($rootScope, $scope, $http, FileUploader, Doctor, $state, Language, toaster, $translate) {
 
         $scope.doctor = {
         };
+        $scope.backupTexts = {};
 
         Language.get()
             .success(function(data) {
                 $scope.languages = data;
             })
             .error(function(data){
+                toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), data);
             });
 
         $scope.postRequest = function(event){
-
-            transformTextToArray($scope.doctor.texts);
-            delete $scope.doctor.texts;
-            delete $scope.doctor.created_by_user_name;
-            delete $scope.doctor.updated_by_user_name;
+            $scope.backupTexts = $scope.doctor.texts;
+            $scope.doctor = Language.transformTextsToArray($scope.doctor, $scope.doctor.texts, ['texts', 'created_by_user_name', 'updated_by_user_name']);
 
             if($scope.uploader.queue.length === 0){
                     Doctor.update($rootScope.$stateParams.id,$scope.doctor)
                     .success(function(data, status) {
-                        $state.go('admin.doctors');
+                            toaster.pop(
+                                "success",
+                                $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS'),
+                                $translate.instant('TOAST_NOTIFICATION.MESSAGE.UPDATE.SUCCESS', { name: $scope.backupTexts[$rootScope.langCode].names }));
+                            $state.go('admin.doctors');
+
                     })
                     .error(function(data, status){
-                        console.log(data, status);
+                            toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), data);
+                            $scope.doctor.texts = $scope.backupTexts;
                     });
             }else {
                 uploader.queue[0].upload();
@@ -42,22 +47,26 @@ app
             url: 'api/doctors/'
         });
 
-        // FILTERS
-
-        // CALLBACKS
-
         uploader.onBeforeUploadItem = function(item) {
             item.formData.length = 0;
             item.formData.push($scope.doctor);
 
         };
-        uploader.onCompleteAll = function() {
+        uploader.onErrorItem = function(item,response,status,headers) {
+            toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), response);
+            $scope.doctor.texts = $scope.backupTexts;
+
+        };
+        uploader.onSuccessItem = function(item,response,status,headers){
+            toaster.pop(
+                "success",
+                $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS'),
+                $translate.instant('TOAST_NOTIFICATION.MESSAGE.UPDATE.SUCCESS', { name: $scope.backupTexts[$rootScope.langCode].names }));
             $state.go('admin.doctors');
         };
 
         Doctor.get($rootScope.$stateParams.id)
             .success(function(data) {
-
                 $scope.doctor = data;
                 $scope.doctor.has_percent = $scope.doctor.has_percent === 1 ? true : false;
                 $scope.doctor.is_visible = $scope.doctor.is_visible === 1 ? true : false;
@@ -65,19 +74,9 @@ app
 
                 uploader.url = 'api/doctors/' + $scope.doctor.id;
 
-            });
+            }.error(function(data,status){
+                    toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), data);
 
-        function transformTextToArray(_Object){
-            for(var lang in _Object){
-                for(var propertyName in _Object[lang]){
-                    $scope.doctor[lang+"_"+propertyName] = _Object[lang][propertyName];
-
-                }
-            }
-        }
-
-
-
-
+            }));
 
   }]);

@@ -8,10 +8,11 @@ angular.module('app')
     ['$rootScope', '$state', '$stateParams', '$translate',
         function ($rootScope, $state, $stateParams, $translate) {
             $rootScope.$state = $state;
-
+           ;
             $rootScope.$stateParams = $stateParams;
             $rootScope.$on('$stateChangeSuccess',
                 function (event, toState, toParams, fromState, fromParams) {
+
                     $rootScope.baseTitle = "Pearlskin";
                     $rootScope.title = toState.title;
                     $rootScope.langCode = $translate.use();
@@ -29,7 +30,13 @@ angular.module('app')
                 .state('admin', {
                     abstract: true,
                     url: '/admin',
-                    templateUrl: '/src/admin/tpl/app.html'
+                    templateUrl: '/src/admin/tpl/app.html',
+                    resolve: {
+                        deps: ['$ocLazyLoad',
+                            function ($ocLazyLoad) {
+                                return $ocLazyLoad.load(['toaster']);
+                            }]
+                    }
                 })
                 .state('admin.dashboard', {
                     url: '/dashboard',
@@ -162,7 +169,7 @@ angular.module('app')
                     resolve: {
                         deps: ['$ocLazyLoad',
                             function ($ocLazyLoad) {
-                                return $ocLazyLoad.load('doctorService').then(
+                                return $ocLazyLoad.load(['doctorService']).then(
                                     function () {
                                         return $ocLazyLoad.load(['/src/admin/js/controllers/DoctorsListCtrl.js']);
                                     }

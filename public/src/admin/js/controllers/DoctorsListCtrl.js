@@ -10,7 +10,7 @@ app.filter('startFrom', function () {
     };
 });
 app
-  .controller('DoctorsListCtrl', ['$translate', '$rootScope','$scope','$http', 'Doctor', 'filterFilter', function($translate, $rootScope, $scope, $http, Doctor, filterFilter) {
+  .controller('DoctorsListCtrl', ['$translate', '$rootScope','$scope','$http', 'Doctor','filterFilter','toaster', function($translate, $rootScope, $scope, $http, Doctor, filterFilter, toaster) {
         // loading variable to show the spinning loading icon
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
@@ -28,15 +28,19 @@ app
             name: 50,
             value: 50
         }];
-        $scope.delete = function(clientObj) {
+        $scope.delete = function(doctorObj) {
 
-            Doctor.delete(clientObj.id)
+            Doctor.delete(doctorObj.id)
                 .success(function(data, status){
 
-                    var index = $scope.doctors.indexOf(clientObj);
+                    var index = $scope.doctors.indexOf(doctorObj);
                     if (index != -1) {
                         $scope.doctors.splice(index, 1);
                     }
+                    toaster.pop(
+                        "success",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS'),
+                        $translate.instant('TOAST_NOTIFICATION.MESSAGE.DELETE.SUCCESS', { name: doctorObj.texts[$rootScope.langCode].names }));
                     $scope.totalItems = $scope.doctors.length;
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
                 });
@@ -61,7 +65,10 @@ app
 
             })
             .error(function(data){
-                console.log(data);
+                toaster.pop(
+                    "error",
+                    $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'),
+                    data);
             });
 
 

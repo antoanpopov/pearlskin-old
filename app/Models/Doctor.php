@@ -1,6 +1,7 @@
 <?php namespace App\Models;
-
+use Exception;
 use Illuminate\Database\Eloquent\Model;
+use Symfony\Component\HttpFoundation\Response;
 
 class Doctor extends Model {
 
@@ -25,6 +26,8 @@ class Doctor extends Model {
      * @var array
      */
 	protected $hidden = ['created_at', 'updated_at'];
+    protected $statusCode = 200;
+    protected $statusMessage =  "success";
 
     public function texts(){
         return $this->hasMany('App\Models\DoctorText');
@@ -133,60 +136,84 @@ class Doctor extends Model {
 
     public function updateRecord($postData, $texts, $file){
 
-        $languagesList = Language::select('code')->where('is_visible','=',1)->get();
+            try{
 
-        $postData['updated_by_user_id'] = \Auth::user()->id;
-        $postData['updated_at'] = date("Y-m-d H:i:s");
-        $postData['phone'] = ($postData['phone'] == null)? '' : $postData['phone'];
-        var_dump($postData);
+            $languagesList = Language::select('code')->where('is_visible','=',1)->get();
 
+            $postData['updated_by_user_id'] = \Auth::user()->id;
+            $postData['updated_at'] = date("Y-m-d H:i:s");
+            $postData['phone'] = ($postData['phone'] == null)? '' : $postData['phone'];
 
-        if(!is_null($file)){
-            $postData['has_percent'] = ($postData['has_percent'] === 'true');
-            $postData['is_visible'] = ($postData['is_visible'] === 'true');
-            $fileExtension = \Input::file('file')->getClientOriginalExtension();
-            $imagePath = public_path() . '/src/admin/img/doctors/';
+            if(!is_null($file)){
 
-            if(file_exists(($imagePath . $postData['image'])) && $postData['image'] !== 'no_image.jpg')
-            {
-                unlink($imagePath . $postData['image']);
+                $fileExtension = \Input::file('file')->getClientOriginalExtension();
+                $postData['has_percent'] = ($postData['has_percent'] === 'true');
+                $postData['is_visible'] = ($postData['is_visible'] === 'true');
                 $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
+                $imagePath = public_path() . '/src/admin/img/doctors/';
 
-                while(file_exists($imagePath. $postData['image']))
-                    $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
-
-            }
-
-
+                if(file_exists(($imagePath . $postData['image'])) && $postData['image'] !== 'no_image.jpg')
+                {
+                    unlink($imagePath . $postData['image']);
 
 
-            $file->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
+                    while(file_exists($imagePath. $postData['image']))
+                        $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
 
-        }
-        var_dump($postData);
-        $this->fill($postData);
-        $this->save();
-
-
-        foreach($languagesList as $language){
-
-            $doctorText = DoctorText::firstOrNew([
-                        'doctor_id' => $this->id,
-                        'language_id' => Language::where('code','=',$language->code)->first()->id
-                    ]);
-
-            foreach($texts as $key => $languageText){
-
-                if(strpos($key, $language->code) !== false){
-                    $objProperty = (strpos($key, "language_id") !== false)? "language_id" : str_replace(array($language->code,"_"),"",$key);
-                    $doctorText->{$objProperty} = $languageText;
                 }
+
+
+
+
+                $file->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
+
             }
 
-            $doctorText->save();
+            $this->fill($postData);
+            $this->save();
 
-        }
+            foreach($languagesList as $language){
 
+                $doctorText = DoctorText::firstOrNew([
+                            'doctor_id' => $this->id,
+                            'language_id' => Language::where('code','=',$language->code)->first()->id
+                        ]);
+
+                foreach($texts as $key => $languageText){
+
+                    if(strpos($key, $language->code) !== false){
+                        $objProperty = (strpos($key, "language_id") !== false)? "language_id" : str_replace(array($language->code,"_"),"",$key);
+                        $doctorText->{$objProperty} = $languageText;
+                    }
+                }
+
+                $doctorText->save();
+
+            }
+
+
+                $this->setResult(200, "success");
+            }catch (Exception $ex){
+//                $response = new Response();
+//                $response->setStatusCode(500, $ex->getMessage());
+//                return $ex->getMessage();
+                $this->setResult(500, $ex->getMessage());
+            }
+
+
+    }
+
+    public function setResult($statusCode = 200, $statusMessage = "success"){
+        $this->statusCode = $statusCode;
+        $this->statusMessage = $statusMessage;
+    }
+
+    public function getResult(){
+        $response = new \stdClass();
+        $response->code = $this->statusCode;
+        $response->message = $this->statusMessage;
+
+        return $response;
     }
 
 }
