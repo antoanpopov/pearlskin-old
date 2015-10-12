@@ -38,108 +38,40 @@ class ProceduresController extends Controller {
 	 */
 	public function create()
     	{
-    	    $createRecord = RequestHelper::writeAllExcept(new Procedure(),Request::all(),['texts']);
+            $postData = \Input::only('price');
             $texts = \Input::only('texts');
-            foreach($texts as $text){
-                foreach($text as $key => $lang){
-
-                    $procedureText = new ProcedureText();
-                    $procedureText->title = $lang['title'];
-                    $procedureText->description = $lang['description'];
-                    $procedureText->language_id = $lang['language_id'];
-                    $procedureText->procedure_id = $createRecord['id'];
-                    $procedureText->save();
-
-                }
-
-            }
-
-			return response()->json(['status' => $createRecord['status']],$createRecord['code']);
+            $texts = json_decode($texts['texts'], true);
+            $file = \Input::file('file');
+            $modelInstance = new Procedure();
+            $result = $modelInstance->createNewRecord($postData, $texts, $file);
+            return $modelInstance->queryResponse($result);
     	}
 
 	public function read($id = null)
 	{
 
-        try{
-
-            $languagesList = Language::select('id','name','image','code')->get();
-
-            if($id != null){
-        		 $procedure = Procedure::where('procedures.id',$id)
-        		 ->join('users as creator','creator.id','=','procedures.created_by_user_id')
-                 ->join('users as updater','updater.id','=','procedures.updated_by_user_id')
-                 ->select('procedures.id'
-                     ,'price',
-                      'creator.name as created_by_user_name',
-                     'updater.name as updated_by_user_name')
-        		 ->first();
-
-                    foreach($languagesList as $language){
-
-                        $textsLanguages[$language->code] = ProcedureText::where('procedure_id','=',$procedure->id)->where('language_id','=',$language->id)->select('title','description','language_id')->first();
-
-                    }
-                    $procedure->texts = $textsLanguages;
-        		 return response()->json($procedure);
-            } else {
-
-        		 $proceduresList = Procedure::
-                   join('users as creator','creator.id','=','procedures.created_by_user_id')
-        		 ->join('users as updater','updater.id','=','procedures.updated_by_user_id')
-                 ->select('procedures.id',
-                     'price',
-                     'creator.name as created_by_user_name',
-                     'updater.name as updated_by_user_name')
-                 ->get();
-
-                foreach($proceduresList as $procedure){
-                    foreach($languagesList as $language){
-                        $textsLanguages[$language->code] = ProcedureText::where('procedure_id','=',$procedure->id)->where('language_id','=',$language->id)->select('title','description')->first();
-                    }
-                    $procedure->texts = $textsLanguages;
-                }
-                 return response()->json($proceduresList);
-            }
-        }catch(\Illuminate\Database\QueryException $e){
-            return response()->json(array('status' => $e->getMessage()
-                       ), 500);
-
-        }
-
+        $modelInstance = new Procedure();
+        $result = $modelInstance->readRecord($id);
+        return $modelInstance->queryResponse($result);
        
 	}
 
 	public function update($id = null)
 	{
-	    if($id != null){
-	        $postData = Request::except('created_by_user_name','updated_by_user_name');
-            $createRecord = RequestHelper::writeAllExcept(new Procedure(),$postData,['texts']);
-            $texts = \Input::only('texts');
-                foreach($texts['texts'] as $key => $lang){
-                        if($lang !== null){
-                            $procedureText = ProcedureText::firstOrNew([
-                                'procedure_id' => $createRecord['id'],
-                                'language_id' => Language::where('code','=',$key)->first()->id
-                            ]);
-                            $procedureText->title = $lang['title'];
-                            $procedureText->description = $lang['description'];
-                            $procedureText->language_id = Language::where('code','=',$key)->first()->id;
-                            $procedureText->procedure_id = $createRecord['id'];
-                            $procedureText->save();
-                        }
-
-                }
-
-          return response()->json(['status' => $createRecord['status']],$createRecord['code']);
-        }
+        $postData = \Input::only('price');
+        $texts = \Input::only('texts');
+        $file = \Input::file('file');
+        $modelInstance = Procedure::findOrNew($id);
+        $result = $modelInstance->updateRecord($postData, $texts['texts'], $file);
+        return $modelInstance->queryResponse($result);
 
 	}
 
 	public function delete($id = null)
     {
-    	if($id != null){
-    		Procedure::where('id','=',$id)->delete();
-    	}
+        $modelInstance = new Procedure();
+        $result = $modelInstance->deleteRecord($id);
+        return $modelInstance->queryResponse($result);
     }
 
 }

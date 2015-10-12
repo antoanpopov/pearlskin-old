@@ -18,7 +18,7 @@ app
 
         $scope.postRequest = function(event){
             $scope.backupTexts = $scope.doctor.texts;
-            $scope.doctor = Language.transformTextsToArray($scope.doctor, $scope.doctor.texts, ['texts', 'created_by_user_name', 'updated_by_user_name']);
+            $scope.doctor.texts = JSON.stringify($scope.doctor.texts);
 
             if($scope.uploader.queue.length === 0){
                     Doctor.update($rootScope.$stateParams.id,$scope.doctor)
@@ -67,6 +67,7 @@ app
 
         Doctor.get($rootScope.$stateParams.id)
             .success(function(data) {
+                console.log(data);
                 $scope.doctor = data;
                 $scope.doctor.has_percent = $scope.doctor.has_percent === 1 ? true : false;
                 $scope.doctor.is_visible = $scope.doctor.is_visible === 1 ? true : false;
@@ -74,9 +75,9 @@ app
 
                 uploader.url = 'api/doctors/' + $scope.doctor.id;
 
-            }.error(function(data,status){
+            }).error(function(data,status){
                     toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), data);
 
-            }));
+            });
 
   }]);

@@ -44,26 +44,22 @@ class DoctorsController extends Controller {
             'is_visible',
             'phone'
         );
-
-        $texts = \Input::except(
-            'has_percent',
-            'is_visible',
-            'phone',
-            'file'
-        );
-
+        $texts = \Input::only('texts');
+        $texts = json_decode($texts['texts'], true);
         $file = \Input::file('file');
 
         $modelInstance = new Doctor();
-        $modelInstance->createNewRecord($postData,$texts, $file);
+        $result = $modelInstance->createNewRecord($postData,$texts, $file);
+        return $modelInstance->queryResponse($result);
 
     }
 
     public function read($id = null)
     {
-        $doctorsQuery = Doctor::getOneOrAll($id);
+        $modelInstance = new Doctor();
+        $result = $modelInstance->readRecord($id);
 
-        return response()->json($doctorsQuery);
+        return response()->json($result);
 
     }
 
@@ -78,32 +74,21 @@ class DoctorsController extends Controller {
             'id'
         );
 
-        $texts = \Input::except(
-            'id',
-            'sort_order',
-            'has_percent',
-            'is_visible',
-            'phone',
-            'file',
-            'image'
-        );
+        $texts = \Input::only('texts');
+        $texts = json_decode($texts['texts'], true);
         $file = \Input::file('file');
 
         $modelInstance = Doctor::find($id);
-        $modelInstance->updateRecord($postData,$texts, $file);
-        $status = $modelInstance->getResult();
-        $status->code;
-        $status->message;
-        return response()->json($status->message,$status->code);
-       // return response()->json($modelInstance->updateRecord($postData,$texts, $file),app('Illuminate\Http\Response')->status());
+        $result = $modelInstance->updateRecord($postData,$texts, $file);
+        return $modelInstance->queryResponse($result);
 
     }
 
     public function delete($id = null)
     {
-        if($id != null){
-            Doctor::where('id','=',$id)->delete();
-        }
+        $modelInstance = new Doctor();
+        $result = $modelInstance->deleteRecord($id);
+        return $modelInstance->queryResponse($result);
     }
 
 }

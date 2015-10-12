@@ -2,7 +2,7 @@
 
 app
   //Clients List Controller
-  .controller('ClientsCreateCtrl', ['$rootScope','$scope','$http', 'Client', '$state', function($rootScope, $scope, $http, Client, $state) {
+  .controller('ClientsCreateCtrl', ['$rootScope','$scope', 'Client', '$state', '$translate','toaster', function($rootScope, $scope, Client, $state, $translate, toaster) {
 
         $scope.client = {
             names: "",
@@ -36,12 +36,18 @@ app
         $scope.postRequest = function(){
             Client.post($scope.client)
                 .success(function(data) {
-                  
+                    toaster.pop(
+                        "success",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS') ,
+                        $translate.instant('TOAST_NOTIFICATION.MESSAGE.CREATE.SUCCESS',{ name: $scope.client.names }));
                    $state.go('admin.clients');
 
                 })
                 .error(function(data){
-                  //  console.log(data);
+                    toaster.pop(
+                        "error",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR') ,
+                        data);
                 });
         }
 

@@ -34,52 +34,36 @@ class ClientsController extends Controller {
 	 */
 	public function create()
     	{
-			$postData = Request::all();
-			$client = new Client();
-			$client->names = $postData['names'];
-			$client->phone = $postData['phone'];
-			$client->email = $postData['email'];
-			$client->dob = $postData['dob'];
-			$client->address = $postData['address'];
-			$client->created_by_user_id = Auth::user()->id;
-			$client->updated_by_user_id = Auth::user()->id;
-			$client->save();
-
+            $modelInstance = new Client();
+            $result = $modelInstance->createNewRecord(\Input::all());
+            return $modelInstance->queryResponse($result);
 
     	}
 
 	public function read($id = null)
 	{
 
-		if($id != null){
-		 $client = Client::select('names','phone','email','dob','address')->where('id',$id)->first();
-		 return response()->json($client);
-		} else {
-				$clientsList = Client::all();
-                return response()->json($clientsList);
-		}
-
+        $modelInstance = new Client();
+        $result = $modelInstance->readRecord($id);
+        return $modelInstance->queryResponse($result);
        
 	}
 
 	public function update($id = null)
 	{
-	    $postData = Request::all();
-	    $postKeys = array_keys($postData);
-        $client = Client::find($id);
-        foreach($postKeys as $key){
-            $client->{$key} = $postData[$key];
-        }
-        $client->updated_by_user_id = Auth::user()->id;
-        $client->updated_at = date('Y-m-d H:i:s');
-        $client->save();
+	    $postData = \Input::all();
+        $modelInstance = Client::findOrNew($id);
+        $result = $modelInstance->updateRecord($postData);
+        return $modelInstance->queryResponse($result);
+
 	}
 
 	public function delete($id = null)
     {
-    	if($id != null){
-    		Client::where('id','=',$id)->delete();
-    	}
+        $modelInstance = new Client();
+        $result = $modelInstance->deleteRecord($id);
+        return $modelInstance->queryResponse($result);
+
     }
 
 }

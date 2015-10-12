@@ -11,7 +11,7 @@ app.filter('startFrom', function () {
 });
 app
   //Clients List Controller
-  .controller('ClientsListCtrl', ['$rootScope','$scope','$http', 'Client', 'filterFilter', function($rootScope, $scope, $http, Client, filterFilter) {
+  .controller('ClientsListCtrl', ['$rootScope','$scope','$http', 'Client', 'filterFilter','$translate','toaster', function($rootScope, $scope, $http, Client, filterFilter, $translate, toaster) {
         // loading variable to show the spinning loading icon
         $scope.updateValue = function(value){
             $scope.entryLimit = value;
@@ -40,6 +40,15 @@ app
                     }
                     $scope.totalItems = $scope.clients.length;
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+                    toaster.pop(
+                        "success",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS') ,
+                        $translate.instant('TOAST_NOTIFICATION.MESSAGE.DELETE.SUCCESS',{ name: clientObj.names }));
+                }).error(function(data,status){
+                    toaster.pop(
+                        "error",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR') ,
+                        data);
                 });
 
         };
@@ -62,6 +71,11 @@ app
                 }, true);
 
 
+            }).error(function(data,status){
+                toaster.pop(
+                    "error",
+                    $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR') ,
+                    data);
             });
 
 

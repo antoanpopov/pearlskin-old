@@ -37,12 +37,19 @@ app
                     if (index != -1) {
                         $scope.doctors.splice(index, 1);
                     }
+
+                    $scope.totalItems = $scope.doctors.length;
+                    $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
                     toaster.pop(
                         "success",
                         $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS'),
                         $translate.instant('TOAST_NOTIFICATION.MESSAGE.DELETE.SUCCESS', { name: doctorObj.texts[$rootScope.langCode].names }));
-                    $scope.totalItems = $scope.doctors.length;
-                    $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+                })
+                .error(function(data){
+                    toaster.pop(
+                        "error",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'),
+                        data);
                 });
 
         };

@@ -21,11 +21,7 @@ app
         $scope.postRequest = function(event){
 
             $scope.backupTexts = $scope.doctor.texts;
-            $scope.doctor = Language.transformTextsToArray(
-                $scope.doctor,
-                $scope.doctor.texts,
-                ['texts']
-            );
+            $scope.doctor.texts = JSON.stringify($scope.doctor.texts);
 
             if($scope.uploader.queue.length === 0){
                 Doctor.post($scope.doctor)

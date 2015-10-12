@@ -33,57 +33,33 @@ class Doctor extends Model {
         return $this->hasMany('App\Models\DoctorText');
     }
 
-    public static function getOneOrAll($id = null){
+    public static function readRecord($id = null){
 
           try{
             $languagesList = Language::select('id','name','image','code')->get();
 
             if($id != null){
-                $doctor = Doctor::
-                    where('doctors.id',$id)
-                    ->join('users as creator','creator.id','=','doctors.created_by_user_id')
-                    ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                    ->select('doctors.id',
-                        'image',
-                        'has_percent',
-                        'sort_order',
-                        'is_visible',
-                        'phone',
-                        'creator.name as created_by_user_name',
-                        'updater.name as updated_by_user_name')
-                    ->first();
-
-                foreach($languagesList as $language){
-                    $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$doctor->id)->where('language_id','=',$language->id)->select('names','description')->first();
+                $doctor = Doctor::find($id);
+                foreach($doctor->texts as $key => $text){
+                    unset($doctor->texts[$key]);
+                    $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
+                    $doctor->texts[$key] = $text;
                 }
-                $doctor->texts = $textsLanguages;
                 return $doctor;
             } else {
 
-                $doctorsList = Doctor::
-                    join('users as creator','creator.id','=','doctors.created_by_user_id')
-                    ->join('users as updater','updater.id','=','doctors.updated_by_user_id')
-                    ->select('doctors.id',
-                        'image',
-                        'has_percent',
-                        'sort_order',
-                        'is_visible' ,
-                        'phone',
-                        'creator.name as created_by_user_name',
-                        'updater.name as updated_by_user_name')
-                    ->get();
-
+                $doctorsList = Doctor::with('texts')->get();
                 foreach($doctorsList as $doctor){
-                    foreach($languagesList as $language){
-                        $textsLanguages[$language->code] = DoctorText::where('doctor_id','=',$doctor->id)->where('language_id','=',$language->id)->select('names','description')->first();
+
+                    foreach($doctor->texts as $key => $text){
+                        unset($doctor->texts[$key]);
+                        $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
+                        $doctor->texts[$key] = $text;
                     }
-                    $doctor->texts = $textsLanguages;
-
                 }
-
                 return $doctorsList;
             }
-        }catch(\Illuminate\Database\QueryException $e){
+        }catch(Exception $e){
             return response()->json(array('status' => $e->getMessage()
             ), 500);
 
@@ -93,8 +69,6 @@ class Doctor extends Model {
     }
 
     public function createNewRecord($postData, $texts, $file){
-
-        $languagesList = Language::select('code')->where('is_visible','=',1)->get();
 
         if(!is_null($file)){
             $fileExtension = \Input::file('file')->getClientOriginalExtension();
@@ -117,18 +91,10 @@ class Doctor extends Model {
         $this->save();
 
 
-        foreach($languagesList as $language){
-
-            $doctorText = new DoctorText();
-            foreach($texts as $key => $languageText){
-
-                if(strpos($key, $language->code) !== false){
-                    $objProperty = (strpos($key, "language_id") !== false)? "language_id" : str_replace(array($language->code,"_"),"",$key);
-                    $doctorText->{$objProperty} = $languageText;
-                }
-            }
-            $this->texts()->save($doctorText);
-
+        foreach($texts as $text){
+            $textObj = new DoctorText();
+            $textObj->fill($text);
+            $this->texts()->save($textObj);
         }
 
 
@@ -138,12 +104,10 @@ class Doctor extends Model {
 
             try{
 
-            $languagesList = Language::select('code')->where('is_visible','=',1)->get();
-
             $postData['updated_by_user_id'] = \Auth::user()->id;
             $postData['updated_at'] = date("Y-m-d H:i:s");
             $postData['phone'] = ($postData['phone'] == null)? '' : $postData['phone'];
-
+            var_dump($postData['image']);
             if(!is_null($file)){
 
                 $fileExtension = \Input::file('file')->getClientOriginalExtension();
@@ -151,7 +115,7 @@ class Doctor extends Model {
                 $postData['is_visible'] = ($postData['is_visible'] === 'true');
                 $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
                 $imagePath = public_path() . '/src/admin/img/doctors/';
-
+                var_dump($postData['image']);
                 if(file_exists(($imagePath . $postData['image'])) && $postData['image'] !== 'no_image.jpg')
                 {
                     unlink($imagePath . $postData['image']);
@@ -163,57 +127,55 @@ class Doctor extends Model {
                 }
 
 
-
-
                 $file->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
 
             }
 
             $this->fill($postData);
+            foreach($texts as $text){
+                $textObj = new DoctorText();
+                $textObj->fill($text);
+                $this->texts()->save($textObj);
+            }
             $this->save();
 
-            foreach($languagesList as $language){
 
-                $doctorText = DoctorText::firstOrNew([
-                            'doctor_id' => $this->id,
-                            'language_id' => Language::where('code','=',$language->code)->first()->id
-                        ]);
-
-                foreach($texts as $key => $languageText){
-
-                    if(strpos($key, $language->code) !== false){
-                        $objProperty = (strpos($key, "language_id") !== false)? "language_id" : str_replace(array($language->code,"_"),"",$key);
-                        $doctorText->{$objProperty} = $languageText;
-                    }
-                }
-
-                $doctorText->save();
-
-            }
 
 
                 $this->setResult(200, "success");
             }catch (Exception $ex){
-//                $response = new Response();
-//                $response->setStatusCode(500, $ex->getMessage());
-//                return $ex->getMessage();
+
                 $this->setResult(500, $ex->getMessage());
             }
 
 
     }
 
+    public function deleteRecord($id){
+        try{
+            if($id != null){
+                $image = $this->select('image')->where('id','=',$id)->first()->image;
+                $absFilePath = public_path() . '/src/admin/img/doctors/'.$image;
+                if(file_exists($absFilePath) && $image !== 'no_image.jpg')
+                    unlink($absFilePath);
+                Doctor::where('id','=',$id)->delete();
+            }else
+                throw new Exception("Missing or incorrect id");
+
+        }catch (Exception $ex){
+            $this->setResult(500, $ex->getMessage());
+        }
+
+    }
+
+
+    public function queryResponse($result){
+        return ($this->statusCode == 200)? response()->json($result, $this->statusCode) : response()->json($this->statusMessage, $this->statusCode);
+    }
+
     public function setResult($statusCode = 200, $statusMessage = "success"){
         $this->statusCode = $statusCode;
         $this->statusMessage = $statusMessage;
-    }
-
-    public function getResult(){
-        $response = new \stdClass();
-        $response->code = $this->statusCode;
-        $response->message = $this->statusMessage;
-
-        return $response;
     }
 
 }

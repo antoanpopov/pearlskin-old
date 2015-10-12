@@ -26,4 +26,9 @@ class DoctorText extends Model {
      */
 	protected $hidden = ['created_at', 'updated_at'];
 
+    public function procedure()
+    {
+        return $this->belongsTo('App\Models\Doctor');
+    }
+
 }

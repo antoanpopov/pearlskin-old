@@ -30,6 +30,17 @@ angular.module('languageService', [])
                 }
 
                 return _ObjectToUpdate;
+            },
+            stringifyObject : function(_Object){
+
+                var stringifiedObject = "";
+
+                for(var lang in _Object){
+                    stringifiedObject += JSON.stringify(_Object[lang]);
+
+                }
+
+                return stringifiedObject;
             }
 
         }

@@ -11,7 +11,7 @@ app.filter('startFrom', function () {
 });
 app
   //Clients List Controller
-  .controller('ProceduresListCtrl', ['$translate', '$rootScope','$scope','$http', 'Procedure', 'filterFilter', function($translate, $rootScope, $scope, $http, Procedure, filterFilter) {
+  .controller('ProceduresListCtrl', ['$translate', '$rootScope','$scope','$http', 'Procedure', 'filterFilter','toaster', function($translate, $rootScope, $scope, $http, Procedure, filterFilter, toaster  ) {
         // loading variable to show the spinning loading icon
 
         $scope.updateValue = function(value){
@@ -30,17 +30,25 @@ app
             value: 50
         }];
 
-        $scope.delete = function(clientObj) {
+        $scope.delete = function(procedureObj) {
 
-            Procedure.delete(clientObj.id)
+            Procedure.delete(procedureObj.id)
                 .success(function(data, status){
 
-                    var index = $scope.procedures.indexOf(clientObj);
+                    var index = $scope.procedures.indexOf(procedureObj);
                     if (index != -1) {
                         $scope.procedures.splice(index, 1);
                     }
                     $scope.totalItems = $scope.procedures.length;
                     $scope.noOfPages = Math.ceil($scope.totalItems / $scope.entryLimit);
+
+                    toaster.pop(
+                        "success",
+                        $translate.instant('TOAST_NOTIFICATION.STATUS.SUCCESS'),
+                        $translate.instant('TOAST_NOTIFICATION.MESSAGE.DELETE.SUCCESS', { name: procedureObj.texts[$rootScope.langCode].title }));
+
+                }).error(function(data){
+                    toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), data);
                 });
 
         };
@@ -65,7 +73,7 @@ app
 
             })
             .error(function(data){
-                console.log(data);
+                toaster.pop("error", $translate.instant('TOAST_NOTIFICATION.STATUS.ERROR'), data);
             });
 
 
