@@ -107,15 +107,19 @@ class Doctor extends Model {
             $postData['updated_by_user_id'] = \Auth::user()->id;
             $postData['updated_at'] = date("Y-m-d H:i:s");
             $postData['phone'] = ($postData['phone'] == null)? '' : $postData['phone'];
-            var_dump($postData['image']);
+
             if(!is_null($file)){
 
                 $fileExtension = \Input::file('file')->getClientOriginalExtension();
                 $postData['has_percent'] = ($postData['has_percent'] === 'true');
                 $postData['is_visible'] = ($postData['is_visible'] === 'true');
                 $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
+                $currentImage = $this->select('image')->where('id','=',$this->id)->first()->image;
                 $imagePath = public_path() . '/src/admin/img/doctors/';
-                var_dump($postData['image']);
+
+                if(file_exists($imagePath.$currentImage) && $currentImage !== 'no_image.jpg')
+                    unlink($imagePath.$currentImage);
+
                 if(file_exists(($imagePath . $postData['image'])) && $postData['image'] !== 'no_image.jpg')
                 {
                     unlink($imagePath . $postData['image']);

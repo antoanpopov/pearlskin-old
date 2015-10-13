@@ -19,8 +19,6 @@ app
         $scope.postRequest = function(){
 
             $scope.backupTexts = $scope.procedure.texts;
-            //$scope.procedure.texts = Language.stringifyObject($scope.procedure.texts);
-           // $scope.procedure.texts = jQuery.parseJSON($scope.procedure.texts);
             $scope.procedure.texts = JSON.stringify($scope.procedure.texts);
 
             Procedure.post($scope.procedure)

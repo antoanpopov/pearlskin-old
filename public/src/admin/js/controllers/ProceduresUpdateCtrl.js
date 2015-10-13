@@ -25,7 +25,7 @@ app
         $scope.postRequest = function(){
 
             $scope.backupTexts = $scope.procedure.texts;
-            Language.stringifyObject($scope.procedure.texts);
+            $scope.procedure.texts = JSON.stringify($scope.procedure.texts);
 
             Procedure.update($rootScope.$stateParams.id,$scope.procedure)
                 .success(function(data, status) {

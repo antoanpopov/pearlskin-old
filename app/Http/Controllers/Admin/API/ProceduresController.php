@@ -60,9 +60,10 @@ class ProceduresController extends Controller {
 	{
         $postData = \Input::only('price');
         $texts = \Input::only('texts');
+        $texts = json_decode($texts['texts'], true);
         $file = \Input::file('file');
         $modelInstance = Procedure::findOrNew($id);
-        $result = $modelInstance->updateRecord($postData, $texts['texts'], $file);
+        $result = $modelInstance->updateRecord($postData, $texts, $file);
         return $modelInstance->queryResponse($result);
 
 	}
