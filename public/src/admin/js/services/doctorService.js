@@ -3,19 +3,19 @@
  */
 angular.module('doctorService', [])
 
-    .factory('Doctor', function($http) {
+    .factory('Doctor', function($http, API_ENDPOINT) {
         return {
             get : function(id) {
-                return typeof id !== 'undefined' ? $http.get('api/doctors/'+id) : $http.get('api/doctors/') ;
+                return typeof id !== 'undefined' ? $http.get(API_ENDPOINT + 'doctors/'+id) : $http.get(API_ENDPOINT + 'doctors/') ;
             },
             post : function(postData) {
-                return $http.post('api/doctors/',postData);
+                return $http.post(API_ENDPOINT + 'doctors/',postData);
             },
             update : function(id,postData) {
-                return $http.post('api/doctors/'+id,postData);
+                return $http.post(API_ENDPOINT + 'doctors/'+id,postData);
             },
             delete : function(id) {
-                return $http.delete('api/doctors/'+id);
+                return $http.delete(API_ENDPOINT + 'doctors/'+id);
             }
         }
 

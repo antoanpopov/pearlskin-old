@@ -1,21 +1,21 @@
 /**
- * Created by Antoan on 11.8.2015 ã..
+ * Created by Antoan on 11.8.2015 ï¿½..
  */
 angular.module('procedureService', [])
 
-    .factory('Procedure', function($http) {
+    .factory('Procedure', function($http, API_ENDPOINT) {
         return {
             get : function(id) {
-                return typeof id !== 'undefined' ? $http.get('api/procedures/'+id) : $http.get('api/procedures/') ;
+                return typeof id !== 'undefined' ? $http.get(API_ENDPOINT + 'procedures/'+id) : $http.get(API_ENDPOINT + 'procedures/') ;
             },
             post : function(postData) {
-                return $http.post('api/procedures/',postData);
+                return $http.post(API_ENDPOINT + 'procedures/',postData);
             },
             update : function(id,postData) {
-                return $http.put('api/procedures/'+id,postData);
+                return $http.put(API_ENDPOINT + 'procedures/'+id,postData);
             },
             delete : function(id) {
-                return $http.delete('api/procedures/'+id);
+                return $http.delete(API_ENDPOINT + 'procedures/'+id);
             }
         }
 

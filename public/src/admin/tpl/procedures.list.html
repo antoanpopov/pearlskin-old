@@ -32,7 +32,8 @@
                     <table class="table table-striped b-t b-b">
                         <thead>
                         <tr>
-                            <th style="max-width:50px;" translate="data.property.id"></th>
+                            <th style="max-width:50px; width: 50px;" translate="data.property.id"></th>
+                            <th style="max-width:100px;; width:50px;" translate="data.property.image"></th>
                             <th style="max-width:300px;" translate="data.property.name"></th>
                             <th style="max-width:100px;%" translate="data.property.price"></th>
                             <th style="max-width:200px;" translate="data.property.description"></th>
@@ -43,6 +44,7 @@
                         <tbody>
                         <tr ng-repeat="procedure in filtered = procedures | filter:search:strict | startFrom:(currentPage-1)*entryLimit | limitTo:entryLimit">
                             <td><% procedure.id %></td>
+                            <td><img ng-src="src/admin/img/procedures/<% procedure.image %>" alt="<% procedure.image %>" style="width: 30px; height: 30px;"/></td>
                             <td>
                                 <span ng-if="procedure.texts[$root.langCode].title"><% procedure.texts[$root.langCode].title %></span>
                             </td>

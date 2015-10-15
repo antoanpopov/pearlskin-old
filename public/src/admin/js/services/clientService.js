@@ -1,21 +1,21 @@
 /**
- * Created by Antoan on 11.8.2015 ã..
+ * Created by Antoan on 11.8.2015 ï¿½..
  */
 angular.module('clientService', [])
 
-    .factory('Client', function($http) {
+    .factory('Client', function($http, API_ENDPOINT) {
         return {
             get : function(id) {
-                return typeof id !== 'undefined' ? $http.get('api/clients/'+id) : $http.get('api/clients/') ;
+                return typeof id !== 'undefined' ? $http.get(API_ENDPOINT + 'clients/'+id) : $http.get(API_ENDPOINT + 'clients/') ;
             },
             post : function(postData) {
-                return $http.post('api/clients/create',postData);
+                return $http.post(API_ENDPOINT + 'clients/create',postData);
             },
             update : function(id,postData) {
-                return $http.put('api/clients/'+id,postData);
+                return $http.put(API_ENDPOINT + 'clients/'+id,postData);
             },
             delete : function(id) {
-                return $http.delete('api/clients/'+id);
+                return $http.delete(API_ENDPOINT + 'clients/'+id);
             }
         }
 

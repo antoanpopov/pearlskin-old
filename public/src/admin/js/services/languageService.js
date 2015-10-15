@@ -3,19 +3,19 @@
  */
 angular.module('languageService', [])
 
-    .factory('Language', function($http) {
+    .factory('Language', function($http, API_ENDPOINT) {
         return {
             get : function(id) {
-                return typeof id !== 'undefined' ? $http.get('api/languages/'+id) : $http.get('api/languages/') ;
+                return typeof id !== 'undefined' ? $http.get(API_ENDPOINT + 'anguages/'+id) : $http.get(API_ENDPOINT + 'languages/') ;
             },
             post : function(postData) {
-                return $http.post('api/languages/',postData);
+                return $http.post(API_ENDPOINT + 'languages/',postData);
             },
             update : function(id,postData) {
-                return $http.put('api/languages/'+id,postData);
+                return $http.put(API_ENDPOINT + 'languages/'+id,postData);
             },
             delete : function(id) {
-                return $http.delete('api/languages/'+id);
+                return $http.delete(API_ENDPOINT + 'languages/'+id);
             },
             transformTextsToArray : function(_ObjectToUpdate, _PropertiesToAdd, _PropertiesToRemove){
 

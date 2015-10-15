@@ -16,6 +16,7 @@ class CreateProceduresTable extends Migration {
 		{
             $table->increments('id');
             $table->decimal('price',10,2);
+            $table->string('image',128)->default('no_image.jpg');
             $table->boolean('is_visible')->default(1);
             $table->integer('sort_order');
             $table->integer('created_by_user_id')->unsigned()->nullable();
