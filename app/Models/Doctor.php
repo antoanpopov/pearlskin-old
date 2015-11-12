@@ -33,13 +33,15 @@ class Doctor extends Model {
         return $this->hasMany('App\Models\DoctorText');
     }
 
-    public static function readRecord($id = null){
+    public function readRecord($id = null){
 
           try{
-            $languagesList = Language::select('id','name','image','code')->get();
 
             if($id != null){
                 $doctor = Doctor::find($id);
+
+                if(!$doctor) throw new Exception("Missing or incorrect id");
+
                 foreach($doctor->texts as $key => $text){
                     unset($doctor->texts[$key]);
                     $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
@@ -50,18 +52,19 @@ class Doctor extends Model {
 
                 $doctorsList = Doctor::with('texts')->get();
                 foreach($doctorsList as $doctor){
-
-                    foreach($doctor->texts as $key => $text){
-                        unset($doctor->texts[$key]);
-                        $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
-                        $doctor->texts[$key] = $text;
+                    if(property_exists($doctor, 'texts')){
+                        foreach($doctor->texts as $key => $text){
+                            unset($doctor->texts[$key]);
+                            $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
+                            $doctor->texts[$key] = $text;
+                        }
                     }
+
                 }
                 return $doctorsList;
             }
-        }catch(Exception $e){
-            return response()->json(array('status' => $e->getMessage()
-            ), 500);
+        }catch(Exception $ex){
+              $this->setResult(500, $ex->getMessage());
 
         }
 
@@ -72,16 +75,17 @@ class Doctor extends Model {
 
         if(!is_null($file)){
             $fileExtension = \Input::file('file')->getClientOriginalExtension();
-            $imagePath = public_path() . '/src/admin/img/doctors/';
+            $imagePath = public_path() . '/administration/assets/img/doctors/';
             $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
 
             while(file_exists($imagePath. $postData['image'])){
                 $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
 
             }
-            $file->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
+            $file->move(public_path() . '/administration/assets/img/doctors/', $postData['image']);
         }
-
+        $postData['has_percent'] = ($postData['has_percent'] === 'true');
+        $postData['is_visible'] = ($postData['is_visible'] === 'true');
         $postData['phone'] = ($postData['phone'] == null)? '' : $postData['phone'];
         $postData['created_by_user_id'] = \Auth::user()->id;
         $postData['updated_by_user_id'] = \Auth::user()->id;
@@ -115,7 +119,7 @@ class Doctor extends Model {
                 $postData['is_visible'] = ($postData['is_visible'] === 'true');
                 $postData['image'] = md5(date('Y-m-d H:i:s')) . "." . $fileExtension;
                 $currentImage = $this->select('image')->where('id','=',$this->id)->first()->image;
-                $imagePath = public_path() . '/src/admin/img/doctors/';
+                $imagePath = public_path() . '/administration/assets/img/doctors/';
 
                 if(file_exists($imagePath.$currentImage) && $currentImage !== 'no_image.jpg')
                     unlink($imagePath.$currentImage);
@@ -131,7 +135,7 @@ class Doctor extends Model {
                 }
 
 
-                $file->move(public_path() . '/src/admin/img/doctors/', $postData['image']);
+                $file->move(public_path() . '/administration/assets/img/doctors/', $postData['image']);
 
             }
 
@@ -159,7 +163,7 @@ class Doctor extends Model {
         try{
             if($id != null){
                 $image = $this->select('image')->where('id','=',$id)->first()->image;
-                $absFilePath = public_path() . '/src/admin/img/doctors/'.$image;
+                $absFilePath = public_path() . '/administration/assets/img/doctors/'.$image;
                 if(file_exists($absFilePath) && $image !== 'no_image.jpg')
                     unlink($absFilePath);
                 Doctor::where('id','=',$id)->delete();
@@ -181,5 +185,4 @@ class Doctor extends Model {
         $this->statusCode = $statusCode;
         $this->statusMessage = $statusMessage;
     }
-
 }

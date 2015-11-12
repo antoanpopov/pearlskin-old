@@ -51,10 +51,9 @@
 <script src="{{ asset('src/admin/js/app/config.router.js') }}"></script>
 <script src="{{ asset('src/admin/js/app/main.js') }}"></script>
 <script src="{{ asset('src/admin/js/services/ui-load.js') }}"></script>
-<script src="{{ asset('src/admin/js/services/clientService.js') }}"></script>
-<script src="{{ asset('src/admin/js/filters/fromNow.js') }}"></script>
+<script src="{{ asset('rest.js</client.srv.jssrc="{{ asset('src/admin/js/filters/fromNow.js') }}"></script>
 <script src="{{ asset('src/admin/js/directives/setnganimate.js') }}"></script>
-<script src="{{ asset('src/admin/js/directives/ui-butterbar.js') }}"></script>
+<script src="{{ asset('cowwando-smart-table.js') }}"></script>
 <script src="{{ asset('src/admin/js/directives/ui-focus.js') }}"></script>
 <script src="{{ asset('src/admin/js/directives/ui-fullscreen.js') }}"></script>
 <script src="{{ asset('src/admin/js/directives/ui-jq.js') }}"></script>
