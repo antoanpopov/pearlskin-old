@@ -43,7 +43,7 @@
                         if (index != -1) {
                             vm.promotionalservices.splice(index, 1);
                         }
-                        NotificationsService.showSuccess('delete', promotionalServiceObj.names);
+                        NotificationsService.showSuccess('delete', promotionalServiceObj.title);
 
                     }).catch(function (response) {
                         NotificationsService.showError(response.data);

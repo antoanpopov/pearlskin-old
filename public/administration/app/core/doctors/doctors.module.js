@@ -1,25 +1,25 @@
 (function () {
     'use strict';
-    var BASE_URL = '/pearlskinsub/public';
     angular
         .module('app.core.doctors', [
             'ui.router',
             'angularFileUpload'
         ])
-        .config(function ($stateProvider) {
+        .config(function ($stateProvider, PATHS) {
                 $stateProvider
                     .state('admin.doctors', {
                         url: '/doctors',
-                        templateUrl: BASE_URL+'/administration/app/core/doctors/doctors.list.tpl.html',
+                        templateUrl: PATHS.ROOT + '/administration/app/core/doctors/doctors.list.tpl.html',
                         title: "Doctors",
-                        controller : 'DoctorsListCtrl'
+                        controller : 'DoctorsListCtrl',
+                        controllerAs: 'vm'
                     })
                     .state('admin.doctors.create', {
                         url: '/create',
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Doctors - Create",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/doctors/doctors.create.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/doctors/doctors.create.tpl.html'}
                         },
                         controller : 'DoctorsCreateCtrl'
                     })
@@ -28,7 +28,7 @@
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Doctors - ",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/doctors/doctors.update.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/doctors/doctors.update.tpl.html'}
                         },
                         controller : 'DoctorsUpdateCtrl'
 

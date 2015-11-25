@@ -2,7 +2,7 @@
 
 use Illuminate\Database\Eloquent\Model;
 
-class ManipulationProcedure extends Model {
+class ManipulationPromotionalService extends Model {
 
 
 	/**
@@ -10,14 +10,14 @@ class ManipulationProcedure extends Model {
 	 *
 	 * @var string
 	 */
-	protected $table = 'manipulations_procedures';
+	protected $table = 'manipulations_promo_srv';
 
 	/**
 	 * The attributes that are mass assignable.
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['quantity', 'manipulation_id', 'procedure_id'];
+	protected $fillable = ['quantity', 'manipulation_id', 'promotional_service_id'];
 
 	/**
      * The attributes excluded from the model's JSON form.

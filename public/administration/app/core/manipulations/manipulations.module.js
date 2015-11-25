@@ -1,24 +1,24 @@
 (function () {
     'use strict';
-    var BASE_URL = '/pearlskinsub/public';
     angular
         .module('app.core.manipulations', [
             'ui.router'
         ])
-        .config(function ($stateProvider) {
+        .config(function ($stateProvider, PATHS) {
                 $stateProvider
                     .state('admin.manipulations', {
                         url: '/manipulations',
-                        templateUrl: BASE_URL+'/administration/app/core/manipulations/manipulations.list.tpl.html',
+                        templateUrl: PATHS.ROOT + '/administration/app/core/manipulations/manipulations.list.tpl.html',
                         title: "Manipulations",
-                        controller : 'ManipulationsListCtrl'
+                        controller : 'ManipulationsListCtrl',
+                        controllerAs: 'vm'
                     })
                     .state('admin.manipulations.create', {
                         url: '/create',
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Manipulations - Create",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/manipulations/manipulations.create.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/manipulations/manipulations.create.tpl.html'}
                         },
                         controller : 'ManipulationsCreateCtrl'
                     })
@@ -27,7 +27,7 @@
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Manipulations - ",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/manipulations/manipulations.update.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/manipulations/manipulations.update.tpl.html'}
                         },
                         controller : 'ManipulationsUpdateCtrl'
 

@@ -2,27 +2,27 @@
     'use strict';
 
     angular.module('app.common.services.rest.doctor', [])
-        .service('Doctor', function($http, API_ENDPOINT) {
+        .service('Doctor', function($http, PATHS) {
             this.model = ['id','image', 'texts', 'has_percent', 'is_visible'];
             this.get = function(id) {
                 if((typeof id !== 'undefined')){
-                    return $http.get(API_ENDPOINT + 'doctors/'+id).finally(function(){
+                    return $http.get(PATHS.API_ENDPOINT + 'doctors/'+id).finally(function(){
                         $('.butterbar').removeClass('active').addClass('hide');
                     });
                 }else {
-                    return $http.get(API_ENDPOINT + 'doctors').finally(function () {
+                    return $http.get(PATHS.API_ENDPOINT + 'doctors').finally(function () {
                         $('.butterbar').removeClass('active').addClass('hide');
                     });
                 }
             };
             this.post = function(postData) {
-                return $http.post(API_ENDPOINT + 'doctors',postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
+                return $http.post(PATHS.API_ENDPOINT + 'doctors',postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
             };
             this.update = function(id,postData) {
-                return $http.post(API_ENDPOINT + 'doctors/'+id,postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
+                return $http.post(PATHS.API_ENDPOINT + 'doctors/'+id,postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
             };
             this.delete = function(id) {
-                return $http.delete(API_ENDPOINT + 'doctors/'+id).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
+                return $http.delete(PATHS.API_ENDPOINT + 'doctors/'+id).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
             };
 
         });

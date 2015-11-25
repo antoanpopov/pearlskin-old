@@ -51,15 +51,13 @@ class Doctor extends Model {
             } else {
 
                 $doctorsList = Doctor::with('texts')->get();
-                foreach($doctorsList as $doctor){
-                    if(property_exists($doctor, 'texts')){
-                        foreach($doctor->texts as $key => $text){
-                            unset($doctor->texts[$key]);
-                            $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
-                            $doctor->texts[$key] = $text;
-                        }
-                    }
 
+                foreach($doctorsList as $doctor){
+                    foreach($doctor->texts as $key => $text){
+                        unset($doctor->texts[$key]);
+                        $key = Language::where('id','=',$text->language_id)->select('code')->first()->code;
+                        $doctor->texts[$key] = $text;
+                    }
                 }
                 return $doctorsList;
             }

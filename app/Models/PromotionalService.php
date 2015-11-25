@@ -18,7 +18,7 @@ class PromotionalService extends Model {
 	 *
 	 * @var array
 	 */
-	protected $fillable = ['title', 'discount', 'is_active', 'created_by_user_id', 'updated_by_user_id'];
+	protected $fillable = ['title', 'price', 'discount', 'is_active', 'created_by_user_id', 'updated_by_user_id'];
 
 	/**
      * The attributes excluded from the model's JSON form.
@@ -52,7 +52,7 @@ class PromotionalService extends Model {
 
         try{
             if($id != null){
-                $result = $this->select('title','discount','is_active')->where('id',$id)->first();
+                $result = $this->select('title','price', 'discount','is_active')->where('id',$id)->first();
             } else {
                 $result = $this->all();
             }

@@ -15,6 +15,7 @@ class CreateManipulationsProceduresTable extends Migration {
 		Schema::create('manipulations_procedures', function(Blueprint $table)
 		{
 			$table->increments('id');
+            $table->integer('quantity');
             $table->integer('manipulation_id')->unsigned()->nullable();
             $table->foreign('manipulation_id')
                 ->references('id')

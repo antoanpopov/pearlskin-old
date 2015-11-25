@@ -1,0 +1,134 @@
+@import '_colors.scss';
+
+@function set--text-color($background, $color) {
+  @if (lightness( $background ) > 40) {
+    @return $color - 170;
+  }
+  @else {
+    @return $color;
+  }
+}
+@mixin theme($name, $primary-color, $primary-color-dk, $secondary-color, $secondary-color-dk, $aside-color){
+
+  .theme-#{$name}-primary-color {
+    background-color: $primary-color;
+  }
+  .theme-#{$name}-secondary-color {
+    background-color: $secondary-color;
+  }
+  .theme-#{$name}-aside-color {
+    background-color: $aside-color;
+  }
+
+  .theme-#{$name}{
+
+    background-color: $secondary-color - 5 ;
+    a{
+      color: $primary-color;
+      &:hover, &:focus{
+        color: $primary-color-dk;
+      }
+    }
+    .navbar{
+      background-color: $primary-color;
+      color: $secondary-color;
+      a {
+        background-color: $primary-color;
+        color: $secondary-color;
+        &:hover, &:focus, &:active{
+          background-color: $primary-color-dk;
+        }
+      }
+      .dropdown-menu li > a {
+        background-color: $secondary-color;
+        color: $primary-color;
+      }
+    }
+
+    .app-aside{
+      background-color: $aside-color - 10;
+      .aside-wrap{
+        border-right: 1px solid $aside-color - 25;
+      }
+      .navi-wrap {
+        background-color: $aside-color - 10;
+      }
+      .navi > ul.nav{
+
+        .line {
+          background-color: rgba($primary-color, 0.5);
+        }
+
+        li{
+          color: set--text-color($aside-color, $secondary-color);
+          a{
+            color: set--text-color($aside-color, $secondary-color);
+            &:hover, &:focus{
+              color: $secondary-color;
+              background-color: $primary-color;
+              > i{
+                color : inherit;
+              }
+              > .badge {
+                color: $primary-color;
+                background-color: $secondary-color;
+              }
+            }
+            > i{
+              color: $primary-color;
+            }
+            > .badge {
+              background-color: $primary-color;
+            }
+          }
+        }
+        .active {
+          > a {
+            color: $secondary-color;
+            background-color: $primary-color;
+            > i {
+              color: inherit;
+            }
+            > .badge {
+              color: $primary-color;
+              background-color: $secondary-color;
+            }
+          }
+        }
+      }
+    }
+    .pagination {
+      > li {
+        > a, span {
+          color: $primary-color;
+          background-color: $secondary-color;
+          border: 1px solid #ddd;
+
+          &:hover, &:focus{
+            color: $primary-color;
+            background-color: $secondary-color;
+          }
+        }
+      }
+      > .active {
+        > a, span{
+          color : $secondary-color;
+          background-color: $primary-color;
+          border-color: $primary-color-dk;
+          &:hover, &:focus{
+            color: $secondary-color + 50;
+            background-color: $primary-color;
+            border-color: $primary-color-dk;
+          }
+        }
+      }
+    }
+  }
+}
+
+@include theme(blue, $blue-A400, $blue-A700, $grey-50, $grey-100, $grey-50);
+@include theme(red, $red-A700, $red-900, $grey-50, $grey-100, $grey-50);
+@include theme(green-aside-dark, $green-700, $green-800, $grey-50, $grey-600, desaturate($blue-grey-800,10%));
+@include theme(purple, $deep-purple-500, $deep-purple-700, $grey-50, $grey-600, $grey-200);
+@include theme(amber, $amber-700, $amber-800, $grey-50, $grey-50, $grey-800);
+@include theme(pink, $pink-A400, $pink-A700, $grey-50, $grey-50, $grey-800);

@@ -49,7 +49,7 @@ Route::group(['prefix' => 'api'], function()
 
         Route::post('procedures/', 'API\ProceduresController@create');
         Route::get('procedures/{id?}', 'API\ProceduresController@read');
-        Route::put('procedures/{id}', 'API\ProceduresController@update');
+        Route::post('procedures/{id}', 'API\ProceduresController@update');
         Route::delete('procedures/{id}', 'API\ProceduresController@delete');
 
         Route::post('doctors/', 'API\DoctorsController@create');

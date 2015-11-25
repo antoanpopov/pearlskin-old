@@ -1,25 +1,26 @@
 (function () {
     'use strict';
-    var BASE_URL = '/pearlskinsub/public';
+
     angular
         .module('app.core.procedures', [
             'ui.router',
             'angularFileUpload'
         ])
-        .config(function ($stateProvider) {
+        .config(function ($stateProvider, PATHS) {
                 $stateProvider
                     .state('admin.procedures', {
                         url: '/procedures',
-                        templateUrl: BASE_URL+'/administration/app/core/procedures/procedures.list.tpl.html',
+                        templateUrl: PATHS.ROOT + '/administration/app/core/procedures/procedures.list.tpl.html',
                         title: "Procedures",
-                        controller : 'ProceduresListCtrl'
+                        controller : 'ProceduresListCtrl',
+                        controllerAs: 'vm'
                     })
                     .state('admin.procedures.create', {
                         url: '/create',
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Procedures - Create",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/procedures/procedures.create.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/procedures/procedures.create.tpl.html'}
                         },
                         controller : 'ProceduresCreateCtrl'
                     })
@@ -28,7 +29,7 @@
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Procedures - ",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/procedures/procedures.update.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/procedures/procedures.update.tpl.html'}
                         },
                         controller : 'ProceduresUpdateCtrl'
 

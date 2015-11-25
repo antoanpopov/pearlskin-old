@@ -16,7 +16,7 @@
         activate();
 
         function activate(){
-            vm.promotionalservice = {title : "", discount : 0, is_acive: true};
+            vm.promotionalservice = {title : "", price: 0, discount : 0, is_acive: true};
             getClient();
         }
 

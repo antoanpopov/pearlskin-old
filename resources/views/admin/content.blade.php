@@ -11,11 +11,12 @@
     <link rel="stylesheet" href="{{ asset('public/administration/assets/css/font-awesome.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('public/administration/assets/css/font.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('public/administration/assets/css/app.css') }}" type="text/css" />
+    <link rel="stylesheet" href="{{ asset('public/administration/assets/sass/main.css') }}" type="text/css" />
     <link rel="stylesheet" href="{{ asset('public/administration/app/widgets/toaster/toaster.css') }}" type="text/css" />
-    <base href="/pearlskinsub/" />
+    <base href="<?= ($_SERVER["HTTP_HOST"] == 'localhost')? '/pearlskinsub/' : '/projects/pearlskin/' ?>" />
 </head>
 <body ng-controller="AppCtrl">
-<div class="app"
+<div class="app <% app.settings.activeTheme %>"
      id="app"
      ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}"
      ui-view>
@@ -107,6 +108,7 @@
 <script src="{{ asset('public/administration/app/common/directives/ui-scroll.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/directives/ui-shift.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/directives/ui-toggleclass.js') }}"></script>
+<script src="{{ asset('public/administration/app/common/constants/app.common.constants.js') }}"></script>
 <script src="{{ asset('public/administration/app/widgets/toaster/toaster.js') }}"></script>
 <?php }else{ ?>
 <script src="{{ asset('public/administration/dist/app.administration.js') }}"></script>

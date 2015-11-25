@@ -1,24 +1,25 @@
 (function () {
     'use strict';
-    var BASE_URL = '/pearlskinsub/public';
+
     angular
         .module('app.core.clients', [
             'ui.router'
         ])
-        .config(function ($stateProvider) {
+        .config(function ($stateProvider, PATHS) {
                 $stateProvider
                     .state('admin.clients', {
                         url: '/clients',
-                        templateUrl: BASE_URL+'/administration/app/core/clients/clients.list.tpl.html',
+                        templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.list.tpl.html',
                         title: "Clients",
-                        controller : 'ClientsListCtrl'
+                        controller : 'ClientsListCtrl',
+                        controllerAs: 'vm'
                     })
                     .state('admin.clients.create', {
                         url: '/create',
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Clients - Create",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/clients/clients.create.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.create.tpl.html'}
                         },
                         controller: "ClientsCreateCtrl"
                     })
@@ -27,7 +28,7 @@
                         template: '<div ui-view class="fade-in-up"></div>',
                         title: "Clients - ",
                         views: {
-                            "@admin": {templateUrl: BASE_URL+'/administration/app/core/clients/clients.update.tpl.html'}
+                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.update.tpl.html'}
                         },
                         controller: "ClientsUpdateCtrl"
                     });
