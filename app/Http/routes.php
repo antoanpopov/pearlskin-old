@@ -35,37 +35,39 @@ Route::group(['prefix' => 'api'], function()
     Route::post('authenticate', 'Admin\AuthenticateController@authenticate');
     Route::get('authenticate/user', 'Admin\AuthenticateController@getAuthenticatedUser');
 
-    Route::group(['middleware' => ['jwt.auth']], function() {
 
-        Route::post('languages/', 'API\LanguagesController@create');
-        Route::get('languages/{id?}', 'API\LanguagesController@read');
-        Route::put('languages/{id}', 'API\LanguagesController@update');
-        Route::delete('languages/{id}', 'API\LanguagesController@delete');
+    Route::group(['middleware' => ['jwt.auth'], 'namespace' => 'API'], function() {
 
-        Route::post('clients/', 'API\ClientsController@create');
-        Route::get('clients/{id?}', 'API\ClientsController@read');
-        Route::put('clients/{id}', 'API\ClientsController@update');
-        Route::delete('clients/{id}', 'API\ClientsController@delete');
+        Route::post('languages/', 'LanguagesController@create');
+        Route::get('languages/{id?}', 'LanguagesController@read');
+        Route::put('languages/{id}', 'LanguagesController@update');
+        Route::delete('languages/{id}', 'LanguagesController@delete');
 
-        Route::post('procedures/', 'API\ProceduresController@create');
-        Route::get('procedures/{id?}', 'API\ProceduresController@read');
-        Route::post('procedures/{id}', 'API\ProceduresController@update');
-        Route::delete('procedures/{id}', 'API\ProceduresController@delete');
 
-        Route::post('doctors/', 'API\DoctorsController@create');
-        Route::get('doctors/{id?}', 'API\DoctorsController@read');
-        Route::post('doctors/{id}', 'API\DoctorsController@update');
-        Route::delete('doctors/{id}', 'API\DoctorsController@delete');
+        Route::post('manipulations/', 'ManipulationsController@create');
+        Route::get('manipulations/{id?}', 'ManipulationsController@read');
+        Route::put('manipulations/{id}', 'ManipulationsController@update');
+        Route::delete('manipulations/{id}', 'ManipulationsController@delete');
 
-        Route::post('manipulations/', 'API\ManipulationsController@create');
-        Route::get('manipulations/{id?}', 'API\ManipulationsController@read');
-        Route::put('manipulations/{id}', 'API\ManipulationsController@update');
-        Route::delete('manipulations/{id}', 'API\ManipulationsController@delete');
+        Route::resource('clients', 'ClientsController');
 
-        Route::post('promotionalservices/', 'API\PromotionalServicesController@create');
-        Route::get('promotionalservices/{id?}', 'API\PromotionalServicesController@read');
-        Route::post('promotionalservices/{id}', 'API\PromotionalServicesController@update');
-        Route::delete('promotionalservices/{id}', 'API\PromotionalServicesController@delete');
+        Route::resource('doctors', 'DoctorsController',['except' => [ 'update' ]]);
+        Route::post('doctors/{id}', 'DoctorsController@update');
+
+        Route::resource('procedures', 'ProceduresController');
+        Route::post('procedures/{id}', 'ProceduresController@update');
+
+        Route::resource('promotionalservices', 'PromotionalServicesController');
+
+        Route::resource('schedule', 'ScheduleController');
+
+        Route::resource('news', 'NewsController',['except' => [ 'update' ]]);
+        Route::post('news/{id}', 'NewsController@update');
+
+        Route::resource('contacts', 'ContactsController');
+        Route::resource('equipments', 'EquipmentsController');
+        Route::resource('videos', 'VideosController');
+
 
     });
 
@@ -79,5 +81,13 @@ Route::group(['prefix' => 'admin'], function()
         return response()->view('admin/content');
     })->where("path", ".+");
 
+});
+
+Route::group(['as' => 'admin::', 'namespace' => 'Client'], function () {
+    Route::get('', 'LayoutController@index');
+    Route::any('/{path?}', function()
+    {
+        return response()->view('client/layout');
+    })->where("path", ".+");
 });
 

@@ -15,22 +15,21 @@
                         controllerAs: 'vm'
                     })
                     .state('admin.clients.create', {
-                        url: '/create',
-                        template: '<div ui-view class="fade-in-up"></div>',
+                        url: '/clients/create',
+                        parent: 'admin',
                         title: "Clients - Create",
-                        views: {
-                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.create.tpl.html'}
-                        },
-                        controller: "ClientsCreateCtrl"
+                        templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.create.tpl.html',
+                        controller: 'ClientsCreateCtrl',
+                        controllerAs: 'vm'
+
                     })
                     .state('admin.clients.update', {
-                        url: '/{id}',
-                        template: '<div ui-view class="fade-in-up"></div>',
+                        url: '/clients/{id}',
                         title: "Clients - ",
-                        views: {
-                            "@admin": {templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.update.tpl.html'}
-                        },
-                        controller: "ClientsUpdateCtrl"
+                        parent: 'admin',
+                        templateUrl: PATHS.ROOT + '/administration/app/core/clients/clients.update.tpl.html',
+                        controller: "ClientsUpdateCtrl",
+                        controllerAs: 'vm'
                     });
             });
 

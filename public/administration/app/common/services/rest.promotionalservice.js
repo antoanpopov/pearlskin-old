@@ -19,7 +19,7 @@
                 return $http.post(PATHS.API_ENDPOINT + 'promotionalservices',postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
             };
             this.update = function(id,postData) {
-                return $http.post(PATHS.API_ENDPOINT + 'promotionalservices/'+id,postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
+                return $http.put(PATHS.API_ENDPOINT + 'promotionalservices/'+id,postData).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});
             };
             this.delete = function(id) {
                 return $http.delete(PATHS.API_ENDPOINT + 'promotionalservices/'+id).finally(function(){ $('.butterbar').removeClass('active').addClass('hide');});

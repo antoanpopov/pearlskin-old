@@ -4,57 +4,31 @@ use App\Models\PromotionalService;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
-use JWTAuth;
 
 
 class PromotionalServicesController extends Controller {
 
+    public function index(){
+        return PromotionalService::getAllRecords();
+    }
 
-	/**
-	 * Create a new controller instance.
-	 *
-	 * @return void
-	 */
-	public function __construct()
-	{
-	}
-
-	/**
-	 * Show the application welcome screen to the user.
-	 *
-	 * @return Response
-	 */
-	public function create()
-    	{
-            $modelInstance = new PromotionalService();
-            $result = $modelInstance->createNewRecord(\Input::all());
-            return $modelInstance->queryResponse($result);
-
-    	}
-
-	public function read($id = null)
-	{
-        $modelInstance = new PromotionalService();
-        $result = $modelInstance->readRecord($id);
-        return $modelInstance->queryResponse($result);
-       
-	}
-
-	public function update($id = null)
-	{
-	    $postData = \Input::all();
-        $modelInstance = PromotionalService::findOrNew($id);
-        $result = $modelInstance->updateRecord($postData);
-        return $modelInstance->queryResponse($result);
-
-	}
-
-	public function delete($id = null)
+    public function store(Request $request)
     {
-        $modelInstance = new PromotionalService();
-        $result = $modelInstance->deleteRecord($id);
-        return $modelInstance->queryResponse($result);
+        return PromotionalService::createRecord($request->all());
+    }
 
+    public function show($id){
+        return PromotionalService::getSingleRecord($id);
+    }
+
+    public function update(Request $request, $id)
+    {
+        return PromotionalService::updateRecord($request->all(), $id);
+    }
+
+    public function destroy($id)
+    {
+        return PromotionalService::deleteRecord($id);
     }
 
 }

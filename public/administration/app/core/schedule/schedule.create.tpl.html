@@ -1,0 +1,55 @@
+<div class="wrapper-md">
+    <div class="row">
+        <div class="col-sm-6">
+            <form role="form" ng-submit="vm.postRequest()" class="form-validation">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-4">
+                                <label translate="data.property.client"></label>
+                                <select
+                                        ng-options="obj.names for obj in vm.clients track by obj.id"
+                                        ng-model="vm.selectedClient"
+                                        class="form-control">
+
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label translate="data.property.doctor"></label>
+                                <select
+                                        ng-options="obj.texts[$root.langCode].names for obj in vm.doctors track by obj.id"
+                                        ng-model="vm.selectedDoctor"
+                                        class="form-control">
+
+                                </select>
+                            </div>
+                            <div class="col-sm-4">
+                                <label translate="data.property.appointed_at"></label>
+
+                                <div class="input-group">
+                                    <input type="text"
+                                           class="form-control"
+                                           datepicker-popup="dd-MM-yyyy"
+                                           show-button-bar="false"
+                                           ng-model="vm.schedule.appointed_at"
+                                           is-open="vm.opened"
+                                           readonly="true"
+                                            />
+                                              <span class="input-group-btn">
+                                                <button type="button" class="btn btn-default"
+                                                        ng-click="vm.openDatepicker($event)">
+                                                    <i class="glyphicon glyphicon-calendar"></i>
+                                                </button>
+                                              </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <footer class="panel-footer text-right bg-light lter">
+                        <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                    </footer>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

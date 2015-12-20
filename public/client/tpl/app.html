@@ -1,0 +1,38 @@
+ <!-- navbar -->
+  <div data-ng-include=" 'public/administration/tpl/blocks/header.html' " class="app-header navbar">
+  </div>
+  <!-- / navbar -->
+
+  <!-- menu -->
+  <!--<div data-ng-include=" 'public/administration/tpl/blocks/aside.html' " class="app-aside hidden-xs <% app.settings.asideColor %>">-->
+  <!--</div>-->
+ <div data-ng-include=" 'public/administration/tpl/blocks/aside.html' "
+      class="app-aside"
+      ng-class="{'app-aside-visible': app.settings.menuOpen }">
+ </div>
+  <!-- / menu -->
+
+  <!-- content -->
+  <div class="app-content">
+    <div ui-butterbar></div>
+    <toaster-container toaster-options="{'position-class': 'toast-top-right', 'close-button':true}"></toaster-container>
+      <div ng-class="{'modal-visible': app.settings.menuOpen }" class="modal-shadow"></div>
+      <div class="bg-light lter b-b wrapper-md">
+          <h1 class="m-n font-thin h3"><% $root.title %></h1>
+      </div>
+
+      <div class="app-content-body fade-in" ui-view>
+
+    </div>
+  </div>
+  <!-- /content -->
+
+  <!-- footer -->
+  <div class="app-footer wrapper b-t bg-light">
+    <span class="pull-right"><% app.version %> <a href ui-scroll-to="app" class="m-l-sm text-muted"><i class="fa fa-long-arrow-up"></i></a></span>
+    &copy; 2015 Copyright <a href="http://antoanpopov.com" title="Antoan Popov" target="_blank">Antoan Popov</a>.
+  </div>
+  <!-- / footer -->
+
+  <div data-ng-include=" 'public/administration/tpl/blocks/settings.html' " class="settings panel panel-default">
+  </div>

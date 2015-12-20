@@ -19,12 +19,15 @@
 <div class="app <% app.settings.activeTheme %>"
      id="app"
      ng-class="{'app-header-fixed':app.settings.headerFixed, 'app-aside-fixed':app.settings.asideFixed, 'app-aside-folded':app.settings.asideFolded, 'app-aside-dock':app.settings.asideDock, 'container':app.settings.container}"
-     ui-view>
+     >
+<ui-view></ui-view>
 </div>
 <!-- jQuery -->
+
 <!-- jQuery -->
 <?php if(true){?>
 <script src="{{ asset('public/administration/libs/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset('public/bower_components/moment/min/moment-with-locales.min.js') }}"></script>
 <!-- Angular -->
 <script src="{{ asset('public/administration/libs/angular/angular.min.js') }}"></script>
 <script src="{{ asset('public/administration/libs/angular/angular-animate.min.js') }}"></script>
@@ -53,11 +56,18 @@
 <!-- satellizer JWT Authentication -->
 <script src="{{ asset('public/node_modules/satellizer/satellizer.js') }}"></script>
 <!-- App -->
+<?php }else{ ?>
+<script src="{{ asset('public/dist/app.src.js') }}"></script>
+<?php } ?>
 <script src="{{ asset('public/administration/app/core/app.js') }}"></script>
 <script src="{{ asset('public/administration/app/core/config.js') }}"></script>
 <script src="{{ asset('public/administration/app/core/config.lazyload.js') }}"></script>
 <script src="{{ asset('public/administration/app/core/config.router.js') }}"></script>
 <script src="{{ asset('public/administration/app/core/main.js') }}"></script>
+
+<script src="{{ asset('public/administration/app/core/authentication/login.ctrl.js') }}"></script>
+
+<script src="{{ asset('public/administration/app/core/dashboard/dashboard.ctrl.js') }}"></script>
 
 <script src="{{ asset('public/administration/app/core/clients/clients.module.js') }}"></script>
 <script src="{{ asset('public/administration/app/core/clients/clients.list.ctrl.js') }}"></script>
@@ -86,15 +96,33 @@
 <script src="{{ asset('public/administration/app/core/promotionalservices/promotionalservices.create.ctrl.js') }}"></script>
 <script src="{{ asset('public/administration/app/core/promotionalservices/promotionalservices.update.ctrl.js') }}"></script>
 
+<script src="{{ asset('public/administration/app/core/schedule/schedule.module.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/schedule/schedule.list.ctrl.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/schedule/schedule.create.ctrl.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/schedule/schedule.update.ctrl.js') }}"></script>
+
+<script src="{{ asset('public/administration/app/core/contacts/contacts.module.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/contacts/contacts.list.ctrl.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/contacts/contacts.create.ctrl.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/contacts/contacts.update.ctrl.js') }}"></script>
+
+<script src="{{ asset('public/administration/app/core/news/news.module.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/news/news.list.ctrl.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/news/news.create.ctrl.js') }}"></script>
+<script src="{{ asset('public/administration/app/core/news/news.update.ctrl.js') }}"></script>
+
 <script src="{{ asset('public/administration/app/filters/fromNow.js') }}"></script>
 <script src="{{ asset('public/administration/app/filters/startFrom.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/ui-load.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.client.js') }}"></script>
+<script src="{{ asset('public/administration/app/common/services/rest.contact.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.doctor.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.procedure.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.language.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.manipulation.js') }}"></script>
+<script src="{{ asset('public/administration/app/common/services/rest.news.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.promotionalservice.js') }}"></script>
+<script src="{{ asset('public/administration/app/common/services/rest.schedule.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/rest.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/services/notifications.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/directives/cowwando-smart-table.js') }}"></script>
@@ -110,10 +138,7 @@
 <script src="{{ asset('public/administration/app/common/directives/ui-toggleclass.js') }}"></script>
 <script src="{{ asset('public/administration/app/common/constants/app.common.constants.js') }}"></script>
 <script src="{{ asset('public/administration/app/widgets/toaster/toaster.js') }}"></script>
-<?php }else{ ?>
-<script src="{{ asset('public/administration/dist/app.administration.js') }}"></script>
-<script src="{{ asset('public/administration/dist/directives.js') }}"></script>
-<?php } ?>
+
 
 
 

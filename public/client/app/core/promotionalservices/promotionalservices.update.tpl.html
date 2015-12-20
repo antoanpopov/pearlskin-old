@@ -1,0 +1,61 @@
+<div class="wrapper-md">
+    <div  ng-controller="PromotionalServicesUpdateCtrl as vm">
+        <div class="row">
+            <div class="col-sm-6">
+                <form role="form" ng-submit="vm.postRequest()" class="form-validation">
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-4">
+                                    <label translate="data.property.title"></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="names"
+                                           ng-model="vm.promotionalservice.title"
+                                           ng-pattern="/[\wа-яА-Я]{4,128}$/"
+                                           required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label translate="data.property.price"></label>
+                                    <input type="text"
+                                           class="form-control"
+                                           placeholder="names"
+                                           ng-model="vm.promotionalservice.price"
+                                           ng-pattern="/^(\d+\.?\d{0,2}|\.\d{1,2})$/"
+                                           required>
+                                </div>
+                                <div class="col-sm-4">
+                                    <label translate="data.property.discount"></label>
+                                    <input id="slider"
+                                           type="range" min="0" max="100" step="10"
+                                           class="slider slider-horizontal form-control"
+                                           type="text"
+                                           ng-model="vm.promotionalservice.discount"/>
+                                </div>
+                            </div>
+                            <div class="form-group pull-in clearfix">
+                                <div class="col-sm-6">
+                                    <label translate="data.property.is_active"></label>
+
+                                    <div>
+                                        <label class="i-switch m-t-xs m-r">
+                                            <input type="checkbox"
+                                                   ng-model="vm.promotionalservice.is_active"
+                                                   ng-checked="vm.promotionalservice.is_active">
+                                            <i></i>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                            <button type="submit" class="btn btn-sm btn-success">Submit</button>
+                        </footer>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- / main -->
+</div>
+</div>

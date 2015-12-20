@@ -1,91 +1,33 @@
 <?php namespace App\Http\Controllers\API;
-use App\Http\Controllers\Controller;
+
 use App\Models\Doctor;
-use App\Models\DoctorText;
-use App\Models\Language;
-use Illuminate\Support\Facades\Request;
-use Illuminate\Http\Response;
-use JWTAuth;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
 
 class DoctorsController extends Controller {
 
-    /*
-    |--------------------------------------------------------------------------
-    | Welcome Controller
-    |--------------------------------------------------------------------------
-    |
-    | This controller renders the "marketing page" for the application and
-    | is configured to only allow guests. Like most of the other sample
-    | controllers, you are free to modify or remove it as you desire.
-    |
-    */
-
-    /**
-     * Create a new controller instance.
-     *
-     * @return void
-     */
-    public function __construct()
-    {
+    public function index(){
+        return Doctor::getAllRecordsWithTexts();
     }
 
-    /**
-     * Show the application welcome screen to the user.
-     *
-     * @return Response
-     */
-
-    public function create()
-    {
-        $postData = \Input::only(
-            'has_percent',
-            'is_visible',
-            'phone'
-        );
-        $texts = \Input::only('texts');
-        $texts = json_decode($texts['texts'], true);
-        $file = \Input::file('file');
-
-        $modelInstance = new Doctor();
-        $result = $modelInstance->createNewRecord($postData,$texts, $file);
-        return $modelInstance->queryResponse($result);
-
+    public function show($id){
+        return Doctor::getSingleRecordWithTexts($id);
     }
 
-    public function read($id = null)
+    public function store(Request $request)
     {
-        $modelInstance = new Doctor();
-        $result = $modelInstance->readRecord($id);
-        return $modelInstance->queryResponse($result);
-
+        return Doctor::createRecordWithTexts($request->all(), $request->file('file'));
     }
 
-    public function update($id = null)
+    public function update(Request $request, $id)
     {
-
-        $postData = \Input::only(
-            'has_percent',
-            'is_visible',
-            'phone',
-            'image',
-            'id'
-        );
-
-        $texts = \Input::only('texts');
-        $texts = json_decode($texts['texts'], true);
-        $file = \Input::file('file');
-
-        $modelInstance = Doctor::find($id);
-        $result = $modelInstance->updateRecord($postData,$texts, $file);
-        return $modelInstance->queryResponse($result);
-
+        return Doctor::updateRecordWithTexts($id, $request->all(), $request->file('file'));
     }
 
-    public function delete($id = null)
+    public function destroy($id)
     {
-        $modelInstance = new Doctor();
-        $result = $modelInstance->deleteRecord($id);
-        return $modelInstance->queryResponse($result);
+        return Doctor::deleteRecord($id);
     }
 
 }

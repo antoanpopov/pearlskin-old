@@ -1,0 +1,226 @@
+<div class="wrapper-md"
+     ng-controller="ManipulationsUpdateCtrl as vm">
+    <div class="row">
+        <div class="col-sm-6">
+            <form role="form" ng-submit="vm.postRequest()" class="form-validation">
+                <div class="panel panel-default">
+                    <div class="panel-body">
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label translate="data.property.title"></label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="title"
+                                       ng-model="vm.manipulation.title"
+                                       ng-pattern="/[\wа-яА-Я]{4,128}$/">
+                            </div>
+                            <div class="col-sm-6">
+                                <label translate="data.property.heard_from"></label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="learnt from"
+                                       ng-model="vm.manipulation.learnt_from"
+                                       ng-pattern="/[\wа-яА-Я]{4,128}$/">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label translate="data.property.description"></label>
+                            <textarea ng-model="vm.manipulation.description" class="form-control"></textarea>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label translate="data.property.clients"></label>
+                                <select
+                                        ng-options="obj.names for obj in vm.clients track by obj.id"
+                                        ng-model="vm.selectedClient"
+                                        class="form-control">
+
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label translate="data.property.doctors"></label>
+                                <select
+                                        ng-options="obj.texts[$root.langCode].names for obj in vm.doctors track by obj.id"
+                                        ng-model="vm.selectedDoctor"
+                                        class="form-control">
+
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label translate="data.property.procedures"></label>
+                                <select
+                                        ng-model="vm.selectedProcedure"
+                                        ng-options="obj.texts[$root.langCode].title for obj in vm.procedures track by obj.id"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>&nbsp;</label>
+                                <a href="#" ng-click="vm.addProcedure()" class="btn btn-success form-control" translate="data.button.add_procedures">
+                                </a>
+                            </div>
+                        </div>
+                        <div class="form-group pull-in clearfix">
+                            <div class="col-sm-6">
+                                <label translate="data.property.promotionalservices"></label>
+                                <select
+                                        ng-model="vm.selectedPromotionalService"
+                                        ng-options="obj.title for obj in vm.promotionalServices track by obj.id"
+                                        class="form-control">
+                                </select>
+                            </div>
+                            <div class="col-sm-6">
+                                <label>&nbsp;</label>
+                                <a href="#" ng-click="vm.addPromotionalService()"
+                                   class="btn btn-success form-control"
+                                   translate="data.button.add_promotionalservices">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="table table-striped b-t b-b" ng-if="vm.selectedProcedures.length > 0">
+                        <thead>
+                        <tr>
+                            <th style="max-width:50px; width: 50px;"></th>
+                            <th style="max-width:300px;" translate="data.property.name"></th>
+                            <th style="max-width:100px;%" translate="data.property.price"></th>
+                            <th style="max-width:200px;" translate="data.property.description"></th>
+                            <th style="max-width:100px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="procedure in vm.selectedProcedures">
+                            <td>
+                                <select
+                                        ng-model="procedure.quantity"
+                                        class="form-control"
+                                        style="width:auto">
+                                    <option ng-selected="<% procedure.quantity == n %>"
+                                            ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+                                            value="<% $index+1 %>">
+                                        <% $index+1 %>
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <span ng-if="procedure.texts[$root.langCode].title"><% procedure.texts[$root.langCode].title %></span>
+                            </td>
+                            <td><% procedure.price %></td>
+                            <td>
+                                <span ng-if="procedure.texts[$root.langCode].description"><% procedure.texts[$root.langCode].description %></span>
+                            </td>
+                            <td class="pull-right">
+                                <button class="btn btn-sm btn-icon btn-danger"
+                                        ng-click="vm.removeProcedure(procedure)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <table class="table table-striped b-t b-b" ng-if="vm.selectedPromotionalServices.length > 0">
+                        <thead>
+                        <tr>
+                            <td translate="data.property.promotionalservices" colspan="5"></td>
+                        </tr>
+                        <tr>
+                            <th style="max-width:50px; width: 50px;"></th>
+                            <th style="max-width:300px;" translate="data.property.name"></th>
+                            <th style="max-width:100px;%" translate="data.property.price"></th>
+                            <th style="max-width:100px;%" translate="data.property.amount_discount"></th>
+                            <th style="max-width:100px;"></th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        <tr ng-repeat="promotionalService in vm.selectedPromotionalServices">
+                            <td>
+                                <select
+                                        ng-model="promotionalService.quantity"
+                                        class="form-control"
+                                        style="width:auto">
+                                    <option ng-selected="<% promotionalService.quantity == n %>"
+                                            ng-repeat="n in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10]"
+                                            value="<% $index+1 %>">
+                                        <% $index+1 %>
+                                    </option>
+                                </select>
+                            </td>
+                            <td>
+                                <span ng-if="promotionalService.title"><% promotionalService.title %></span>
+                            </td>
+                            <td><% promotionalService.price %></td>
+                            <td>
+                                <% promotionalService.discount %> %
+                            </td>
+                            <td class="pull-right">
+                                <button class="btn btn-sm btn-icon btn-danger"
+                                        ng-click="vm.removePromotionalService(promotionalService)">
+                                    <i class="fa fa-trash-o"></i>
+                                </button>
+                            </td>
+                        </tr>
+                        </tbody>
+                    </table>
+                    <footer class="panel-footer text-right bg-light lter">
+                        <button type="submit" class="btn btn-success">Submit</button>
+                    </footer>
+                </div>
+            </form>
+        </div>
+        <div class="col-sm-6">
+            <div class="panel panel-default">
+                <div class="panel-body form-validation">
+                    <div class="form-group pull-in clearfix">
+                        <div class="col-sm-3">
+                            <label translate="data.property.profit"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="title"
+                                   ng-value="vm.getAmountTotal()"
+                                   readonly>
+                        </div>
+                        <div class="col-sm-1">
+                            <label>&nbsp;</label>
+                            <div>
+                                <label class="i-switch m-t-xs m-r">
+                                    <input type="checkbox"
+                                           ng-model="vm.manipulation.client_has_discount"
+                                           ng-checked="vm.manipulation.client_has_discount">
+                                    <i></i>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="col-sm-2">
+                            <label translate="data.property.amount_discount"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="<% 'data.property.discount' | translate %>"
+                                   ng-model="vm.manipulation.amount_discount"
+                                   ng-pattern="/^(\d+\.?\d{0,2}|\.\d{1,2})$/"
+                                   ng-readonly="!vm.manipulation.client_has_discount">
+                        </div>
+                        <div class="col-sm-3">
+                            <label translate="data.property.amount_paid"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="<% 'data.property.amount_paid' | translate %>"
+                                   ng-model="vm.manipulation.amount_paid"
+                                   ng-pattern="/^(\d+\.?\d{0,2}|\.\d{1,2})$/">
+                        </div>
+                        <div class="col-sm-3">
+                            <label translate="data.property.amount_dept"></label>
+                            <input type="text"
+                                   class="form-control"
+                                   placeholder="<% 'data.property.amount_dept' | translate %>"
+                                   ng-value="vm.getAmountDept()"
+                                   ng-pattern="/^(\d+\.?\d{0,2}|\.\d{1,2})$/"
+                                   readonly>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
