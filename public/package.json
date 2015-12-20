@@ -1,0 +1,33 @@
+{
+  "name": "pearlskin",
+  "version": "1.0.0",
+  "description": "Cosmetic studio Pearlskin 2015",
+  "main": "noneeaqwewaeeeeeeeeeeeeeeeeeee",
+  "scripts": {
+    "test": "none"
+  },
+  "repository": {
+    "type": "git",
+    "url": "none"
+  },
+  "keywords": [
+    "pearlskin",
+    "angularjs",
+    "grunt",
+    "laravel"
+  ],
+  "author": "cowwando@gmail.com",
+  "license": "UNLICENSED",
+  "devDependencies": {
+    "grunt": "^0.4.5",
+    "grunt-contrib-concat": "^0.5.1",
+    "grunt-contrib-cssmin": "^0.14.0",
+    "grunt-contrib-jshint": "*",
+    "grunt-contrib-nodeunit": "*",
+    "grunt-contrib-uglify": "*",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-ng-annotate": "^1.0.1",
+    "jshint-stylish": "^2.0.1",
+    "satellizer": "^0.12.5"
+  }
+}

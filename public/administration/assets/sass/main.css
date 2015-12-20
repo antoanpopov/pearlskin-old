@@ -1,0 +1,499 @@
+.theme-blue-primary-color {
+  background-color: #2979FF; }
+
+.theme-blue-secondary-color {
+  background-color: #FAFAFA; }
+
+.theme-blue-aside-color {
+  background-color: #FAFAFA; }
+
+.theme-blue {
+  background-color: whitesmoke; }
+  .theme-blue a {
+    color: #2979FF; }
+    .theme-blue a:hover, .theme-blue a:focus {
+      color: #2962FF; }
+  .theme-blue .navbar {
+    background-color: #2979FF;
+    color: #FAFAFA; }
+    .theme-blue .navbar a {
+      background-color: #2979FF;
+      color: #FAFAFA; }
+      .theme-blue .navbar a:hover, .theme-blue .navbar a:focus, .theme-blue .navbar a:active {
+        background-color: #2962FF; }
+    .theme-blue .navbar .dropdown-menu li > a {
+      background-color: #FAFAFA;
+      color: #2979FF; }
+  .theme-blue .app-aside {
+    background-color: #f0f0f0; }
+    .theme-blue .app-aside .aside-wrap {
+      border-right: 1px solid #e1e1e1; }
+    .theme-blue .app-aside .navi-wrap {
+      background-color: #f0f0f0; }
+    .theme-blue .app-aside .navi > ul.nav .line {
+      background-color: rgba(41, 121, 255, 0.5); }
+    .theme-blue .app-aside .navi > ul.nav li {
+      color: #505050; }
+      .theme-blue .app-aside .navi > ul.nav li a {
+        color: #505050; }
+        .theme-blue .app-aside .navi > ul.nav li a:hover, .theme-blue .app-aside .navi > ul.nav li a:focus {
+          color: #FAFAFA;
+          background-color: #2979FF; }
+          .theme-blue .app-aside .navi > ul.nav li a:hover > i, .theme-blue .app-aside .navi > ul.nav li a:focus > i {
+            color: inherit; }
+          .theme-blue .app-aside .navi > ul.nav li a:hover > .badge, .theme-blue .app-aside .navi > ul.nav li a:focus > .badge {
+            color: #2979FF;
+            background-color: #FAFAFA; }
+        .theme-blue .app-aside .navi > ul.nav li a > i {
+          color: #2979FF; }
+        .theme-blue .app-aside .navi > ul.nav li a > .badge {
+          background-color: #2979FF; }
+    .theme-blue .app-aside .navi > ul.nav .active > a {
+      color: #FAFAFA;
+      background-color: #2979FF; }
+      .theme-blue .app-aside .navi > ul.nav .active > a > i {
+        color: inherit; }
+      .theme-blue .app-aside .navi > ul.nav .active > a > .badge {
+        color: #2979FF;
+        background-color: #FAFAFA; }
+  .theme-blue .pagination > li > a, .theme-blue .pagination > li span {
+    color: #2979FF;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd; }
+    .theme-blue .pagination > li > a:hover, .theme-blue .pagination > li > a:focus, .theme-blue .pagination > li span:hover, .theme-blue .pagination > li span:focus {
+      color: #2979FF;
+      background-color: #FAFAFA; }
+  .theme-blue .pagination > .active > a, .theme-blue .pagination > .active span {
+    color: #FAFAFA;
+    background-color: #2979FF;
+    border-color: #2962FF; }
+    .theme-blue .pagination > .active > a:hover, .theme-blue .pagination > .active > a:focus, .theme-blue .pagination > .active span:hover, .theme-blue .pagination > .active span:focus {
+      color: white;
+      background-color: #2979FF;
+      border-color: #2962FF; }
+
+.theme-red-primary-color {
+  background-color: #D50000; }
+
+.theme-red-secondary-color {
+  background-color: #FAFAFA; }
+
+.theme-red-aside-color {
+  background-color: #FAFAFA; }
+
+.theme-red {
+  background-color: whitesmoke; }
+  .theme-red a {
+    color: #D50000; }
+    .theme-red a:hover, .theme-red a:focus {
+      color: #B71C1C; }
+  .theme-red .navbar {
+    background-color: #D50000;
+    color: #FAFAFA; }
+    .theme-red .navbar a {
+      background-color: #D50000;
+      color: #FAFAFA; }
+      .theme-red .navbar a:hover, .theme-red .navbar a:focus, .theme-red .navbar a:active {
+        background-color: #B71C1C; }
+    .theme-red .navbar .dropdown-menu li > a {
+      background-color: #FAFAFA;
+      color: #D50000; }
+  .theme-red .app-aside {
+    background-color: #f0f0f0; }
+    .theme-red .app-aside .aside-wrap {
+      border-right: 1px solid #e1e1e1; }
+    .theme-red .app-aside .navi-wrap {
+      background-color: #f0f0f0; }
+    .theme-red .app-aside .navi > ul.nav .line {
+      background-color: rgba(213, 0, 0, 0.5); }
+    .theme-red .app-aside .navi > ul.nav li {
+      color: #505050; }
+      .theme-red .app-aside .navi > ul.nav li a {
+        color: #505050; }
+        .theme-red .app-aside .navi > ul.nav li a:hover, .theme-red .app-aside .navi > ul.nav li a:focus {
+          color: #FAFAFA;
+          background-color: #D50000; }
+          .theme-red .app-aside .navi > ul.nav li a:hover > i, .theme-red .app-aside .navi > ul.nav li a:focus > i {
+            color: inherit; }
+          .theme-red .app-aside .navi > ul.nav li a:hover > .badge, .theme-red .app-aside .navi > ul.nav li a:focus > .badge {
+            color: #D50000;
+            background-color: #FAFAFA; }
+        .theme-red .app-aside .navi > ul.nav li a > i {
+          color: #D50000; }
+        .theme-red .app-aside .navi > ul.nav li a > .badge {
+          background-color: #D50000; }
+    .theme-red .app-aside .navi > ul.nav .active > a {
+      color: #FAFAFA;
+      background-color: #D50000; }
+      .theme-red .app-aside .navi > ul.nav .active > a > i {
+        color: inherit; }
+      .theme-red .app-aside .navi > ul.nav .active > a > .badge {
+        color: #D50000;
+        background-color: #FAFAFA; }
+  .theme-red .pagination > li > a, .theme-red .pagination > li span {
+    color: #D50000;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd; }
+    .theme-red .pagination > li > a:hover, .theme-red .pagination > li > a:focus, .theme-red .pagination > li span:hover, .theme-red .pagination > li span:focus {
+      color: #D50000;
+      background-color: #FAFAFA; }
+  .theme-red .pagination > .active > a, .theme-red .pagination > .active span {
+    color: #FAFAFA;
+    background-color: #D50000;
+    border-color: #B71C1C; }
+    .theme-red .pagination > .active > a:hover, .theme-red .pagination > .active > a:focus, .theme-red .pagination > .active span:hover, .theme-red .pagination > .active span:focus {
+      color: white;
+      background-color: #D50000;
+      border-color: #B71C1C; }
+
+.theme-green-aside-dark-primary-color {
+  background-color: #388E3C; }
+
+.theme-green-aside-dark-secondary-color {
+  background-color: #FAFAFA; }
+
+.theme-green-aside-dark-aside-color {
+  background-color: #3e4548; }
+
+.theme-green-aside-dark {
+  background-color: whitesmoke; }
+  .theme-green-aside-dark a {
+    color: #388E3C; }
+    .theme-green-aside-dark a:hover, .theme-green-aside-dark a:focus {
+      color: #2E7D32; }
+  .theme-green-aside-dark .navbar {
+    background-color: #388E3C;
+    color: #FAFAFA; }
+    .theme-green-aside-dark .navbar a {
+      background-color: #388E3C;
+      color: #FAFAFA; }
+      .theme-green-aside-dark .navbar a:hover, .theme-green-aside-dark .navbar a:focus, .theme-green-aside-dark .navbar a:active {
+        background-color: #2E7D32; }
+    .theme-green-aside-dark .navbar .dropdown-menu li > a {
+      background-color: #FAFAFA;
+      color: #388E3C; }
+  .theme-green-aside-dark .app-aside {
+    background-color: #343b3e; }
+    .theme-green-aside-dark .app-aside .aside-wrap {
+      border-right: 1px solid #252c2f; }
+    .theme-green-aside-dark .app-aside .navi-wrap {
+      background-color: #343b3e; }
+    .theme-green-aside-dark .app-aside .navi > ul.nav .line {
+      background-color: rgba(56, 142, 60, 0.5); }
+    .theme-green-aside-dark .app-aside .navi > ul.nav li {
+      color: #FAFAFA; }
+      .theme-green-aside-dark .app-aside .navi > ul.nav li a {
+        color: #FAFAFA; }
+        .theme-green-aside-dark .app-aside .navi > ul.nav li a:hover, .theme-green-aside-dark .app-aside .navi > ul.nav li a:focus {
+          color: #FAFAFA;
+          background-color: #388E3C; }
+          .theme-green-aside-dark .app-aside .navi > ul.nav li a:hover > i, .theme-green-aside-dark .app-aside .navi > ul.nav li a:focus > i {
+            color: inherit; }
+          .theme-green-aside-dark .app-aside .navi > ul.nav li a:hover > .badge, .theme-green-aside-dark .app-aside .navi > ul.nav li a:focus > .badge {
+            color: #388E3C;
+            background-color: #FAFAFA; }
+        .theme-green-aside-dark .app-aside .navi > ul.nav li a > i {
+          color: #388E3C; }
+        .theme-green-aside-dark .app-aside .navi > ul.nav li a > .badge {
+          background-color: #388E3C; }
+    .theme-green-aside-dark .app-aside .navi > ul.nav .active > a {
+      color: #FAFAFA;
+      background-color: #388E3C; }
+      .theme-green-aside-dark .app-aside .navi > ul.nav .active > a > i {
+        color: inherit; }
+      .theme-green-aside-dark .app-aside .navi > ul.nav .active > a > .badge {
+        color: #388E3C;
+        background-color: #FAFAFA; }
+  .theme-green-aside-dark .pagination > li > a, .theme-green-aside-dark .pagination > li span {
+    color: #388E3C;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd; }
+    .theme-green-aside-dark .pagination > li > a:hover, .theme-green-aside-dark .pagination > li > a:focus, .theme-green-aside-dark .pagination > li span:hover, .theme-green-aside-dark .pagination > li span:focus {
+      color: #388E3C;
+      background-color: #FAFAFA; }
+  .theme-green-aside-dark .pagination > .active > a, .theme-green-aside-dark .pagination > .active span {
+    color: #FAFAFA;
+    background-color: #388E3C;
+    border-color: #2E7D32; }
+    .theme-green-aside-dark .pagination > .active > a:hover, .theme-green-aside-dark .pagination > .active > a:focus, .theme-green-aside-dark .pagination > .active span:hover, .theme-green-aside-dark .pagination > .active span:focus {
+      color: white;
+      background-color: #388E3C;
+      border-color: #2E7D32; }
+
+.theme-purple-primary-color {
+  background-color: #673AB7; }
+
+.theme-purple-secondary-color {
+  background-color: #FAFAFA; }
+
+.theme-purple-aside-color {
+  background-color: #EEEEEE; }
+
+.theme-purple {
+  background-color: whitesmoke; }
+  .theme-purple a {
+    color: #673AB7; }
+    .theme-purple a:hover, .theme-purple a:focus {
+      color: #512DA8; }
+  .theme-purple .navbar {
+    background-color: #673AB7;
+    color: #FAFAFA; }
+    .theme-purple .navbar a {
+      background-color: #673AB7;
+      color: #FAFAFA; }
+      .theme-purple .navbar a:hover, .theme-purple .navbar a:focus, .theme-purple .navbar a:active {
+        background-color: #512DA8; }
+    .theme-purple .navbar .dropdown-menu li > a {
+      background-color: #FAFAFA;
+      color: #673AB7; }
+  .theme-purple .app-aside {
+    background-color: #e4e4e4; }
+    .theme-purple .app-aside .aside-wrap {
+      border-right: 1px solid #d5d5d5; }
+    .theme-purple .app-aside .navi-wrap {
+      background-color: #e4e4e4; }
+    .theme-purple .app-aside .navi > ul.nav .line {
+      background-color: rgba(103, 58, 183, 0.5); }
+    .theme-purple .app-aside .navi > ul.nav li {
+      color: #505050; }
+      .theme-purple .app-aside .navi > ul.nav li a {
+        color: #505050; }
+        .theme-purple .app-aside .navi > ul.nav li a:hover, .theme-purple .app-aside .navi > ul.nav li a:focus {
+          color: #FAFAFA;
+          background-color: #673AB7; }
+          .theme-purple .app-aside .navi > ul.nav li a:hover > i, .theme-purple .app-aside .navi > ul.nav li a:focus > i {
+            color: inherit; }
+          .theme-purple .app-aside .navi > ul.nav li a:hover > .badge, .theme-purple .app-aside .navi > ul.nav li a:focus > .badge {
+            color: #673AB7;
+            background-color: #FAFAFA; }
+        .theme-purple .app-aside .navi > ul.nav li a > i {
+          color: #673AB7; }
+        .theme-purple .app-aside .navi > ul.nav li a > .badge {
+          background-color: #673AB7; }
+    .theme-purple .app-aside .navi > ul.nav .active > a {
+      color: #FAFAFA;
+      background-color: #673AB7; }
+      .theme-purple .app-aside .navi > ul.nav .active > a > i {
+        color: inherit; }
+      .theme-purple .app-aside .navi > ul.nav .active > a > .badge {
+        color: #673AB7;
+        background-color: #FAFAFA; }
+  .theme-purple .pagination > li > a, .theme-purple .pagination > li span {
+    color: #673AB7;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd; }
+    .theme-purple .pagination > li > a:hover, .theme-purple .pagination > li > a:focus, .theme-purple .pagination > li span:hover, .theme-purple .pagination > li span:focus {
+      color: #673AB7;
+      background-color: #FAFAFA; }
+  .theme-purple .pagination > .active > a, .theme-purple .pagination > .active span {
+    color: #FAFAFA;
+    background-color: #673AB7;
+    border-color: #512DA8; }
+    .theme-purple .pagination > .active > a:hover, .theme-purple .pagination > .active > a:focus, .theme-purple .pagination > .active span:hover, .theme-purple .pagination > .active span:focus {
+      color: white;
+      background-color: #673AB7;
+      border-color: #512DA8; }
+
+.theme-amber-primary-color {
+  background-color: #FFA000; }
+
+.theme-amber-secondary-color {
+  background-color: #FAFAFA; }
+
+.theme-amber-aside-color {
+  background-color: #424242; }
+
+.theme-amber {
+  background-color: whitesmoke; }
+  .theme-amber a {
+    color: #FFA000; }
+    .theme-amber a:hover, .theme-amber a:focus {
+      color: #FF8F00; }
+  .theme-amber .navbar {
+    background-color: #FFA000;
+    color: #FAFAFA; }
+    .theme-amber .navbar a {
+      background-color: #FFA000;
+      color: #FAFAFA; }
+      .theme-amber .navbar a:hover, .theme-amber .navbar a:focus, .theme-amber .navbar a:active {
+        background-color: #FF8F00; }
+    .theme-amber .navbar .dropdown-menu li > a {
+      background-color: #FAFAFA;
+      color: #FFA000; }
+  .theme-amber .app-aside {
+    background-color: #383838; }
+    .theme-amber .app-aside .aside-wrap {
+      border-right: 1px solid #292929; }
+    .theme-amber .app-aside .navi-wrap {
+      background-color: #383838; }
+    .theme-amber .app-aside .navi > ul.nav .line {
+      background-color: rgba(255, 160, 0, 0.5); }
+    .theme-amber .app-aside .navi > ul.nav li {
+      color: #FAFAFA; }
+      .theme-amber .app-aside .navi > ul.nav li a {
+        color: #FAFAFA; }
+        .theme-amber .app-aside .navi > ul.nav li a:hover, .theme-amber .app-aside .navi > ul.nav li a:focus {
+          color: #FAFAFA;
+          background-color: #FFA000; }
+          .theme-amber .app-aside .navi > ul.nav li a:hover > i, .theme-amber .app-aside .navi > ul.nav li a:focus > i {
+            color: inherit; }
+          .theme-amber .app-aside .navi > ul.nav li a:hover > .badge, .theme-amber .app-aside .navi > ul.nav li a:focus > .badge {
+            color: #FFA000;
+            background-color: #FAFAFA; }
+        .theme-amber .app-aside .navi > ul.nav li a > i {
+          color: #FFA000; }
+        .theme-amber .app-aside .navi > ul.nav li a > .badge {
+          background-color: #FFA000; }
+    .theme-amber .app-aside .navi > ul.nav .active > a {
+      color: #FAFAFA;
+      background-color: #FFA000; }
+      .theme-amber .app-aside .navi > ul.nav .active > a > i {
+        color: inherit; }
+      .theme-amber .app-aside .navi > ul.nav .active > a > .badge {
+        color: #FFA000;
+        background-color: #FAFAFA; }
+  .theme-amber .pagination > li > a, .theme-amber .pagination > li span {
+    color: #FFA000;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd; }
+    .theme-amber .pagination > li > a:hover, .theme-amber .pagination > li > a:focus, .theme-amber .pagination > li span:hover, .theme-amber .pagination > li span:focus {
+      color: #FFA000;
+      background-color: #FAFAFA; }
+  .theme-amber .pagination > .active > a, .theme-amber .pagination > .active span {
+    color: #FAFAFA;
+    background-color: #FFA000;
+    border-color: #FF8F00; }
+    .theme-amber .pagination > .active > a:hover, .theme-amber .pagination > .active > a:focus, .theme-amber .pagination > .active span:hover, .theme-amber .pagination > .active span:focus {
+      color: white;
+      background-color: #FFA000;
+      border-color: #FF8F00; }
+
+.theme-pink-primary-color {
+  background-color: #F50057; }
+
+.theme-pink-secondary-color {
+  background-color: #FAFAFA; }
+
+.theme-pink-aside-color {
+  background-color: #424242; }
+
+.theme-pink {
+  background-color: whitesmoke; }
+  .theme-pink a {
+    color: #F50057; }
+    .theme-pink a:hover, .theme-pink a:focus {
+      color: #C51162; }
+  .theme-pink .navbar {
+    background-color: #F50057;
+    color: #FAFAFA; }
+    .theme-pink .navbar a {
+      background-color: #F50057;
+      color: #FAFAFA; }
+      .theme-pink .navbar a:hover, .theme-pink .navbar a:focus, .theme-pink .navbar a:active {
+        background-color: #C51162; }
+    .theme-pink .navbar .dropdown-menu li > a {
+      background-color: #FAFAFA;
+      color: #F50057; }
+  .theme-pink .app-aside {
+    background-color: #383838; }
+    .theme-pink .app-aside .aside-wrap {
+      border-right: 1px solid #292929; }
+    .theme-pink .app-aside .navi-wrap {
+      background-color: #383838; }
+    .theme-pink .app-aside .navi > ul.nav .line {
+      background-color: rgba(245, 0, 87, 0.5); }
+    .theme-pink .app-aside .navi > ul.nav li {
+      color: #FAFAFA; }
+      .theme-pink .app-aside .navi > ul.nav li a {
+        color: #FAFAFA; }
+        .theme-pink .app-aside .navi > ul.nav li a:hover, .theme-pink .app-aside .navi > ul.nav li a:focus {
+          color: #FAFAFA;
+          background-color: #F50057; }
+          .theme-pink .app-aside .navi > ul.nav li a:hover > i, .theme-pink .app-aside .navi > ul.nav li a:focus > i {
+            color: inherit; }
+          .theme-pink .app-aside .navi > ul.nav li a:hover > .badge, .theme-pink .app-aside .navi > ul.nav li a:focus > .badge {
+            color: #F50057;
+            background-color: #FAFAFA; }
+        .theme-pink .app-aside .navi > ul.nav li a > i {
+          color: #F50057; }
+        .theme-pink .app-aside .navi > ul.nav li a > .badge {
+          background-color: #F50057; }
+    .theme-pink .app-aside .navi > ul.nav .active > a {
+      color: #FAFAFA;
+      background-color: #F50057; }
+      .theme-pink .app-aside .navi > ul.nav .active > a > i {
+        color: inherit; }
+      .theme-pink .app-aside .navi > ul.nav .active > a > .badge {
+        color: #F50057;
+        background-color: #FAFAFA; }
+  .theme-pink .pagination > li > a, .theme-pink .pagination > li span {
+    color: #F50057;
+    background-color: #FAFAFA;
+    border: 1px solid #ddd; }
+    .theme-pink .pagination > li > a:hover, .theme-pink .pagination > li > a:focus, .theme-pink .pagination > li span:hover, .theme-pink .pagination > li span:focus {
+      color: #F50057;
+      background-color: #FAFAFA; }
+  .theme-pink .pagination > .active > a, .theme-pink .pagination > .active span {
+    color: #FAFAFA;
+    background-color: #F50057;
+    border-color: #C51162; }
+    .theme-pink .pagination > .active > a:hover, .theme-pink .pagination > .active > a:focus, .theme-pink .pagination > .active span:hover, .theme-pink .pagination > .active span:focus {
+      color: white;
+      background-color: #F50057;
+      border-color: #C51162; }
+
+.pagination {
+  display: inline-block;
+  padding-left: 0;
+  margin: 20px 0;
+  border-radius: 4px; }
+  .pagination > li {
+    display: inline; }
+    .pagination > li > a, .pagination > li span {
+      position: relative;
+      float: left;
+      padding: 6px 12px;
+      margin-left: -1px;
+      line-height: 1.42857143;
+      color: #2979FF;
+      text-decoration: none;
+      background-color: #fff;
+      border: 1px solid #ddd; }
+      .pagination > li > a:hover, .pagination > li > a:focus, .pagination > li span:hover, .pagination > li span:focus {
+        color: #448AFF;
+        background-color: #eee;
+        border-color: #ddd; }
+  .pagination > .active > a, .pagination > .active span {
+    z-index: 2;
+    color: #fff;
+    cursor: default;
+    background-color: #2979FF;
+    border-color: #2962FF; }
+    .pagination > .active > a:hover, .pagination > .active > a:focus, .pagination > .active span:hover, .pagination > .active span:focus {
+      background-color: #448AFF;
+      border-color: #2979FF; }
+
+.pager {
+  padding-left: 0;
+  margin: 20px 0;
+  text-align: center;
+  list-style: none; }
+  .pager li {
+    display: inline; }
+    .pager li > a, .pager li span {
+      display: inline-block;
+      padding: 5px 14px;
+      background-color: #fff;
+      border: 1px solid #ddd;
+      border-radius: 15px; }
+    .pager li > a:hover, .pager li a:focus {
+      text-decoration: none;
+      background-color: #eee; }
+  .pager .pager .next > a, .pager .pager .next span {
+    float: right; }
+  .pager .pager .previous > a, .pager .pager .previous span {
+    float: left; }
+  .pager .pager .disabled > a, .pager .pager .disabled a:hover, .pager .pager .disabled a:focus, .pager .pager .disabled span {
+    color: #777;
+    cursor: not-allowed;
+    background-color: #fff; }

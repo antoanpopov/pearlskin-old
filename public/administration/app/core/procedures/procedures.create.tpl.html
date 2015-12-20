@@ -1,0 +1,50 @@
+<div class="wrapper-md">
+        <div class="row">
+            <div class="col-sm-6">
+                <form role="form" ng-submit="vm.postRequest()" class="form-validation">
+                            <tabset class="tab-container">
+                                <tab ng-repeat="language in vm.languages" ng-if="language.is_visible === 1">
+                                    <tab-heading>
+                                        <img ng-src="public/administration/assets/img/flags/<% language.image %>" alt="<% language.name %>"> <% language.name %>
+                                    </tab-heading>
+                                    <div class="form-group">
+                                        <label translate="data.property.title"></label>
+                                        <input type="text"
+                                               class="form-control"
+                                               placeholder="title"
+                                               ng-init="vm.procedure.texts[language.code].title = ''"
+                                               ng-model="vm.procedure.texts[language.code].title"
+                                               ng-pattern="/[\wа-яА-Я]{4,128}$/">
+                                        <input type="hidden"
+                                               ng-init="vm.procedure.texts[language.code].language_id = language.id"
+                                               ng-model="vm.procedure.texts[language.code].language_id"/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label translate="data.property.description"></label>
+                            <textarea class="form-control"
+                                      rows="6"
+                                      ng-init="vm.procedure.texts[language.code].description = ''"
+                                      ng-model="vm.procedure.texts[language.code].description"></textarea>
+                                    </div>
+                                </tab>
+                            </tabset>
+                    <div class="panel panel-default">
+                        <div class="panel-body">
+                            <div class="form-group">
+                                <label translate="data.property.price"></label>
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="price"
+                                       ng-model="vm.procedure.price"
+                                       step="any"
+                                       ng-pattern="/^(\d+\.?\d{0,2}|\.\d{1,2})$/">
+                            </div>
+                        </div>
+                        <footer class="panel-footer text-right bg-light lter">
+                            <button type="submit" class="btn btn-success">Submit</button>
+                        </footer>
+                    </div>
+                </form>
+            </div>
+        </div>
+</div>

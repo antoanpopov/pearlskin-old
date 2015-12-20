@@ -1,0 +1,138 @@
+<div class="row" style="margin: 0">
+    <label style="text-align: left; white-space: nowrap;">
+        <% title %>
+    </label>
+    <select ng-model="defaultPageSize"
+            ng-options="option.name for option in options"
+            ng-change="updatePageSize(defaultPageSize.value)"
+            class="form-control input-sm"
+            style="display: inline-block; width: auto; vertical-align: middle">
+    </select>
+    <label style="text-align: right; white-space: nowrap;">
+        <input class="form-control input-sm" type="text" ng-model="searchModel.$" placeholder="Search"
+               style="display: inline-block; width: auto;"/>
+    </label>
+    <button type="button"
+            ui-sref='admin.<% slug %>.create'
+            class="btn btn-sm btn-addon btn-success"
+            style="float: right;">
+        <i class="glyphicon glyphicon-plus" >
+        </i><span translate="data.button.add_<% slug %>"></span>
+    </button>
+</div>
+<div>
+    <table class="table table-striped b-t b-b smart-table">
+        <thead>
+        <tr>
+            <th ng-repeat="(key, value) in columns" ng-switch on="activeRow">
+                <!-- Initializer for selection -->
+                <span ng-init="activeRow = value"></span>
+                <span ng-switch-when="image"></span>
+                <span ng-switch-default="default"
+                      translate="data.property.<% value %>"></span>
+            </th>
+            <th style="max-width:100px;"></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr ng-repeat="row in filtered = data | filter:searchModel:strict | startFrom:(currentPage-1)*entryLimit | limitTo:defaultPageSize.value">
+            <td ng-repeat="(key, value) in columns" ng-switch on="activeRow" ng-class='{smallColumn: activeRow === "image" || activeRow === "id"}'>
+                <!-- Initializer for selection -->
+                <span ng-init="activeRow = value"></span>
+                <!--Avatar or image switch-->
+                <img ng-src="public/administration/assets/img/<% slug %>/<% row[value] %>"
+                     ng-switch-when="image"
+                     alt="<% row[value] %>"
+                     style="width: 30px; height: 30px;"/>
+                </span>
+                <!--Texts translations switch-->
+                    <span ng-switch-when="texts"
+                          ng-if="row.texts[$root.langCode].names">
+                        <% row.texts[$root.langCode].names %>
+                    </span>
+                    <span ng-switch-when="texts"
+                      ng-if="row.texts[$root.langCode].title">
+                        <% row.texts[$root.langCode].title %>
+                    </span>
+                    <span ng-switch-when="description"
+                          ng-if="row.texts[$root.langCode].description">
+                        <% row.texts[$root.langCode].description %>
+                    </span>
+                <!--Toggles switches-->
+                    <span ng-switch-when="has_percent"
+                          ng-class="row.has_percent == 1? 'text-success' : 'text-danger'"
+                          class="m-t-sm">
+                        <i class="fa fa-circle"></i>
+                    </span>
+                    <span ng-switch-when="is_visible"
+                          ng-class="row.is_visible == 1? 'text-success' : 'text-danger'"
+                          class="m-t-sm">
+                        <i class="fa fa-circle"></i>
+                    </span>
+                <span ng-switch-when="is_active"
+                      ng-class="row.is_active == 1? 'text-success' : 'text-danger'"
+                      class="m-t-sm">
+                        <i class="fa fa-circle"></i>
+                    </span>
+                <!--Manipulation information switch-->
+                    <strong ng-switch-when="information"
+                            ng-if="row.row_id"
+                            ui-sref="admin.rows.update({ id: <% row.row_id %> })"
+                            style="cursor: pointer; display:block;">
+                        <% row.row_names %>
+                    </strong>
+                    <span   ng-switch-when="information"
+                            ng-if="row.row_phone" style="display:block;">
+                        <% row.row_phone %>
+                    </span>
+                    <span   ng-switch-when="row"
+                        ng-if="row.row" style="display:block;">
+                        <% row.row.names %>
+                    </span>
+                    <span   ng-switch-when="client"
+                        ng-if="row.doctor" style="display:block;">
+                        <% row.client.names %>
+                    </span>
+                    <span   ng-switch-when="doctor"
+                        ng-if="row.doctor" style="display:block;">
+                        <% row.doctor.texts[$root.langCode].names %>
+                    </span>
+                    <span ng-switch-when="information"
+                          ng-if="row.texts[$root.langCode].names"
+                          translate="data.property.treating"></span>
+                    <span ng-switch-when="information"
+                          ng-if="row.texts[$root.langCode].names">
+                        : <% row.texts[$root.langCode].names %>
+                    </span>
+                <!--Default switch for all fields that are not specific-->
+                    <span ng-switch-default="default">
+                        <% row[value] %>
+                    </span>
+            </td>
+            <td class="pull-right">
+                <button class="btn btn-sm btn-icon btn-warning"
+                        ui-sref='admin.<% slug %>.update({ id: <% row.id %>})'
+                        title='Edit' >
+                    <i class="fa fa-pencil"></i>
+                </button>
+                <button class="btn btn-sm btn-icon btn-danger"
+                        ng-click="deleteRow(row)"
+                        title="Delete">
+                    <i class="fa fa-trash-o"></i>
+                </button>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+<div class="row" style="margin: 0">
+    <div class="col-sm-6">
+        <pagination ng-model="currentPage"
+                    page="currentPage"
+                    max-size="noOfPages"
+                    total-items="totalItems"
+                    items-per-page="defaultPageSize.value">
+        </pagination>
+    </div>
+
+</div>

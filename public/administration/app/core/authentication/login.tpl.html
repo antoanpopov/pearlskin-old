@@ -1,0 +1,22 @@
+<div class="login-form" ng-controller="AuthController as auth">
+    <div style="position: relative;">
+<div class="login-form-modal">
+        <h3>Login</h3>
+        <form>
+            <div class="form-group">
+                <div class="input-group ">
+                    <input type="text" class="form-control" placeholder="Password" ng-model="auth.email">
+                    <span class="input-group-addon"><i class="fa fa-user"></i></span>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="input-group">
+                    <input type="password" class="form-control" placeholder="Password" ng-model="auth.password">
+                    <span class="input-group-addon"><i class="fa fa-lock"></i></span>
+                </div>
+            </div>
+            <button class="btn btn-primary" ng-click="auth.login()">Submit</button>
+        </form>
+</div>
+    </div>
+</div>

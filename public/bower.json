@@ -1,0 +1,44 @@
+{
+  "name": "pearlskin",
+  "description": "Cosmetic studio Pearlskin 2015",
+  "main": "noneeaqwewaeeeeeeeeeeeeeeeeeee",
+  "authors": [
+    "cowwando@gmail.com"
+  ],
+  "license": "UNLICENSED",
+  "keywords": [
+    "pearlskin",
+    "angularjs",
+    "grunt",
+    "laravel"
+  ],
+  "homepage": "https://github.com/cowwando/pearlskin",
+  "moduleType": [],
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular-animate": "~1.4.7",
+    "angular-sanitize": "~1.4.7",
+    "angular-cookies": "~1.4.7",
+    "angular-resource": "~1.4.7",
+    "angular-touch": "~1.4.7",
+    "angular-translate-storage-cookie": "~2.8.1",
+    "angular-translate": "~2.8.1",
+    "angular-translate-loader-static-files": "~2.8.1",
+    "angular-translate-storage-local": "~2.8.1",
+    "angular-ui-router": "~0.2.15",
+    "angular-ui-utils": "~3.0.0",
+    "bootstrap-material-design": "~0.3.0",
+    "ui-bootstrap": "~0.14.3",
+    "ngstorage": "~0.3.9",
+    "angular-ui-load": "https://github.com/puxos/angular-ui-load.git#~0.1.1"
+  },
+  "devDependencies": {
+    "moment": "~2.10.6"
+  }
+}
